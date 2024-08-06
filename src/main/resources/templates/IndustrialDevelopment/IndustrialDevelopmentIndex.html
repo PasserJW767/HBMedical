@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>产业发展</title>
+    <!-- Bootstrap -->
+    <link th:href="@{/component/bootstrap-3.3.7/css/bootstrap.min.css}"
+          href="../../static/component/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link   th:href="@{/component/inspinia/css/plugins/sweetalert/sweetalert.css}"
+            href="../../static/component/inspinia/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- 静态资源起始位为static-->
+    <script  th:src="@{/component/jquery-2.2.4.js}"
+             src="../../static/component/jquery-2.2.4.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script th:src="@{/component/bootstrap-3.3.7/js/bootstrap.min.js}"
+            src="../../static/component/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <link th:href="@{/project/homepage/main.css}"
+          href="../../static/project/homepage/main.css" rel="stylesheet">
+    <style>
+        #logindiv a,#regdiv a{
+            color: #255625;
+            font-family: 黑体;
+            text-decoration: none;
+        }
+        #inputbackground{
+            background-color: #ebebef;
+        }
+        a{
+            text-decoration: none;
+            color: #999999;
+        }
+        .nav-tabs>li.active>a,
+        .nav-tabs>li.active>a:focus{
+            background-color: #D9001B;
+            color: white;
+        }
+        a:hover{
+            text-decoration: none;
+        }
+        table{
+            border-collapse:separate;
+            border-spacing:0px 10px;
+        }
+    </style>
+    <script>
+        //加载地区机构数量表
+        fetch(`/org/lodorgnum`)
+            .then(resp => {
+                return resp.json();
+            })
+            .then(json => {
+                //console.log(...json);
+                let orgtabl = document.querySelector('#orgNumTb');
+
+               // console.log(orgtabl.children)
+                json.forEach((item, index) => {
+                     //console.log(item);
+                var tr=document.createElement("tr");
+                var td1=document.createElement("td");
+                var td2=document.createElement("td");
+                //设置不换行
+                td1.setAttribute("nowrap","nowrap")
+                td1.innerHTML=item.orgLocate;
+                td2.innerHTML=item.num;
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                orgtabl.children[1].appendChild(tr);
+                })
+            });
+
+        //加载地区药材数量表
+        function MedMatByPlace(placename) {
+            let MedMattabl = document.querySelector('#yaocaiNumTb');
+            MedMattabl.style.display='block';
+                $("#yaocaoTbody").empty();
+            fetch(`/org/MedMat?placename=${placename}`)
+                .then(resp => {
+                    return resp.json();
+                })
+                .then(json => {
+                   console.log(...json);
+                    //console.log(MedMattabl.children)
+                    json.forEach((item, index) => {
+                        //console.log(item);
+                        var tr=document.createElement("tr");
+                        var td1=document.createElement("td");
+                        var td2=document.createElement("td");
+                        //设置不换行
+                        td1.setAttribute("nowrap","nowrap")
+                        td1.innerHTML=index+1;
+                        td2.innerHTML=item.name;
+                        tr.appendChild(td1);
+                        tr.appendChild(td2);
+                        MedMattabl.children[1].appendChild(tr);
+                    })
+                })
+
+            setTimeout(function () {
+                $("#yaocaoTbody tr").click(function () {
+/*                    console.log(placename)
+                    console.log(this.children[1].innerHTML)*/
+                    window.location.href="/org/MedMatlist?name="+this.children[1].innerHTML;
+                });
+            },1000);
+
+        }
+
+
+    </script>
+</head>
+<body>
+<!--头部-->
+<div id="header" th:include="public/header :: publicHeader"></div>
+<div class="container">
+    <div class="col-md-1"></div>
+    <div class="col-md-10 col-md-offset-1">
+        <div id="IndustrialBody" style="display: flex ;border: #f6f5f5 solid 1px;" >
+            <!--    标题-->
+            <div id="IndustrialTitle" style="display: flex ; flex-direction: column;margin-top: 50px;width: 190px;margin-left: 50px">
+                <div style="display: flex;margin-top: 30px"  >
+                    <img th:src="@{/images/home/u22.png}" width="102px" height="38px"
+                         src="../../static/images/home/u22.png" alt="">
+                    <span style="display: flex;position: relative; right: 105px;top: 10px;width: 102px;height: 20px;
+                                text-align: center">
+                    <a  th:href="@{/org/index}"
+                        href="#" style="width: 102px;height: 20px">资源分布</a>
+                </span>
+                </div>
+                <div style="display: flex;margin-top: 30px"  >
+                    <img th:src="@{/images/home/u22.png}" width="102px" height="38px"
+                         src="../../static/images/home/u22.png" alt="">
+                    <span style="display: flex;position: relative; right: 105px;top: 10px;width: 102px;height: 20px;
+                                text-align: center">
+                    <a  th:href="@{/achi/achiList}"
+                        href="#" style="width: 102px;height: 20px">科研成果</a>
+                </span>
+                </div>
+                <div style="display: flex;margin-top: 30px"  >
+                    <img th:src="@{/images/home/u22.png}" width="102px" height="38px"
+                         src="../../static/images/home/u22.png" alt="">
+                    <span style="display: flex;position: relative; right: 105px;top: 10px;width: 102px;height: 20px;
+                                text-align: center">
+                    <a th:href="@{/cooexc/cooexcList}"
+                       href="#" style="width: 102px;height: 20px">合作研究</a>
+                </span>
+                </div>
+                <div style="display: flex;margin-top: 30px"  >
+                    <img th:src="@{/images/home/u22.png}" width="102px" height="38px"
+                         src="../../static/images/home/u22.png" alt="">
+                    <span style="display: flex;position: relative; right: 105px;top: 10px;width: 102px;height: 20px;
+                                text-align: center">
+                    <a   th:href="@{/talrec/talrecList}" width="102px" height="38px"
+                         href="#" style="width: 102px;height: 20px">人才招募</a>
+                </span>
+                </div>
+            </div>
+            <!--    分布地图部分-->
+            <div style="margin-top: 100px;">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist" style="width: 680px">
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab" style="padding: 0 20px 0 20px">机构分布</a></li>
+                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab" style="padding: 0 20px 0 20px">药材分布</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="home">
+                        <div style="text-align: center;" >
+                            <p style="font-size: 18px; color: #925006;font-weight: bold" th:text="'平台已注册'+${total}+'家机构分布图'">平台已注册3000家机构分布图</p>
+                        </div>
+                        <div style="display: flex;width: 800px;height: auto" >
+                            <div>
+                                <img th:src="@{/images/industry-dev/u1281.png}"
+                                     style="width: 393px;height: auto"
+                                     src="../../static/images/industry-dev/u1281.png" alt=""></br>
+
+                                <!--            承德市-->
+                                <a  th:href="@{/org/orglist/(orgLocate='承德市')}"
+                                    style="position: relative;top: -540px;right: -210px;">
+            <span>
+                <img th:src="@{/images/industry-dev/u1329.svg}"
+                     src="../../static/images/industry-dev/u1329.svg" alt="">
+                <span  style="position: relative;color: white;font-weight: bold;font-size: 10px;top: 0px;right: 20px;width: 25px" th:text="${orgMap.get('chengdeshi')} eq null ? '0':${orgMap.get('chengdeshi').num}">200</span></br>
+            </span>
+                                </a>
+                                <!--            秦皇岛市-->
+                                <a th:href="@{/org/orglist(orgLocate='秦皇岛市')}"
+                                   style="position: relative;top: -550px;right: -350px;">
+            <span >
+                 <img th:src="@{/images/industry-dev/u1329.svg}"
+                      src="../../static/images/industry-dev/u1329.svg" alt="">
+                <span  style="position: relative;top: 0px;right: 20px;color: white;font-weight: bold;font-size: 10px;width: 25px" th:text="${orgMap.get('qinhuangdaoshi')} eq null ? '0':${orgMap.get('qinhuangdaoshi').num}">200</span></br>
+            </span>
+                                </a>
+                                <!--            唐山市-->
+                                <a th:href="@{/org/orglist(orgLocate='唐山市')}"
+                                   style="position: relative;top: -520px;right: -300px;">
+            <span>
+                 <img th:src="@{/images/industry-dev/u1329.svg}"
+                      src="../../static/images/industry-dev/u1329.svg" alt="">
+                <span style="position: relative;top: 0px;right: 20px;color: white;font-weight: bold;font-size: 10px;width: 25px" th:text="${orgMap.get('tangshanshi')} eq null ? '0':${orgMap.get('tangshanshi').num}">200</span></br>
+            </span>
+                                </a>
+                                <!--            北京市-->
+                                <a th:href="@{/org/orglist(orgLocate='北京市')}"
+                                   style="position: relative;top: -500px;right: -180px" >
+            <span  >
+                 <img th:src="@{/images/industry-dev/u1329.svg}" th
+                      src="../../static/images/industry-dev/u1329.svg" alt="">
+                <span  style="position: relative;top: 0px;right: 20px;color: white;font-weight: bold;font-size: 10px;width: 25px" th:text="${orgMap.get('beijingshi')} eq null ? '0':${orgMap.get('beijingshi').num}">200</span></br>
+            </span>
+                                </a>
+                                <!--            张家口市-->
+                                <a th:href="@{/org/orglist(orgLocate='张家口市')}"
+                                   style="position: relative;top: -560px;right: -80px">
+            <span >
+                 <img th:src="@{/images/industry-dev/u1329.svg}"
+                      src="../../static/images/industry-dev/u1329.svg" alt="">
+                <span  style="position: relative;top: 0px;right: 20px;color: white;font-weight: bold;font-size: 10px;width: 25px" th:text="${orgMap.get('zhangjiakoushi')} eq null ? '0':${orgMap.get('zhangjiakoushi').num}">200</span></br>
+            </span>
+                                </a>
+                                <!--            廊坊市-->
+                                <a th:href="@{/org/orglist(orgLocate='廊坊市')}"
+                                   style="position: relative;top: -500px;right: -240px" >
+            <span >
+                 <img th:src="@{/images/industry-dev/u1329.svg}"
+                      src="../../static/images/industry-dev/u1329.svg" alt="">
+                <span  style="position: relative;top: 0px;right: 20px;color: white;font-weight: bold;font-size: 10px;width: 25px" th:text="${orgMap.get('langfangshi')} eq null ? '0':${orgMap.get('langfangshi').num}">200</span></br>
+            </span>
+                                </a>
+                                <!--            保定市-->
+                                <a th:href="@{/org/orglist(orgLocate='保定市')}"
+                                   style="position: relative;top: -500px;right: -180px">
+            <span>
+                 <img th:src="@{/images/industry-dev/u1329.svg}"
+                      src="../../static/images/industry-dev/u1329.svg" alt="">
+                <span  style="position: relative;top: 0px;right: 20px;color: white;font-weight: bold;font-size: 10px;width: 25px" th:text="${orgMap.get('baodingshi')} eq null ? '0':${orgMap.get('baodingshi').num}">200</span></br>
+            </span>
+                                </a>
+                                <!--            沧州市-->
+                                <a th:href="@{/org/orglist(orgLocate='沧州市')}"
+                                   style="position: relative;top: -530px;right: -300px" >
+            <span  >
+                 <img th:src="@{/images/industry-dev/u1329.svg}"
+                      src="../../static/images/industry-dev/u1329.svg" alt="">
+                <span  style="position: relative;top: 0px;right: 20px;color: white;font-weight: bold;font-size: 10px;width: 25px" th:text="${orgMap.get('cangzhoushi')} eq null ? '0':${orgMap.get('cangzhoushi').num}">200</span></br>
+            </span>
+                                </a>
+                                <!--            石家庄 市-->
+                                <a th:href="@{/org/orglist(orgLocate='石家庄市')}"
+                                   style="position: relative;top: -460px;right: -180px">
+            <span  >
+                 <img th:src="@{/images/industry-dev/u1329.svg}"
+                      src="../../static/images/industry-dev/u1329.svg" alt="">
+                <span style="position: relative;top: 0px;right: 20px;color: white;font-weight: bold;font-size: 10px;width: 25px" th:text="${orgMap.get('shijiazhuangshi')} eq null ? '0':${orgMap.get('shijiazhuangshi').num}"> 200</span></br>
+            </span>
+                                </a>
+                                <!--            衡水市-->
+                                <a th:href="@{/org/orglist(orgLocate='衡水市')}"
+                                   style="position: relative;top: -510px;right: -250px" >
+            <span >
+                 <img th:src="@{/images/industry-dev/u1329.svg}"
+                      src="../../static/images/industry-dev/u1329.svg" alt="">
+                <span  style="position: relative;top: 0px;right: 20px;color: white;font-weight: bold;font-size: 10px;width: 25px" th:text="${orgMap.get('hengshuishi')} eq null ? '0':${orgMap.get('hengshuishi').num}">200</span></br>
+            </span>
+                                </a>
+                                <!--            邢台市-->
+                                <a th:href="@{/org/orglist(orgLocate='邢台市')}"
+                                   style="position: relative;top: -460px;right: -200px">
+            <span>
+                 <img th:src="@{/images/industry-dev/u1329.svg}"
+                      src="../../static/images/industry-dev/u1329.svg" alt="">
+                <span style="position: relative;top: 0px;right: 20px;color: white;font-weight: bold;font-size: 10px;width: 25px"  th:text="${orgMap.get('xingtaishi')} eq null ? '0':${orgMap.get('xingtaishi').num}">200</span></br>
+            </span>
+                                </a>
+                                <!--            邯郸市-->
+                                <a th:href="@{/org/orglist(orgLocate='邯郸市')}"
+                                   style="position: relative;top: -450px;right: -250px">
+            <span  >
+                 <img th:src="@{/images/industry-dev/u1329.svg}"
+                      src="../../static/images/industry-dev/u1329.svg" alt="">
+                <span style="position: relative;top: 0px;right: 20px;color: white;font-weight: bold;font-size: 10px;width: 25px"  th:text="${orgMap.get('handanshi')} eq null ? '0':${orgMap.get('handanshi').num}">200</span></br>
+            </span>
+                                </a>
+                            </div>
+                            <div  style="margin-left: 100px">
+                                <table class="table table-striped" id="orgNumTb">
+                                    <thead>
+                                    <tr>
+                                        <th nowrap >地市</th>
+                                        <th nowrap >机构数量</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody >
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="profile">
+                        <div style="text-align: center;" >
+                            <p style="font-size: 18px; color: #925006;font-weight: bold" th:text="'道地药材种植品种分布'">道地药材种植品种分布</p>
+                        </div>
+                        <div style="display: flex">
+                            <div>
+                                <img th:src="@{/images/industry-dev/u1281.png}"
+                                     style="width: 393px;height: auto"
+                                     src="../../static/images/industry-dev/u1281.png" alt=""></br>
+
+                                <!--            承德市-->
+                                <a    onclick="MedMatByPlace('承德市')" href="javascript:void(0)"
+                                      style="position: relative;top: -540px;right: -210px;">
+            <span>
+                <img th:src="@{/images/industry-dev/u1329.svg}"
+                     src="../../static/images/industry-dev/u1329.svg" alt="">
+                <span  style="position: relative;top: 0px;right: 20px;color: white;font-weight: bold;font-size: 10px;width: 25px"
+                       th:text="${MedMatMap.get('chengdeshi')} eq null ? '0': ${MedMatMap.get('chengdeshi').num}">200</span></br>
+            </span>
+                                </a>
+                                <!--            秦皇岛市-->
+                                <a   onclick="MedMatByPlace('秦皇岛')" href="javascript:void(0)"
+                                     style="position: relative;top: -550px;right: -350px;">
+            <span >
+                 <img th:src="@{/images/industry-dev/u1329.svg}"
+                      src="../../static/images/industry-dev/u1329.svg" alt="">
+                <span  style="position: relative;top: 0px;right: 20px;color: white;font-weight: bold;font-size: 10px;width: 25px" th:text="${MedMatMap.get('qinhuangdaoshi')} eq null ? '0': ${MedMatMap.get('qinhuangdaoshi').num}">200</span></br>
+            </span>
+                                </a>
+                                <!--            唐山市-->
+                                <a   onclick="MedMatByPlace('唐山市')" href="javascript:void(0)"
+                                     style="position: relative;top: -520px;right: -300px;">
+            <span>
+                 <img th:src="@{/images/industry-dev/u1329.svg}"
+                      src="../../static/images/industry-dev/u1329.svg" alt="">
+                <span style="position: relative;top: 0px;right: 20px;color: white;font-weight: bold;font-size: 10px;width: 25px" th:text="${MedMatMap.get('tangshanshi')} eq null ? '0': ${MedMatMap.get('tangshanshi').num}">200</span></br>
+            </span>
+                                </a>
+                                <!--            北京市-->
+                                <a   onclick="MedMatByPlace('北京市')" href="javascript:void(0)"
+                                     style="position: relative;top: -500px;right: -180px" >
+            <span  >
+                 <img th:src="@{/images/industry-dev/u1329.svg}" th
+                      src="../../static/images/industry-dev/u1329.svg" alt="">
+                <span  style="position: relative;top: 0px;right: 20px;color: white;font-weight: bold;font-size: 10px;width: 25px" th:text="${MedMatMap.get('beijingshi')} eq null ? '0': ${MedMatMap.get('beijingshi').num}">200</span></br>
+            </span>
+                                </a>
+                                <!--            张家口市-->
+                                <a  onclick="MedMatByPlace('张家口市')" href="javascript:void(0)"
+                                    style="position: relative;top: -560px;right: -80px">
+            <span >
+                 <img th:src="@{/images/industry-dev/u1329.svg}"
+                      src="../../static/images/industry-dev/u1329.svg" alt="">
+                <span  style="position: relative;top: 0px;right: 20px;color: white;font-weight: bold;font-size: 10px;width: 25px" th:text="${MedMatMap.get('zhangjiakoushi')} eq null ? '0': ${MedMatMap.get('zhangjiakoushi').num}">200</span></br>
+            </span>
+                                </a>
+                                <!--            廊坊市-->
+                                <a   onclick="MedMatByPlace('廊坊市')" href="javascript:void(0)"
+                                     style="position: relative;top: -500px;right: -240px"  >
+            <span >
+                 <img th:src="@{/images/industry-dev/u1329.svg}"
+                      src="../../static/images/industry-dev/u1329.svg" alt="">
+                <span  style="position: relative;top: 0px;right: 20px;color: white;font-weight: bold;font-size: 10px;width: 25px" th:text="${MedMatMap.get('langfangshi')} eq null ? '0': ${MedMatMap.get('langfangshi').num}">200</span></br>
+            </span>
+                                </a>
+                                <!--            保定市-->
+                                <a   onclick="MedMatByPlace('保定市')" href="javascript:void(0)"
+                                     style="position: relative;top: -500px;right: -180px    ">
+            <span>
+                 <img th:src="@{/images/industry-dev/u1329.svg}"
+                      src="../../static/images/industry-dev/u1329.svg" alt="">
+                <span  style="position: relative;top: 0px;right: 20px;color: white;font-weight: bold;font-size: 10px;width: 25px" th:text="${MedMatMap.get('baodingshi')} eq null ? '0': ${MedMatMap.get('baodingshi').num}">200</span></br>
+            </span>
+                                </a>
+                                <!--            沧州市-->
+                                <a   onclick="MedMatByPlace('沧州市')" href="javascript:void(0)"
+                                     style="position: relative;top: -530px;right: -300px" >
+            <span  >
+                 <img th:src="@{/images/industry-dev/u1329.svg}"
+                      src="../../static/images/industry-dev/u1329.svg" alt="">
+                <span  style="position: relative;top: 0px;right: 20px;color: white;font-weight: bold;font-size: 10px;width: 25px" th:text="${MedMatMap.get('cangzhoushi')} eq null ? '0': ${MedMatMap.get('cangzhoushi').num}">200</span></br>
+            </span>
+                                </a>
+                                <!--            石家庄 市-->
+                                <a   onclick="MedMatByPlace('石家庄市')" href="javascript:void(0)"
+                                     style="position: relative;top: -460px;right: -180px">
+            <span  >
+                 <img th:src="@{/images/industry-dev/u1329.svg}"
+                      src="../../static/images/industry-dev/u1329.svg" alt="">
+                <span style="position: relative;top: 0px;right: 20px;color: white;font-weight: bold;font-size: 10px;width: 25px" th:text="${MedMatMap.get('shijiazhuangshi')} eq null ? '0': ${MedMatMap.get('shijiazhuangshi').num}"> 200</span></br>
+            </span>
+                                </a>
+                                <!--            衡水市-->
+                                <a  onclick="MedMatByPlace('衡水市')" href="javascript:void(0)"
+                                    style="position: relative;top: -510px;right: -250px" >
+            <span >
+                 <img th:src="@{/images/industry-dev/u1329.svg}"
+                      src="../../static/images/industry-dev/u1329.svg" alt="">
+                <span  style="position: relative;top: 0px;right: 20px;color: white;font-weight: bold;font-size: 10px;width: 25px" th:text="${MedMatMap.get('hengshuishi')} eq null ? '0': ${MedMatMap.get('hengshuishi').num}">200</span></br>
+            </span>
+                                </a>
+                                <!--            邢台市-->
+                                <a   onclick="MedMatByPlace('邢台市')" href="javascript:void(0)"
+                                     style="position: relative;top: -460px;right: -200px">
+            <span>
+                 <img th:src="@{/images/industry-dev/u1329.svg}"
+                      src="../../static/images/industry-dev/u1329.svg" alt="">
+                <span style="position: relative;top: 0px;right: 20px;color: white;font-weight: bold;font-size: 10px;width: 25px"  th:text="${MedMatMap.get('xingtaishi')} eq null ? '0': ${MedMatMap.get('xingtaishi').num}">200</span></br>
+            </span>
+                                </a>
+                                <!--            邯郸市-->
+                                <a   onclick="MedMatByPlace('邯郸市')" href="javascript:void(0)"
+                                     style="position: relative;top: -450px;right: -250px">
+            <span  >
+                 <img th:src="@{/images/industry-dev/u1329.svg}"
+                      src="../../static/images/industry-dev/u1329.svg" alt="">
+                <span style="position: relative;top: 0px;right: 20px;color: white;font-weight: bold;font-size: 10px;width: 25px"  th:text="${MedMatMap.get('handanshi')} eq null ? '0': ${MedMatMap.get('handanshi').num}">200</span></br>
+            </span>
+                                </a>
+                            </div>
+                            <div  style="margin-left: 100px" >
+                                <table class="table table-striped" id="yaocaiNumTb" style="display: none">
+                                    <thead>
+                                    <tr>
+                                        <th nowrap>序号</th>
+                                        <th nowrap>道地药材品种</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="yaocaoTbody">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+<!--    底部-->
+<div id="footer" th:include="public/footer :: publicFooter"></div>
+</body>
+</html>

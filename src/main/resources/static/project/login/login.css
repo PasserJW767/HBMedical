@@ -1,0 +1,62 @@
+*{
+    user-select : none;
+    /* 无法选中，整体感更强 */
+}
+
+body{
+
+}
+
+#canvas {
+    float: right;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.code {
+    padding-top: 5px;
+    width: 400px;
+    margin: 0 auto;
+}
+
+.input-val {
+    width: 200px;
+}
+
+.login{
+    position: absolute;
+    top: 50%;
+    margin-top: -100px;
+    left: 50%;
+    margin-left: -150px;
+    /* absolute居中的一种方法 */
+
+}
+
+input{
+    background-color: white;
+    width: 80%;
+    height: 30px;
+    margin-bottom: 10px;
+    border: none;
+    border-bottom: 2px solid silver;
+    border-radius: 5px;
+
+    font-size: 15px;
+}
+
+.btn{
+    background-color: navajowhite;
+    width: 80%;
+    height: 39px;
+    border-radius: 8px;
+    margin-top: 30px;
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+}
+
+.btn:hover{
+    background-color: #59c2a0;
+}

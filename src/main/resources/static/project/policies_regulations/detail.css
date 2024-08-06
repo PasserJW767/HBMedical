@@ -1,0 +1,31 @@
+.detail-title{
+    margin-left: 300px;
+    font-size: 18px;
+    font-weight: bold;
+}
+.detail-from{
+    text-align:right;
+    font-size: 14px;
+}
+.detail-content{
+    font-size: 15px;
+}
+
+.preAndNextLi{
+    list-style-type: none;
+}
+.preAndNextSpan{
+    color: red;
+}
+.preAndNextA:link{
+    color: black;
+}
+.preAndNextA:visited{
+    color: black;
+}
+#regulationDetail-Left-Div{
+    float: left;
+}
+#regulationDetail-Right-Div{
+    float: right;
+}

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanqiao.zzy.mapper.CulproDataMapper">
+  <resultMap id="BaseResultMap" type="com.lanqiao.zzy.domain.CulproData">
+    <id column="itemID" jdbcType="INTEGER" property="itemid" />
+    <id column="itemCode" jdbcType="CHAR" property="itemcode" />
+    <result column="DATA_TITLE" jdbcType="VARCHAR" property="dataTitle" />
+    <result column="DATA_LOCATION" jdbcType="VARCHAR" property="dataLocation" />
+    <result column="DATA_AUTHOR" jdbcType="VARCHAR" property="dataAuthor" />
+    <result column="DATA_SOURCE" jdbcType="VARCHAR" property="dataSource" />
+    <result column="DATA_FILE_TYPE" jdbcType="VARCHAR" property="dataFileType" />
+    <result column="VISIT_NUM" jdbcType="INTEGER" property="visitNum" />
+    <result column="DATA_CONTENT" jdbcType="VARCHAR" property="dataContent" />
+    <result column="DATA_DELAYED_RELEASE" jdbcType="TIMESTAMP" property="dataDelayedRelease" />
+    <result column="DATA_STATUS" jdbcType="VARCHAR" property="dataStatus" />
+    <result column="DATA_TYPE" jdbcType="VARCHAR" property="dataType" />
+    <result column="RELEASE_OR_NOT" jdbcType="VARCHAR" property="releaseOrNot" />
+    <result column="CREATER" jdbcType="VARCHAR" property="creater" />
+    <result column="itemCreateAt" jdbcType="TIMESTAMP" property="itemcreateat" />
+    <result column="UPDATER" jdbcType="VARCHAR" property="updater" />
+    <result column="itemUpdateAt" jdbcType="TIMESTAMP" property="itemupdateat" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    itemID, itemCode, DATA_TITLE, DATA_LOCATION, DATA_AUTHOR, DATA_SOURCE, DATA_FILE_TYPE, 
+    VISIT_NUM, DATA_CONTENT, DATA_DELAYED_RELEASE, DATA_STATUS, DATA_TYPE, RELEASE_OR_NOT, 
+    CREATER, itemCreateAt, UPDATER, itemUpdateAt
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.lanqiao.zzy.domain.CulproData" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_culpro_data
+    where itemID = #{itemid,jdbcType=INTEGER}
+      and itemCode = #{itemcode,jdbcType=CHAR}
+  </select>
+  <select id="selectlaw" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tb_culpro_data
+    where DATA_TYPE='政策法规'and DATA_FILE_TYPE='法律'
+  </select>
+
+  <!---->
+  <select id="selectByDatatype" resultMap="BaseResultMap" parameterType="string">
+    select
+    <include refid="Base_Column_List"/>
+    from tb_culpro_data
+    where DATA_TYPE='政策法规' and DATA_FILE_TYPE=#{datatype}
+    order by itemID
+  </select>
+
+  <!--根据itemid找出政策法规对象-->
+  <select id="selectByItemId" resultMap="BaseResultMap" parameterType="int">
+    select <include refid="Base_Column_List"/>
+    from tb_culpro_data
+    where itemID=#{itemid} and DATA_STATUS = '展示中'
+  </select>
+
+  <!--根据itemid找出对应类别的Page列表-->
+  <select id="selectAllTypeByItemId" resultMap="BaseResultMap" parameterType="int">
+    select <include refid="Base_Column_List"/>
+    from tb_culpro_data
+    where DATA_FILE_TYPE = (select DATA_FILE_TYPE from tb_culpro_data
+                       where itemID = ${itemId})  and DATA_STATUS = '展示中' AND DATA_TYPE='政策法规'
+    ORDER BY itemID
+  </select>
+
+  <!--根据itemId计算当前是Page列表的第几位，以得到PageNum-->
+  <select id="selectLocationByItemId" resultType="int" parameterType="int">
+    select count(*)
+    from tb_culpro_data
+    where DATA_FILE_TYPE = (select DATA_FILE_TYPE from tb_culpro_data where itemID = ${itemId})
+            AND itemID &lt;= ${itemId}  AND DATA_STATUS = '展示中' AND DATA_TYPE='政策法规'
+    ORDER BY itemID;
+  </select>
+
+  <!-- 根据itemId和itemCode来选择对应的文件路径 -->
+  <select id="selectFile" resultType="string">
+    select FILE_PATH
+    from tb_culpro_file
+    where itemId = ${itemId} and itemCode = '${itemCode}'
+  </select>
+
+  <!--新闻-->
+  <select id="selectNews" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_culpro_data
+    where DATA_STATUS='展示中' and DATA_TYPE='新闻'
+  </select>
+
+  <!--通知公告-->
+  <select id="selectNotice" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_culpro_data
+    where DATA_STATUS='展示中' and DATA_TYPE='通知公告'
+  </select>
+
+  <!--政策法规-->
+  <select id="selectPolicies" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_culpro_data
+    where DATA_STATUS='展示中' and DATA_TYPE='政策法规'
+  </select>
+
+  <!--办事指南-->
+  <select id="selectServiceGuide" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_culpro_data
+    where DATA_STATUS='展示中' and DATA_TYPE='办事指南'
+  </select>
+
+</mapper>

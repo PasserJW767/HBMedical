@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>主页</title>
+
+    <!-- Bootstrap -->
+    <link th:href="@{/component/bootstrap-3.3.7/css/bootstrap.min.css}"
+          href="../../static/component/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link th:href="@{/component/inspinia/css/plugins/sweetalert/sweetalert.css}"
+          href="../../static/component/inspinia/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+    <link th:href="@{/project/homepage/main.css}"
+          href="../../static/project/homepage/main.css" rel="stylesheet">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script th:src="@{/component/jquery-2.2.4.js}"
+            src="../../static/component/jquery-2.2.4.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script th:src="@{/component/bootstrap-3.3.7/js/bootstrap.min.js}"
+            src="../../static/component/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <!--头部-->
+    <div id="header" th:include="public/header :: publicHeader"></div>
+
+    <!--页面主体-->
+    <div class="container-fluid ">
+        <div class="row clearfix">
+            <div class="col-md-8 col-lg-offset-2 column home-body" id="content-body">
+                <!--首页图片轮播-->
+                <div class="row clearfix">
+                    <div id="home-carousel" class="carousel slide" data-ride="carousel" data-interval="2000">
+                        <!-- 指示符 -->
+                        <ul class="carousel-indicators">
+                            <li data-target="#home-carousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#home-carousel" data-slide-to="1"></li>
+                            <li data-target="#home-carousel" data-slide-to="2"></li>
+                            <li data-target="#home-carousel" data-slide-to="3"></li>
+                            <li data-target="#home-carousel" data-slide-to="4"></li>
+                        </ul>
+                        <!-- 轮播图片 -->
+                        <div class="carousel-inner" style="height: 370px;margin-right: 10px">
+                            <div class="carousel-item active item">
+                                <a target="_blank" href="/news/detail.html?itemid=24&amp;menutab=2">
+                                    <img th:src="@{'images/home/home_carousel1.jpg'}"
+                                         src="../../static/images/home/home_carousel1.jpg" class="img-fluid">
+                                    <div class="carousel-caption">
+                                        <h3 class="carousel-title">年底前全面启动健康家庭建设</h3>
+                                        <p class="carousel-source">河北来源1</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="carousel-item item">
+                                <a target="_blank" href="/news/detail.html?itemid=25&amp;menutab=2">
+                                    <img th:src="@{'images/home/home_carousel2.jpg'}"
+                                         src="../../static/images/home/home_carousel2.jpg" class="img-fluid">
+                                    <div class="carousel-caption">
+                                        <h3 class="carousel-title">安全用药要牢记！河北启动“全国安全用药月”活动</h3>
+                                        <p class="carousel-source">河北来源1</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="carousel-item item">
+                                <a target="_blank" href="/news/detail.html?itemid=20&amp;menutab=2">
+                                    <img th:src="@{'images/home/home_carousel3.jpg'}"
+                                         src="../../static/images/home/home_carousel3.jpg" class="img-fluid">
+                                    <div class="carousel-caption">
+                                        <h3 class="carousel-title">胸痛不一定是冠心病 发现症状及时就医</h3>
+                                        <p class="carousel-source">河北来源1</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="carousel-item item">
+                                <a target="_blank" href="/news/detail.html?itemid=18&amp;menutab=2">
+                                    <img th:src="@{'images/home/home_carousel4.jpg'}"
+                                         src="../../static/images/home/home_carousel4.jpg" class="img-fluid">
+                                    <div class="carousel-caption">
+                                        <h3 class="carousel-title">白衣战士，谢谢你！河北省人民院举办最美“逆行者”抗疫医德故事分享会</h3>
+                                        <p class="carousel-source">河北来源1</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="carousel-item item">
+                                <a target="_blank" href="/news/detail.html?itemid=15&amp;menutab=2">
+                                    <img th:src="@{'images/home/home_carousel5.jpg'}"
+                                         src="../../static/images/home/home_carousel5.jpg" class="img-fluid">
+                                    <div class="carousel-caption">
+                                        <h3 class="carousel-title">现在可以预约接种！国产HPV疫苗来河北了</h3>
+                                        <p class="carousel-source">河北来源1</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- 左右切换按钮 -->
+                        <a class="left carousel-control carousel-control.left" href="#home-carousel" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                        </a>
+                        <a class="right carousel-control .carousel-control.right" href="#home-carousel" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </a>
+                    </div>
+                </div>
+
+                <!--新闻中心-->
+                <div class="cake2">
+                    <div class="cake2_left">
+                        <div class="cake2_left_1">
+
+                            <DIV class="title_1"><SPAN>新闻中心</SPAN> <A th:href="@{/news/newslist}" target="_blank"><p style="margin-left:480px ;color: red;margin-top: 18px">更多>></p></A></DIV>
+
+                            <DIV class="text_list">
+                                <ul >
+                                    <li th:each="news:${newsList}"> <a   th:href="@{/news/newsdetail/(itemid=${news.itemid},itemcode=${news.itemcode})}"
+                                            th:utext="${#strings.abbreviate(news.getDataTitle(),36)}" target="_blank"></a></li>
+                                </ul>
+                                <ul th:remove="all">
+                                    <li> <a href="#" target="_blank" >孙咯咯咯咯咯咯咯咯咯咯咯</a></li>
+                                    <li> <a href="#" target="_blank" >2020年8月13日河北省新型冠状病毒肺炎疫情情况</a></li>
+                                    <li> <a href="#" target="_blank" >河北邢台实现乡村卫生一体化</a></li>
+                                    <li> <a href="#" target="_blank" >河北省2020年本科农村订单定向免费医学生定向就业协议签订工作圆满结束</a></li>
+                                    <li> <a href="#" target="_blank" >2020年9月8日河北省新型冠状病毒肺炎疫情情况</a></li>
+                                </ul>
+                            </DIV>
+
+                        </div>
+                        <div class="cake2_left_2">
+                            <DIV class="title_1"><SPAN>政策法规</SPAN> <A th:href="@{/Policies_regulations}" target="_blank"><p style="margin-left:480px ;color: red;margin-top: 18px">更多>></p></A></DIV>
+
+                            <DIV class="text_list">
+                                <ul >
+                                    <li th:each="policy:${policyList}"> <a  target="_blank" th:utext="${#strings.abbreviate(policy.getDataTitle(),36)}" th:href="@{/Policies_regulations/regulationDetail(itemid=${policy.getItemid()},pageNum=-1)}"></a></li>
+                                </ul>
+                                <ul th:remove="all">
+                                    <li> <a href="#" target="_blank" >关于印发紧密型县域医疗卫生共同体建设评判标准和监测指标体系（试...</a></li>
+                                    <li> <a href="#" target="_blank" >关于开展“民营医院管理年”活动的通知</a></li>
+                                    <li> <a href="#" target="_blank" >关于进一步加强无烟医疗卫生机构建设工作的通知</a></li>
+                                    <li> <a href="#" target="_blank" >国务院办公厅关于印发深化医药卫生体制改革2020年下半年重点工作任...</a></li>
+                                    <li> <a href="#" target="_blank" >关于推行医疗机构、医师、护士电子证照工作的通知</a></li>
+                                </ul>
+                            </DIV>
+                        </div>
+                    </div>
+                    <div class="cake2_right">
+                        <div class="cake2_right_1">
+                            <DIV class="title_1"><SPAN>通知公告</SPAN> <A th:href="@{/notice/noticelist}" target="_blank"><p style="margin-left:500px ;color: red;margin-top: 18px">更多>></p></A></DIV>
+
+                            <DIV class="text_list">
+                                <ul >
+                                    <li th:each="notice:${noticeList}"> <a  th:href="@{/notice/noticedetail/(itemid=${notice.itemid},itemcode=${notice.itemcode})}"
+                                            target="_blank" th:utext="${#strings.abbreviate(notice.getDataTitle(),36)}"></a></li>
+                                </ul>
+                                <ul th:remove="all">
+
+                                    <li> <a href="#" target="_blank" >关于进一步做好新冠肺炎疫情防控期间中医药继续教育有关工作...</a></li>
+                                    <li> <a href="#" target="_blank" >河北省卫生健康委 河北省中医药管理局关于进一步加强无烟医疗卫..</a></li>
+                                    <li> <a href="#" target="_blank" >河北省中医药管理局关于组织2020年中医类别助理全科医生培训招...</a></li>
+                                    <li> <a href="#" target="_blank" >河北省将中药饮片纳入药品流通追溯系统</a></li>
+                                    <li> <a href="#" target="_blank" >中医药监督执法有了“工具册”</a></li>
+                                </ul>
+                            </DIV>
+                        </div>
+                        <div class="cake2_right_2">
+                            <DIV class="title_1"><SPAN>办事指南</SPAN> <A   th:href="@{/hg/handlingguidelinelist}"
+                                                                                                                            target="_blank"><p style="margin-left:500px ;color: red;margin-top: 18px">更多>></p></A></DIV>
+                            <DIV class="text_list">
+                                <ul >
+                                    <li th:each="s:${serviceGuideList}"> <a  th:href="@{/hg/HandlingGuidelinedetail(itemid=${s.itemid},itemcode=${s.itemcode})}"
+                                            target="_blank" th:utext="${#strings.abbreviate(s.getDataTitle(),36)}"></a></li>
+                                </ul>
+                                <ul th:remove="all">
+                                    <li> <a href="#" target="_blank" >河北省三级公立院校绩效考核流程生产用于传染病防治的消毒产品...</a></li>
+                                    <li> <a href="#" target="_blank" >中医诊所备案管理注册流程</a></li>
+                                    <li> <a href="#" target="_blank" >医疗广告审查服务指南</a></li>
+                                    <li> <a href="#" target="_blank" >中医(专长)医师资格考核业务流程</a></li>
+                                    <li> <a href="#" target="_blank" >省中医药预约挂号业务流程</a></li>
+                                </ul>
+                            </DIV>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--医疗服务-->
+                <div class="row clearfix">
+                    <div class="home-health-icon-body">
+                        <div class="home-icon">
+                            <img th:src="@{'/images/home/u115.svg'}"
+                                    src="../../static/images/home/u115.svg" alt="ex" class="home-health-line">
+                        </div>
+                        <div class="home-medical-text-div">
+                            <img th:src="@{'/images/home/u114.svg'}"
+                                 src="../../static/images/home/u114.svg" alt="ex">
+                            <div class="home-medical-text">
+                                <p class="home-medical-head-title">医疗服务</p>
+                                <span class="home-medical-head-intro">Medical Service</span>
+                            </div>
+                            <img th:src="@{'/images/home/u114.svg'}"
+                                 src="../../static/images/home/u114.svg" alt="ex">
+                        </div>
+                        <div class="home-icon">
+                            <img th:src="@{'/images/home/u115.svg'}"
+                                 src="../../static/images/home/u115.svg" alt="ex" class="home-health-line">
+                        </div>
+                    </div>
+                    <!--医疗服务内容-->
+                    <!--河北名院-->
+                    <div class="cake3">
+                        <div class="cake3_left">
+                            <div class="home-medical-content-title" >
+                                <span>河北名院</span>
+                            </div>
+                            <div class="home-medical-hospital-content"  th:each="h:${hospitalForHomeList}">
+                                <div class="home-medical-content-img">
+                                    <a th:href="@{'/hospitals/detail?itemid='+${h.getItemid()}}" th:title="${h.getHospitalName()}" target="_blank">
+                                        <!--真实路径:-->
+                                        <img th:src="@{|${h.getCulproFile().getFilePath()}|}" src="../static/images/home/u985.png">
+                                        <!--用于演示-->
+                                        <!--<img  th:src="@{/images/medical-service/u985.png}"  th:title="${h.hospitalName}">-->
+                                    </a>
+                                </div>
+                                <div class="home-medical-content">
+                                    <a th:href="@{'/hospitals/detail?itemid='+${h.getItemid()}}" th:title="${h.hospitalName}" target="_blank">
+                                        <span class="home-medical-content-name" th:text="${h.getHospitalName()}">石家庄市医院</span>
+                                        <p class="home-medical-content-intro" th:text="${h.getHospitalBriefIntroduce()}">石家庄市中心医院（原石家庄铁路中心医院），该医院始建于1903年，于2004年...</p>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="home-medical-more" style="margin-top: 30px;color: red;" >
+                                <A th:href="@{/hospitals}" target="_blank"><p style="margin-left: 330px;color: red">更多>></p></A>
+                            </div>
+                            <div class="home-medical-hospital-content" th:remove="all">
+                                <div class="home-medical-content-img">
+                                    <img th:src="@{'/images/home/u986.png'}"
+                                         src="../static/images/home/u986.png">
+                                </div>
+                                <div class="home-medical-content">
+                                    <a href="/medical/hospitalMsg.html?itemid=2&amp;itemcode=0002&amp;menutab=6">
+                                        <span class="home-medical-content-name">河北省中医院</span>
+                                        <p class="home-medical-content-intro">河北省中医院创建于上世纪70年代，是一座集医疗、教学、科研、预防...</p>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="home-medical-more" style="margin-left:300px ;margin-top: 30px;" th:remove="all">
+                                <a href="/medical/famousHospital.html?menutab=6" class="home-content-a">更多>></a>
+                            </div>
+                        </div>
+                        <div class="cake3_middle"  >
+                            <div class="home-medical-content-title">
+                                <span>特色专科</span>
+                            </div>
+                            <div class="home-medical-hospital-content" th:each="s:${specialtyForHomeList}" >
+                                <div class=" home-medical-content-img">
+                                    <a th:href="@{/culproSpecialties/detail(itemcode=${s.itemcode},itemid=${s.itemid})}" target="_blank">
+                                        <!-- 真实路径： <img th:src="@{|${s.getCulproFile().getFilePath()}|}">-->
+                                        <!--用于演示-->
+                                        <img th:src="@{/images/medical-service/u1058.png}" th:title="${s.getSpecialtyName()}"  >
+                                    </a>
+                                </div>
+                                <div class="home-medical-content">
+                                    <a th:href="@{/culproSpecialties/detail(itemcode=${s.itemcode},itemid=${s.itemid})}" target="_blank">
+                                        <p class="home-medical-content-name" th:text="${s.getSpecialtyName()}">骨伤科</p>
+                                        <p class="home-medical-content-intro" th:text="|所在机构:${s.getSpecialtyAddress()}|">所在机构：石家庄市医院</p>
+                                        <p class="home-medical-content-intro" th:text="|所在地址:${s.getSpecialtyAddress()}|">所在地址：甘肃省兰州</p>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="home-medical-more" style="margin-top: 30px;color: red;" >
+                                <A th:href="@{/culproSpecialties}" target="_blank"><p style="margin-left: 330px;color: red">更多>></p></A>
+                            </div>
+                            <div class="home-medical-hospital-content"  th:remove="all">
+                                <div class=" home-medical-content-img">
+                                    <img th:src="@{'/images/home/u1058.png'}"
+                                         src="../static/images/home/u1058.png" >
+                                </div>
+
+                                <div class="home-medical-content" th:remove="all">
+                                    <a href="/medical/specialtyMsg.html?itemid=1&amp;itemcode=000001&amp;menutab=6">
+                                        <p class="home-medical-content-name">骨伤科</p>
+                                        <p class="home-medical-content-intro">所在机构：无极惠民医院</p>
+                                        <p class="home-medical-content-intro">所在地址：甘肃省兰州</p>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="home-medical-more" th:remove="all" >
+                                <A href="https://www.baidu.com/" target="_blank"><p style="margin-left: 330px;color: red">更多>></p></A>
+                            </div>
+                        </div>
+                        <div class="cake3_right" >
+                            <div class="home-medical-content-title">
+                                <span>河北名医</span>
+                            </div>
+                            <div class="home-medical-hospital-content" th:each="doctor:${doctorForHomeList}">
+                                <div class="home-medical-content-img-doctor">
+
+                                    <a th:href="@{/culproChineseMedicines/detail(itemid=${doctor.itemid},pages=${doctorForHomeList.pages})}" target="_blank">
+
+                                        <!--真实路径：th:src="@{${doctor.getCulproFile().getFilePath()}}" -->
+                                        <!--演示路径-->
+                                        <img th:src="@{'/images/home/u251.png'}" src="../static/images/home/u251.png" height="90px"width="90px">
+                                    </a>
+                                </div>
+                                <div class="home-medical-content-doctor" style="margin-left: 60px; margin-top: -10px;" >
+                                    <a th:href="@{/culproChineseMedicines/detail(itemid=${doctor.itemid},pages=${doctorForHomeList.pages})}" >
+                                        <p class="home-medical-content-name1" th:text="${doctor.getChineseMedicineName()}">李佃贵</p>
+                                        <p class="home-medical-content-intro" th:text="|主要诊治:${doctor.getMainVisit()}|">主要诊治：脾胃病</p>
+                                        <p class="home-medical-content-intro" th:text="|出诊地点:${doctor.getCulproHosp().getHospitalName()}|">出诊地点：石家庄市医院</p>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="home-medical-more" style="margin-top: 30px;color: red;" >
+                                <A th:href="@{/culproChineseMedicines}" target="_blank"><p style="margin-left: 300px;color: red">更多>></p></A>
+                            </div>
+
+
+                            <div class="home-medical-hospital-content"  th:remove="all">
+                                <div class="home-medical-content-img-doctor">
+                                    <img th:src="@{'/images/home/u251.png'}"
+                                         src="../static/images/home/u251.png" >
+                                </div>
+                                <div class="home-medical-content-doctor" style="margin-left: 20px"th:remove="all">
+                                    <a href="/medical/doctorMsg.html?itemid=2&amp;itemcode=002&amp;menutab=6">
+                                        <p class="home-medical-content-name1">姚希贤</p>
+                                        <p class="home-medical-content-intro">主要诊治：脾胃病</p>
+                                        <p class="home-medical-content-intro">出诊地点：河北省中医院</p>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="home-medical-more"th:remove="all">
+                                <A href="https://www.baidu.com/" target="_blank"><p style="margin-left: 330px;color: red">更多>></p></A>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--产业发展-->
+                <div class="row clearfix">
+                    <div class="home-development-body">
+                        <div class="home-health-icon-body">
+                            <div class="home-icon">
+                                <img th:src="@{'/images/home/u115.svg'}"
+                                     src="../../static/images/home/u115.svg" alt="ex" class="home-health-line">
+                            </div>
+                            <div class="home-develop-text-div">
+                                <img th:src="@{'/images/home/u114.svg'}"
+                                     src="../../static/images/home/u114.svg" alt="ex">
+                                <div class="home-develop-text">
+                                    <p class="home-medical-head-title">产业发展</p>
+                                    <span class="home-medical-head-intro">Industrial Development</span>
+                                </div>
+                                <img th:src="@{'/images/home/u114.svg'}"
+                                     src="../../static/images/home/u114.svg" alt="ex">
+                            </div>
+                            <div class="home-icon">
+                                <img th:src="@{'/images/home/u115.svg'}"
+                                     src="../../static/images/home/u115.svg" alt="ex" class="home-health-line">
+                            </div>
+                        </div>
+                        <!--产业内容-->
+                        <div class="home-development-content-body">
+                            <div class="home-development-content">
+                                <span class="home-development-num" th:text="${resDev[0]}"></span>
+                                <p class="home-develop-name">中药材种植园</p>
+                            </div>
+                            <div class="home-development-content">
+                                <span class="home-development-num" th:text="${resDev[1]}">2</span>
+                                <p class="home-develop-name">中药材加工企业</p>
+                            </div>
+                            <div class="home-development-content">
+                                <span class="home-development-num" th:text="${resDev[2]}">1</span>
+                                <p class="home-develop-name">中药材制药企业</p>
+                            </div>
+                            <div class="home-development-content">
+                                <span class="home-development-num" th:text="${resDev[3]}">1</span>
+                                <p class="home-develop-name">中医医疗机构</p>
+                            </div>
+                            <div class="home-development-content">
+                                <span class="home-development-num" th:text="${resDev[4]}">1</span>
+                                <p class="home-develop-name">科研院所</p>
+                            </div>
+                            <div class="home-development-content">
+                                <span class="home-development-num" th:text="${resDev[5]}">1</span>
+                                <p class="home-develop-name">高等医学院校</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--科研成果-->
+                <div class="cake5">
+                    <div class="cake5_one">
+                        <div class="title_1"><span>科研成果</span> <A style="float: right" th:href="@{/achi/achiList}" target="_blank"><p>更多>></p></A></div>
+
+                        <table class="col-md-12">
+                            <thead>
+                                <tr>
+                                    <td></td>
+                                    <td align="center" class="detailFont"><b>项目名称</b></td>
+                                    <td align="center" class="detailFont"><b>研究成果</b></td>
+                                    <td align="center" class="detailFont"><b>来源机构</b></td>
+                                    <td align="center" class="detailFont"><b>发布日期</b></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="sciAchis,status : ${industrialDevelopSciAchis}">
+                                <td align="center"><img th:src="@{/images/home/u47.svg}"
+                                                        src="../../../resources/static/images/home/u47.svg" style="width: 7%;"></td>
+                                <td style="width: 33%;overflow: hidden;height: 30px">
+                                    <a class="td-a" th:href="@{/achi/achiDetail(itemid=${sciAchis.itemid},itemcode=${sciAchis.itemcode})}" target="_blank">
+                                        <span th:text="${#strings.abbreviate(sciAchis.getProjectName(),30)}"></span>
+                                    </a>
+                                </td>
+                                <td align="center" style="width: 20%">
+                                    <a class="td-a" th:href="@{/achi/achiDetail(itemid=${sciAchis.itemid},itemcode=${sciAchis.itemcode})}" target="_blank">
+                                        <span th:text="${#strings.abbreviate(sciAchis.getIndustrialDevelopName(),14)}"></span>
+                                    </a>
+                                </td>
+                                <td align="center" style="width: 20%">
+                                    <a class="td-a" th:href="@{/org/orgDetail(orgName=${sciAchis.organization.orgName})}" target="_blank">
+                                        <span th:text="${#strings.abbreviate(sciAchis.getOrganization().getOrgName(),13)}"></span>
+                                    </a>
+                                </td>
+                                <td align="center" style="width: 20%">
+                                    <a class="td-a" href="#">
+                                        <span th:text="${#dates.format(sciAchis.getItemcreateat(), 'yyyy.MM.dd')}"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                    <!-- 科研成果END -->
+                    <!-- 合作交流 -->
+                    <div class="cake5_two">
+                        <DIV class="title_1"><SPAN>合作交流</SPAN> <A style="float: right" th:href="@{/cooexc/cooexcList}" target="_blank"><p>更多>></p></A></DIV>
+
+                        <table class="col-md-12">
+                            <thead>
+                            <td></td>
+                            <td align="center" class="detailFont"><b>合作信息</b></td>
+                            <td align="center" class="detailFont"><b>预期合作机构</b></td>
+                            <td align="center" class="detailFont"><b>来源机构</b></td>
+                            <td align="center" class="detailFont"><b>发布日期</b></td>
+                            </thead>
+                            <tbody>
+                            <tr th:each="cooExcs,status : ${industrialDevelopCooExcs}">
+                                <td align="center"><img th:src="@{/images/home/u47.svg}"
+                                                        src="../../../resources/static/images/home/u47.svg" style="width: 7%;"></td>
+                                <td style="width: 33%;overflow: hidden;height: 30px">
+                                    <a class="td-a" th:href="@{/cooexc/cooexcDetail(itemid=${cooExcs.itemid},itemcode=${cooExcs.itemcode})}" target="_blank">
+                                        <span th:text="${#strings.abbreviate(cooExcs.getCooperationExchangeName(),30)}"></span>
+                                    </a>
+                                </td>
+                                <td align="center" style="width: 20%">
+                                    <a class="td-a" href="#">
+                                        <span th:text="${#strings.abbreviate(cooExcs.getCooperativeOrg(),14)}"></span>
+                                    </a>
+                                </td>
+                                <td align="center" style="width: 20%">
+                                    <a class="td-a"  th:href="@{/org/orgDetail(orgName=${cooExcs.organization.orgName})}" target="_blank">
+                                        <span th:text="${#strings.abbreviate(cooExcs.getOrganization().getOrgName(),13)}"></span>
+                                    </a>
+                                </td>
+                                <td align="center" style="width: 20%">
+                                    <a class="td-a" href="#">
+                                        <span th:text="${#dates.format(cooExcs.getItemcreateat(), 'yyyy.MM.dd')}"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <!-- 合作交流END -->
+                    <!-- 人才招募 -->
+                    <div class="cake5_three" >
+                        <DIV class="title_1"><SPAN>人才招募</SPAN> <A style="float: right" th:href="@{/talrec/talrecList}" target="_blank"><p>更多>></p></A></DIV>
+
+                        <table class="col-md-12">
+                            <thead>
+                            <td></td>
+                            <td align="center" class="detailFont"><b>招聘职位</b></td>
+                            <td align="center" class="detailFont"><b>发布机构</b></td>
+                            <td align="center" class="detailFont"><b>工作地点</b></td>
+                            <td align="center" class="detailFont"><b>发布日期</b></td>
+                            </thead>
+                            <tbody>
+                            <tr th:each="talRec,status : ${industrialDevelopTalRecs}">
+                                <td align="center"><img th:src="@{/images/home/u47.svg}"
+                                                        src="../../../resources/static/images/home/u47.svg" style="width: 7%;"></td>
+                                <td style="width: 33%;overflow: hidden;height: 30px">
+                                    <a class="td-a" th:href="@{/talrec/talrecDetail/(itemid=${talRec.itemid},itemcode=${talRec.itemcode})}" target="_blank">
+                                        <span th:text="${#strings.abbreviate(talRec.getRecruitmentTitle(),30)}"></span>
+                                    </a>
+                                </td>
+                                <td align="center" style="width: 20%;overflow: hidden;">
+                                    <a class="td-a"  th:href="@{/org/orgDetail(orgName=${talRec.organization.orgName})}" target="_blank">
+                                        <span th:text="${#strings.abbreviate(talRec.getOrganization().getOrgName(),14)}"></span>
+                                    </a>
+                                </td>
+                                <td align="center" style="width: 20%;overflow: hidden;">
+                                    <a class="td-a" href="#">
+                                        <span th:text="${#strings.abbreviate(talRec.getWorkplace(),13)}"></span>
+                                    </a>
+                                </td>
+                                <td align="center" style="width: 20%;overflow: hidden;">
+                                    <a class="td-a" href="#">
+                                        <span th:text="${#dates.format(talRec.getItemcreateat(), 'yyyy.MM.dd')}"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <!-- 人才招募END -->
+                </div>
+
+                <!--中医文化-->
+                <!--线-->
+                <div class="home-health-icon-body">
+                    <div class="home-icon">
+                        <img th:src="@{'/images/home/u115.svg'}"
+                             src="../../static/images/home/u115.svg" alt="ex" class="home-health-line">
+                    </div>
+                    <div class="home-develop-text-div">
+                        <img th:src="@{'/images/home/u114.svg'}"
+                             src="../../static/images/home/u114.svg" alt="ex">
+                        <div class="home-develop-text">
+                            <p class="home-medical-head-title">中医文化</p>
+                            <span class="home-medical-head-intro">Traditional Chinese medicine culture</span>
+                        </div>
+                        <img th:src="@{'/images/home/u114.svg'}"
+                             src="../../static/images/home/u114.svg" alt="ex">
+                    </div>
+                    <div class="home-icon">
+                        <img th:src="@{'/images/home/u115.svg'}"
+                             src="../../static/images/home/u115.svg" alt="ex" class="home-health-line">
+                    </div>
+                </div>
+                <div class="cake6">
+
+                    <img th:src="@{/images/home/u6.png}"
+                         src="../static/images/home/u6.png" width="1200px">
+                    <!-- 历代名家 -->
+                    <div class="cake6_1">
+                        <img th:src="@{/images/home/u61.png}"
+                             src="..atic/images/home/u61.png" style="margin-left: 22%">
+                        <div class="ming">
+                            <table class="table">
+                                <tr>
+                                    <td align="center">
+                                        <img th:src="@{|${culproCulturalResources.get(0).getImgPath()}|}"
+                                             src="../../static/images/medicine-culture/u2141.png" >
+                                    </td>
+                                    <td align="center">
+                                        <img th:src="@{|${culproCulturalResources.get(1).getImgPath()}|}"
+                                             src="../../static/images/medicine-culture/u611.jpg" >
+                                    </td>
+                                    <td align="center">
+                                        <img th:src="@{|${culproCulturalResources.get(2).getImgPath()}|}"
+                                             src="../../static/images/medicine-culture/u611.jpg" >
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+                                    <td align="center"><a th:href="@{/chmedicineculs/details?itemId=33333374}" target="_blank"><span th:text="${culproCulturalResources.get(0).getChineseCulturalName()}"></span></a></td>
+                                    <td align="center"><a th:href="@{/chmedicineculs/details?itemId=33333375}" target="_blank"><span th:text="${culproCulturalResources.get(1).getChineseCulturalName()}"></span></a></td>
+                                    <td align="center"><a th:href="@{/chmedicineculs/details?itemId=33333376}" target="_blank"><span th:text="${culproCulturalResources.get(2).getChineseCulturalName()}"></span></a></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <A th:href="@{/chmedicineculs/ldmj}" target="_blank"><p style="margin-left: 320px; color: red">更多>></p></A>
+
+                    </div>
+                    <!-- 历代名家END -->
+                    <!-- 中医名家 -->
+                    <div class="cake6_1">
+                        <img th:src="@{/images/home/u62.png}"
+                             src="../../../resources/static/images/home/u62.png" style="margin-left: 22%" >
+                        <div class="liu">
+                            <ul th:each="cpcr,status : ${culproCulturalResources1}">
+                                <li> <a th:href="@{'/chmedicineculs/details?itemId='+${cpcr.getItemid()}}" target="_blank" ><span th:text="${cpcr.getChineseCulturalName()}"></span></a></li>
+                            </ul>
+
+                        </div>
+
+                        <A th:href="@{/chmedicineculs/zylp}" target="_blank"><p style="margin-left: 320px; margin-top: 25px;color: red">更多>></p></A>
+
+                    </div>
+                    <!-- 中医名家END -->
+                    <!-- 健康旅游 -->
+                    <div class="cake6_1">
+                        <img th:src="@{/images/home/u63.png}"
+                             src="../../../resources/static/images/home/u63.png" style="margin-left: 22%" >
+                        <div class="you">
+                            <img th:src="@{| ${culproChineseCulturals.get(0).getCulturalFacilities().getFilePath()} |}"
+                                 src="../static/images/home/u611.jpg" />
+                            <img th:src="@{| ${culproChineseCulturals.get(1).getCulturalFacilities().getFilePath()} |}"
+                                 src="../static/images/home/u611.jpg" />
+                            <img th:src="@{| ${culproChineseCulturals.get(2).getCulturalFacilities().getFilePath()} |}"
+                                 src="../static/images/home/u611.jpg" />
+                            <img th:src="@{| ${culproChineseCulturals.get(3).getCulturalFacilities().getFilePath()} |}"
+                                 src="../static/images/home/u611.jpg" />
+                            <img th:src="@{| ${culproChineseCulturals.get(4).getCulturalFacilities().getFilePath()} |}"
+                                 src="../static/images/home/u611.jpg" />
+                            <img th:src="@{| ${culproChineseCulturals.get(5).getCulturalFacilities().getFilePath()} |}"
+                                 src="../static/images/home/u611.jpg" />
+                        </div>
+
+                        <A th:href="@{/chmedicineculs/jkly}" target="_blank"><p style="margin-left: 320px; margin-top: 220px;color: red">更多>></p></A>
+
+                    </div>
+                    <!-- 健康旅游END -->
+                </div>
+
+                <!--养生保健-->
+                <!--线-->
+                <div class="home-health-icon-body">
+                    <div class="home-icon">
+                        <img th:src="@{'/images/home/u115.svg'}"
+                             src="../../static/images/home/u115.svg" alt="ex" class="home-health-line">
+                    </div>
+                    <div class="home-develop-text-div">
+                        <img th:src="@{'/images/home/u114.svg'}"
+                             src="../../static/images/home/u114.svg" alt="ex">
+                        <div class="home-develop-text">
+                            <p class="home-medical-head-title">养生保健</p>
+                            <span class="home-medical-head-intro">Health care</span>
+                        </div>
+                        <img th:src="@{'/images/home/u114.svg'}"
+                             src="../../static/images/home/u114.svg" alt="ex">
+                    </div>
+                    <div class="home-icon">
+                        <img th:src="@{'/images/home/u115.svg'}"
+                             src="../../static/images/home/u115.svg" alt="ex" class="home-health-line">
+                    </div>
+                </div>
+
+                <!--养生保健-->
+                <div class="cake7">
+                    <!--科普知识-->
+                    <div class="cake7_1">
+                        <img th:src="@{/images/home/u71.png}"
+                             src="../static/images/home/u71.png" >
+                        <DIV class="text_list_1">
+                            <ul>
+                                <li th:each="knownledge:${healthCareSciKnowForHomeList}"> <a th:text="${knownledge.getScienceKnowledgeName()}" th:href="@{'healthcare/sciknow_detail?itemId='+${knownledge.getItemid()}}" target="_blank" >为什么人体要顺应四季的变化？</a></li>
+                                <li  th:remove="all"> <a href="#" target="_blank" >春季如何养生保健？</a></li>
+                                <li  th:remove="all"> <a href="#" target="_blank" >夏季如何养生保健？</a></li>
+                                <li  th:remove="all"> <a href="#" target="_blank" >秋季如何养生保健？</a></li>
+                                <li  th:remove="all"> <a href="#" target="_blank" >冬季如何养生保健？</a></li>
+                            </ul>
+                            <A th:href="@{/healthcare/science/list}" target="_blank"><p style="margin-left: 320px;color: red">更多>></p></A>
+                        </DIV>
+                    </div>
+                    <!--历史名方-->
+                    <div class="cake7_1">
+                        <img th:src="@{/images/home/u72.png}"
+                             src="../static/images/home/u72.png" >
+                        <DIV class="text_list_1">
+                            <ul>
+                                <li th:each="famous:${culproFamPreForHomeList}"> <a th:text="${famous.getName()}" th:href="@{'/fam/detail?itemId='+${famous.getItemid()}}" target="_blank" >初秋药膳：四神玉斛葛鱼汤</a></li>
+                                <li th:remove="all"> <a href="#" target="_blank" >按摩点击可润燥养肺</a></li>
+                                <li th:remove="all"> <a href="#" target="_blank" >慢性咽炎沏金银花玄参青果茶</a></li>
+                                <li th:remove="all"> <a href="#" target="_blank" >烦渴失眠喝七鲜育阴汤</a></li>
+                                <li th:remove="all"> <a href="#" target="_blank" >烦渴失眠喝七鲜育阴汤</a></li>
+                            </ul>
+                            <A th:href="@{/fam/list?pageNum=1}" target="_blank"><p style="margin-left: 320px;color: red">更多>></p></A>
+
+                        </DIV>
+                    </div>
+                    <div class="cake7_1">
+                        <img th:src="@{/images/home/u73.png}"
+                             src="../static/images/home/u73.png" >
+                        <DIV class="text_list_1">
+                            <ul>
+                                <li th:each="health:${healthCareFamPreForHomeList}"> <a th:href="@{'/doctor_health_detail?itemId='+${health.getItemid()}}"  th:text="${#strings.abbreviate(health.getName(),22)}" target="_blank" >【国医话健康】宝宝发烧怎么办？不打针不吃药不...</a></li>
+                                <li th:remove="all"> <a href="#" target="_blank" >【国医话健康】宝宝消化不良怎么办？别急，轻松...</a></li>
+                                <li th:remove="all"> <a href="#" target="_blank" >【国医话健康】你家宝宝都快把肺咳出来了？那是...</a></li>
+                                <li th:remove="all"> <a href="#" target="_blank" >【国医话健康】孩子便秘莫发愁，中医推拿揉一揉！</a></li>
+                                <li th:remove="all"> <a href="#" target="_blank" >【国医话健康】学会这四招，和肩周炎说再见！</a></li>
+                            </ul>
+                            <A th:href="@{/doctor/list?pageNum=1}" target="_blank"><p style="margin-left: 330px;color: red">更多>></p></A>
+
+                        </DIV>
+                    </div>
+                </div>
+                
+            </div>
+
+        </div>
+
+    </div>
+
+    <!--底部-->
+    <div id="footer" th:include="public/footer :: publicFooter"></div>
+
+<!-- Sweet alert -->
+<script th:src="@{/component/inspinia/js/plugins/sweetalert/sweetalert.min.js}"
+        src="../../static/component/inspinia/js/plugins/sweetalert/sweetalert.min.js"></script>
+</body>
+</html>

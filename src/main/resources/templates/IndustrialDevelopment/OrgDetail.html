@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:background="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>机构详情</title>
+    <!-- Bootstrap -->
+    <link th:href="@{/component/bootstrap-3.3.7/css/bootstrap.min.css}"
+          href="../../static/component/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link   th:href="@{/component/inspinia/css/plugins/sweetalert/sweetalert.css}"
+            href="../../static/component/inspinia/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- 静态资源起始位为static-->
+    <script  th:src="@{/component/jquery-2.2.4.js}"
+             src="../../static/component/jquery-2.2.4.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script th:src="@{/component/bootstrap-3.3.7/js/bootstrap.min.js}"
+            src="../../static/component/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <link th:href="@{/project/homepage/main.css}"
+          href="../../static/project/homepage/main.css" rel="stylesheet">
+        <style>
+            .nav-tabs>li>a{
+                color: black;
+            }
+       .nav-tabs>li.active>a,
+       .nav-tabs>li.active>a:focus{
+           background-color: #D9001B;
+           color: white;
+       }
+            a,a:hover{
+                text-decoration: none;
+                color: #775637;
+            }
+
+        </style>
+</head>
+<body>
+<!--头部-->
+<div id="header" th:include="public/header :: publicHeader"></div>
+<div class="container">
+    <div class="col-md-1"></div>
+    <div class="col-md-10 col-md-offset-1">
+        <div id="IndustrialDetailBody" style="display: flex ;border: #f6f5f5 solid 1px; " >
+            <!--    标题-->
+            <div id="IndustrialTitle" style="display: flex ; flex-direction: column;margin-top: 50px;margin-left: 50px">
+                <div style="display: flex;margin-top: 30px"  >
+                    <img th:src="@{/images/home/u22.png}" width="102px" height="38px"
+                         src="../../static/images/home/u22.png" alt="">
+                    <span style="display: flex;position: relative; right: 105px;top: 10px;width: 102px;height: 20px;
+                                text-align: center">
+                    <a  th:href="@{/org/index}"
+                        href="#" style="width: 102px;height: 20px">资源分布</a>
+                </span>
+                </div>
+                <div style="display: flex;margin-top: 30px"  >
+                    <img th:src="@{/images/home/u22.png}" width="102px" height="38px"
+                         src="../../static/images/home/u22.png" alt="">
+                    <span style="display: flex;position: relative; right: 105px;top: 10px;width: 102px;height: 20px;
+                                text-align: center">
+                    <a  th:href="@{/achi/achiList}"
+                        href="#" style="width: 102px;height: 20px">科研成果</a>
+                </span>
+                </div>
+                <div style="display: flex;margin-top: 30px"  >
+                    <img th:src="@{/images/home/u22.png}" width="102px" height="38px"
+                         src="../../static/images/home/u22.png" alt="">
+                    <span style="display: flex;position: relative; right: 105px;top: 10px;width: 102px;height: 20px;
+                                text-align: center">
+                    <a th:href="@{/cooexc/cooexcList}"
+                       href="#" style="width: 102px;height: 20px">合作研究</a>
+                </span>
+                </div>
+                <div style="display: flex;margin-top: 30px"  >
+                    <img th:src="@{/images/home/u22.png}" width="102px" height="38px"
+                         src="../../static/images/home/u22.png" alt="">
+                    <span style="display: flex;position: relative; right: 105px;top: 10px;width: 102px;height: 20px;
+                                text-align: center">
+                    <a   th:href="@{/talrec/talrecList}" width="102px" height="38px"
+                         href="#" style="width: 102px;height: 20px">人才招募</a>
+                </span>
+                </div>
+            </div>
+            <!--       主体部分 -->
+            <div style="display: flex;flex-direction: column;margin-top: 100px" >
+                <div id="returnlist">
+                 <span>
+                <p ><a th:href="@{/org/orglist(pageNum=${pageNum})}" style="color: red;text-decoration: none">&lt;返回</a></p>
+            </span>
+                </div>
+                <!--        种植园 加工企业 制药企业 销售企业-->
+                <div id="qiyeandzhongzhiyuan" th:if="${orgDetail.orgIdentify eq '中药材种植园'}
+                                                            or ${orgDetail.orgIdentify eq '中药材加工企业'}
+                                                            or ${orgDetail.orgIdentify eq   '中药材制药企业'}
+                                                            or ${orgDetail.orgIdentify eq  '中药材销售企业' } ">
+                    <div id="titlename" style="margin-left: 200px">
+                        <img th:src="@{/images/home/u133.png}"
+                             src="../../static/images/home/u133.png" alt="">
+                        <span th:text="${orgDetail.orgName}" style="position: relative;top: 4px;right: 140px;font-size: 20px;font-weight: bold;"></span>
+                    </div>
+                    <div id="description" >
+                        <div  style=" display: flex;flex-direction: row" >
+                            <div  style="width: 3px;height: 16px; background-color: red;"></div>
+                            <div style="font-weight: bold;color: #775637" th:if="${orgDetail.orgIdentify eq '中药材种植园'}">种植园简介:</div>
+                            <div style="font-weight: bold;color: #775637" th:if="${orgDetail.orgIdentify eq '中药材加工企业'}">加工企业简介:</div>
+                            <div style="font-weight: bold;color: #775637" th:if="${orgDetail.orgIdentify eq '中药材制药企业'}
+                                                                                                                or ${orgDetail.orgIdentify eq  '中药材销售企业'}">企业介绍:</div>
+
+                        </div>
+                        <div style="margin-top: 10px;background-color: #F8F8F8;margin-left: 20px" th:text="'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'
+            +${orgDetail.tbIndustrialDevelopChiMed.intruduce}"></div>
+                    </div>
+                    <!--图片-->
+                    <div th:each="imgfile,status:${Imgfile}">
+                        <img  th:src="@{${imgfile.filePath}}" th:if="${imgfile.fileName eq orgDetail.orgName}"  style="width: 664px;height: auto"
+                              src="../../static/images/industry-dev/u1509.png" alt="">
+                    </div>
+                    <!--            基本信息-->
+                    <div id="baseImformation" style="margin-top: 10px" >
+                        <div  style=" display: flex;flex-direction: row" >
+                            <div  style="width: 3px;height: 16px; background-color: red;"></div>
+                            <div style="font-weight: bold;color: #775637" th:if="${orgDetail.orgIdentify eq '中药材种植园'}">种植园基本信息:</div>
+                            <div style="font-weight: bold;color: #775637" th:if="${orgDetail.orgIdentify eq '中药材加工企业'}">加工企业基本信息:</div>
+                            <div style="font-weight: bold;color: #775637" th:if="${orgDetail.orgIdentify eq '中药材制药企业'}">制药企业基本信息:</div>
+                            <div style="font-weight: bold;color: #775637" th:if="${orgDetail.orgIdentify eq '中药材销售企业'}">销售企业基本信息:</div>
+                        </div>
+                        <div style="background-color: #F8F8F8;margin-left: 20px" th:if="${orgDetail.orgIdentify eq '中药材种植园'}
+                                                                                                                                or ${orgDetail.orgIdentify eq '中药材加工企业'}
+                                                                                                                                 or ${orgDetail.orgIdentify eq   '中药材制药企业'}
+                                                                                                                                or  ${orgDetail.orgIdentify eq  '中药材销售企业' }"  >
+
+                            <div style="flex-direction: row;display: flex;padding-top: 10px" th:if="${orgDetail.orgIdentify eq '中药材种植园'}">
+                                <div style="color:#775637;font-size: 15px">种植种类:</div>
+                                <div  th:text="${orgDetail.tbIndustrialDevelopChiMed.plantType}" ></div>
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding-top: 10px" th:if="${orgDetail.orgIdentify eq '中药材加工企业'}">
+                                <div style="color:#775637;font-size: 15px">加工种类:</div>
+                                <!--                    -->
+                                <div  th:text="${orgDetail.tbIndustrialDevelopChiMed.plantType}" ></div>
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding-top: 10px" th:if="${orgDetail.orgIdentify eq '中药材制药企业'}">
+                                <div style="color:#775637;font-size: 15px">生产药品:</div>
+                                <div  th:text="${orgDetail.tbIndustrialDevelopChiMed.peoduceDrug}" ></div>
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding-top: 10px" th:if="${orgDetail.orgIdentify eq '中药材销售企业'}">
+                                <div style="color:#775637;font-size: 15px">销售药品:</div>
+                                <div  th:text="${orgDetail.tbIndustrialDevelopChiMed.sellingDrugs}" ></div>
+                            </div>
+
+                            <div style="flex-direction: row;display: flex;padding-top: 10px" th:if="${orgDetail.orgIdentify eq '中药材种植园'}">
+                                <div style="color:#775637;font-size: 15px">种植面积:</div>
+                                <div th:text="${orgDetail.areaCoverd}" ></div>
+                            </div>
+
+                            <div style="flex-direction: row;display: flex;padding-top: 10px" th:if="${orgDetail.orgIdentify eq '中药材加工企业'}">
+                                <div style="color:#775637;font-size: 15px">占地面积:</div>
+                                <div th:text="${orgDetail.areaCoverd}" ></div>
+                            </div>
+
+                            <div style="flex-direction: row;display: flex;padding-top: 10px" th:if="${orgDetail.orgIdentify eq '中药材销售企业'}">
+                                <div style="color:#775637;font-size: 15px">销售种类:</div>
+                                <div th:text="${orgDetail.tbIndustrialDevelopChiMed.salesCategory}" ></div>
+                            </div>
+
+                            <div style="flex-direction: row;display: flex;padding-top: 10px" th:if="${orgDetail.orgIdentify eq '中药材制药企业'}">
+                                <div style="color:#775637;font-size: 15px">生产种类:</div>
+                                <div th:text="${orgDetail.tbIndustrialDevelopChiMed.processingType}" ></div>
+                            </div>
+
+                            <div style="flex-direction: row;display: flex;padding-top: 10px">
+                                <div style="color:#775637;font-size: 15px">地址:</div>
+                                <div th:text="${orgDetail.tbIndustrialDevelopChiMed.address}" ></div>
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding-top: 10px">
+                                <div style="color:#775637;font-size: 15px">联系人:</div>
+                                <div th:text="${orgDetail.contacts}" ></div >
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding-top: 10px">
+                                <div style="color:#775637;font-size: 15px">联系电话:</div>
+                                <div th:text="${orgDetail.phone}" ></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--            标签页-->
+                    <div  style="margin-top: 10px">
+                        <div  style=" display: flex;flex-direction: row" >
+                            <div  style="width: 3px;height: 16px; background-color: red;"></div>
+                            <div style="font-weight: bold;color: #775637">基本信息:</div>
+                        </div>
+                        <div >
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#home1" aria-controls="home1" role="tab" data-toggle="tab">基本信息</a></li>
+                                <li role="presentation"><a href="#profile1" aria-controls="profile1" role="tab" data-toggle="tab">行政处罚</a></li>
+                                <li role="presentation"><a href="#messages1" aria-controls="messages1" role="tab" data-toggle="tab">列入经营异常名录信息</a></li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content" style="background-color: #F8F8F8;margin-left: 20px" >
+                                <div role="tabpanel" class="tab-pane active" id="home1" >
+                                    <div style="flex-direction: row;display: flex">
+                                        <div style="color:#775637;font-size: 15px">法人代表::</div>
+                                        <div  th:text="刘明" ></div>
+                                    </div>
+
+                                    <div style="flex-direction: row;display: flex;padding-top: 10px">
+                                        <nobr><div style="color:#775637;font-size: 15px;" >经营范围:</div></nobr>
+                                        <div  th:text="${orgDetail.tbIndustrialDevelopChiMed.intruduce}" ></div>
+                                    </div>
+
+                                </div>
+                                <div role="tabpanel" class="tab-pane"  id="profile1">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr >
+                                            <th style="text-align: center">决定文书</th>
+                                            <th style="text-align: center">违法行为类型</th>
+                                            <th style="text-align: center">行政处罚内容</th>
+                                            <th style="text-align: center">决定机关名称</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody style="background-color: white">
+                                        <tr>
+                                            <td>11111111111</td>
+                                            <td>222222222</td>
+                                            <td>333333333</td>
+                                            <td>4444444444</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="messages1">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr >
+                                            <th style="text-align: center">列入异常经营名录原因</th>
+                                            <th style="text-align: center">列入日期</th>
+                                            <th style="text-align: center">做出决定机关(列入)</th>
+                                            <th style="text-align: center">移出异常经营名录原因</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody style="background-color: white">
+                                        <tr>
+                                            <td>11111111111</td>
+                                            <td>222222222</td>
+                                            <td>333333333</td>
+                                            <td>4444444444</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--           在售药材 -->
+                    <div  style="margin-top: 10px" th:if="${orgDetail.orgIdentify eq '中药材种植园'} or  ${orgDetail.orgIdentify eq '中药材加工企业'}">
+                        <div  style=" display: flex;flex-direction: row" >
+                            <div  style="width: 3px;height: 16px; background-color: red;"></div>
+                            <div style="font-weight: bold;color: #775637">在售药材:</div>
+                        </div>
+                        <div style="display: flex;flex-direction: row">
+
+                            <div th:each="medical,status:${Med}">
+                                <div style="display: flex;flex-direction: column" th:if="${medical.name eq medical.tbCulproFile.fileName}">
+                                    <div>
+                                        <!--                                             跳转到药材详情页面-->
+                                        <a  th:href="@{/org/MedMatDetail(name=${medical.name},orgCode=${medical.orgCode},itemid=${medical.itemid},itemcode=${medical.itemcode})}"
+                                            href="#">
+                                            <img th:src="@{${medical.tbCulproFile.filePath}}"  src="" alt="" style="width: 180px;height: auto">
+                                        </a>
+                                    </div>
+                                    <div style="flex-direction: row;display: flex;padding-top: 10px">
+                                        <div >药材名称:</div>
+                                        <div th:text="${medical.name}" ></div>
+                                    </div>
+                                    <div style="flex-direction: row;display: flex;padding-top: 10px">
+                                        <div >价格:</div>
+                                        <div th:text="${medical.price}" ></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--            在售药品-->
+                    <div  style="margin-top: 10px" th:if="${orgDetail.orgIdentify eq '中药材制药企业'} or  ${orgDetail.orgIdentify eq '中药材销售企业'}">
+                        <div  style=" display: flex;flex-direction: row" >
+                            <div  style="width: 3px;height: 16px; background-color: red;"></div>
+                            <div style="font-weight: bold;color: #775637">在售药品:</div>
+                        </div>
+                        <div style="display: flex;flex-direction: row;margin-top: 20px">
+                            <div th:each="saleDru,status:${saleDrus}">
+                                <div style="display: flex;flex-direction: column" th:if="${saleDru.tbCulproFile.fileName eq saleDru.drugName}">
+                                    <div style="margin-left: 30px">
+                                        <!--                                             跳转到药品详情页面-->
+                                        <a th:href="@{/org/SaleDrugDetail(drugName=${saleDru.drugName},orgCode=${saleDru.orgCode},itemcode=${saleDru.itemcode},itemid=${saleDru.itemid})}">
+                                            <img th:src="@{${saleDru.tbCulproFile.filePath}}"  src="" alt="" style="width: 180px;height: 134px">
+                                        </a>
+                                    </div>
+                                    <div style="flex-direction: row;display: flex;padding-top: 10px">
+                                        <div style="margin-left: 30px">药材名称:</div>
+                                        <div th:text="${saleDru.drugName}" ></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--       中医医疗机构 -->
+                <div id="zhongyiyiliaojigou" th:if="${orgDetail.orgIdentify eq '中医医疗机构'}">
+                    <div style="margin-left: 230px">
+                        <img th:src="@{/images/home/u133.png}"
+                             src="../../static/images/home/u133.png" alt="">
+                        <span th:text="${orgDetail.orgName}" style="position: relative;top: 4px;right: 140px;font-size: 20px;font-weight: bold"></span>
+                        <div style="position: relative; left: 180px" th:text="${orgDetail.tbCulproHosp.hospitalLevel}"></div>
+                    </div>
+                    <div >
+                        <div  style=" display: flex;flex-direction: row" >
+                            <div  style="width: 3px;height: 16px; background-color: red;"></div>
+                            <div style="font-weight: bold;color: #775637">医院介绍:</div>
+                        </div>
+                        <div style="margin-top: 10px;background-color: #F8F8F8" th:text="'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'
+            +${orgDetail.tbCulproHosp.hospitalBriefIntroduce}"></div>
+                    </div>
+                    <!--                    图片-->
+                    <div th:each="imgfile,status:${Imgfile}">
+                        <img  th:src="@{${imgfile.filePath}}" th:if="${imgfile.fileName eq orgDetail.orgName}"  style="width: 664px;height: auto"
+                              src="../../static/images/industry-dev/u1509.png" alt="">
+                    </div>
+                    <!--             基本信息 -->
+                    <div style="margin-top: 10px" >
+                        <div style="background-color: #F8F8F8;margin-left: 20px"  >
+                            <div style="flex-direction: row;display: flex;padding-top: 10px">
+                                <div style="color:#775637;font-size: 15px">重点专科:</div>
+                                <div  th:each="hospitalKeySpecialty,status:${orgDetail.tbCulproHosp.hospitalKeySpecialty.split(' ')}" style="margin-left: 20px;height: 23px;width: 85px">
+                                    <img    th:src="@{/images/home/u22.png}" style="height: 23px;width: 85px"
+                                            src="../../static/images/home/u22.png" alt="">
+                                    <span th:text="${hospitalKeySpecialty}" style="position: relative;left: 15px;top: -22px" ></span>
+                                </div>
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding-top: 10px">
+                                <div style="color:#775637;font-size: 15px">联系电话:</div>
+                                <div th:text="${orgDetail.tbCulproHosp.hospitalTelephone}" ></div>
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding-top: 10px">
+                                <div style="color:#775637;font-size: 15px">医院地址:</div>
+                                <div th:text="${orgDetail.tbCulproHosp.hospitalAddress}" ></div>
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding-top: 10px">
+                                <div style="color:#775637;font-size: 15px">连接地址:</div>
+                                <a th:text="${orgDetail.tbCulproHosp.hospitalLink}"  th:href="@{${orgDetail.tbCulproHosp.hospitalLink}}"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--       高等医学院校   科研院所-->
+                <div id="" th:if="${orgDetail.orgIdentify eq '高等医学院校'} or ${orgDetail.orgIdentify eq '科研院所'}">
+                    <div style="margin-left: 230px">
+                        <img th:src="@{/images/home/u133.png}"
+                             src="../../static/images/home/u133.png" alt="">
+                        <span th:text="${orgDetail.orgName}" style="position: relative;top: 4px;right: 140px;font-size: 20px;font-weight: bold"></span>
+                    </div>
+                    <div  >
+                        <div  style=" display: flex;flex-direction: row" >
+                            <div  style="width: 3px;height: 16px; background-color: red;"></div>
+                            <div style="font-weight: bold;color: #775637" th:if="${orgDetail.orgIdentify eq '高等医学院校'}">学校简介:</div>
+                            <div style="font-weight: bold;color: #775637" th:if="${orgDetail.orgIdentify eq '科研院所'}">院所简介:</div>
+                        </div>
+                        <div style="margin-top: 10px;background-color: #F8F8F8;margin-left: 20px" th:text="'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'
+               +${orgDetail.tbIndustrialDevelopSchool.schoolText}" th:if="${orgDetail.orgIdentify eq '高等医学院校'}"></div>
+                        <div style="margin-top: 10px;background-color: #F8F8F8;margin-left: 20px" th:text="'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'
+               +${orgDetail.tbIndustrialDevelopTecSerOrg.intruduce}" th:if="${orgDetail.orgIdentify eq '科研院所'}"></div>
+                    </div>
+                    <!--图片-->
+                    <div th:each="imgfile,status:${Imgfile}">
+                        <img  th:src="@{${imgfile.filePath}}" th:if="${imgfile.fileName eq orgDetail.orgName}"  style="width: 664px;height: auto"
+                              src="../../static/images/industry-dev/u1509.png" alt="">
+                    </div>
+                    <!--            基本信息-->
+                    <div style="margin-top: 10px" >
+                        <div  style=" display: flex;flex-direction: row" >
+                            <div  style="width: 3px;height: 16px; background-color: red;"></div>
+                            <div style="font-weight: bold;color: #775637" th:if="${orgDetail.orgIdentify eq '高等医学院校'}">院校基本信息:</div>
+                            <div style="font-weight: bold;color: #775637" th:if="${orgDetail.orgIdentify eq '科研院所'}">院所基本信息:</div>
+                        </div>
+                        <div style="background-color: #F8F8F8;margin-left: 20px"  >
+                            <div style="flex-direction: row;display: flex;padding-top: 10px"  th:if="${orgDetail.orgIdentify eq '高等医学院校'}">
+                                <div style="color:#775637;font-size: 15px">二级学院名称:</div>
+                                <div  th:text="${orgDetail.tbIndustrialDevelopSchool.secondaryCollege}" ></div>
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding-top: 10px"  th:if="${orgDetail.orgIdentify eq '科研院所'}">
+                                <div style="color:#775637;font-size: 15px">联系电话:</div>
+                                <div  th:text="${orgDetail.tbIndustrialDevelopTecSerOrg.phone}" ></div>
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding-top: 10px" th:if="${orgDetail.orgIdentify eq '高等医学院校'}">
+                                <div style="color:#775637;font-size: 15px">本科招生专业:</div>
+                                <div th:text="${orgDetail.tbIndustrialDevelopSchool.enrollmentMajor}" ></div>
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding-top: 10px" th:if="${orgDetail.orgIdentify eq '科研院所'}">
+                                <div style="color:#775637;font-size: 15px">院所地址:</div>
+                                <div th:text="${orgDetail.tbIndustrialDevelopTecSerOrg.address}" ></div >
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding-top: 10px" th:if="${orgDetail.orgIdentify eq '高等医学院校'}">
+                                <div style="color:#775637;font-size: 15px">研究生招生专业:</div>
+                                <div th:text="${orgDetail.tbIndustrialDevelopSchool.graduateEnrollmentMajor}" ></div>
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding-top: 10px" th:if="${orgDetail.orgIdentify eq '高等医学院校'}">
+                                <div style="color:#775637;font-size: 15px">联系电话:</div>
+                                <div th:text="${orgDetail.tbIndustrialDevelopSchool.phone}" ></div>
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding-top: 10px" th:if="${orgDetail.orgIdentify eq '高等医学院校'}">
+                                <div style="color:#775637;font-size: 15px">学校地址:</div>
+                                <div th:text="${orgDetail.tbIndustrialDevelopSchool.address}" ></div >
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding-top: 10px" th:if="${orgDetail.orgIdentify eq '高等医学院校'}">
+                                <div style="color:#775637;font-size: 15px">连接地址:</div>
+                                <a th:text="${orgDetail.tbIndustrialDevelopSchool.onlineAddress}" ></a >
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding-top: 10px" th:if="${orgDetail.orgIdentify eq '科研院所'}">
+                                <div style="color:#775637;font-size: 15px">连接地址:</div>
+                                <a th:text="${orgDetail.tbIndustrialDevelopTecSerOrg.onlineAddress}" ></a >
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--           科研成果 -->
+                    <div  style="margin-top: 10px">
+                        <div  style=" display: flex;flex-direction: row;background-color: white" >
+                            <div  style="width: 3px;height: 16px; background-color: red;"></div>
+                            <div style="font-weight: bold;color: #775637">科研成果:</div>
+                        </div>
+
+                        <div th:if="${orgDetail.orgIdentify eq '科研院所'}"  style="display: flex;flex-direction: row;background-color: #F8F8F8;margin-left: 20px">
+                            <div style="color: #775637;margin-left: 150px;font-weight: bold" >项目名称</div>
+                            <div  style="color: #775637;margin-left: 200px;font-weight: bold">研究成果</div>
+                        </div>
+                        <div style="margin-left: 20px;background-color: #F8F8F8">
+                            <div style="flex-direction: row;display: flex;padding-top: 10px;" th:each="sciAchi,status:${tbIndustrialDevelopSciAchis}">
+                                <div style="color:#775637;font-size: 15px" th:text="${status.index+1}+'、'" th:if="${orgDetail.orgIdentify eq '高等医学院校'}"></div>
+                                <div th:text="${sciAchi.projectName}" th:if="${orgDetail.orgIdentify eq '高等医学院校'}"></div >
+
+                                <div style="color:#775637;font-size: 15px" th:text="${status.index+1}+'、'" th:if="${orgDetail.orgIdentify eq '科研院所'}"></div>
+                                <a th:href="@{/achi/achiDetail(itemid=${sciAchi.itemid},itemcode=${sciAchi.itemcode})}">
+                                    <div th:text="${sciAchi.projectName}" th:if="${orgDetail.orgIdentify eq '科研院所'}" style="color:#775637;"></div >
+                                </a>
+                                <div  th:if="${orgDetail.orgIdentify eq '科研院所'}" th:text="${sciAchi.industrialDevelopName}" style="margin-left: 100px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--       技术服务机构-->
+                <div id="jishufuwu" th:if="${orgDetail.orgIdentify eq '技术服务机构'}">
+                    <div style="margin-left: 230px">
+                        <img th:src="@{/images/home/u133.png}"
+                             src="../../static/images/home/u133.png" alt="">
+                        <span th:text="${orgDetail.orgName}" style="position: relative;top: 4px;right: 140px;font-size: 20px;font-weight: bold"></span>
+                    </div>
+                    <div  >
+                        <div  style=" display: flex;flex-direction: row" >
+                            <div  style="width: 3px;height: 16px; background-color: red;"></div>
+                            <div style="font-weight: bold;color: #775637">公司介绍:</div>
+                        </div>
+                        <div style="margin-top: 10px;background-color: #F8F8F8;margin-left: 20px" th:text="'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'
+               +${orgDetail.tbIndustrialDevelopTecSerOrg.intruduce}"></div>
+                    </div>
+                    <!--图片-->
+                    <div th:each="imgfile,status:${Imgfile}">
+                        <img  th:src="@{${imgfile.filePath}}" th:if="${imgfile.fileName eq orgDetail.orgName}"  style="width: 664px;height: auto"
+                              src="../../static/images/industry-dev/u1509.png" alt="">
+                    </div>
+                    <!--            基本信息-->
+                    <div style="margin-top: 10px" >
+                        <div  style=" display: flex;flex-direction: row" >
+                            <div  style="width: 3px;height: 16px; background-color: red;"></div>
+                            <div style="font-weight: bold;color: #775637">基本信息:</div>
+                        </div>
+                        <div style="background-color: #F8F8F8;margin-left: 20px"  >
+                            <div style="flex-direction: row;display: flex;padding-top: 10px">
+                                <div style="color:#775637;font-size: 15px">服务项目:</div>
+                                <div  th:text="${orgDetail.tbIndustrialDevelopTecSerOrg.projectName}" ></div>
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding-top: 10px">
+                                <div style="color:#775637;font-size: 15px">地址:</div>
+                                <div th:text="${orgDetail.tbIndustrialDevelopTecSerOrg.address}" ></div>
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding-top: 10px">
+                                <div style="color:#775637;font-size: 15px">联系人:</div>
+                                <div th:text="${orgDetail.tbIndustrialDevelopTecSerOrg.contacts}" ></div >
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding-top: 10px">
+                                <div style="color:#775637;font-size: 15px">联系电话:</div>
+                                <div th:text="${orgDetail.tbIndustrialDevelopTecSerOrg.phone}" ></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--            标签页-->
+                    <div  style="margin-top: 10px">
+                        <div  style=" display: flex;flex-direction: row" >
+                            <div  style="width: 3px;height: 16px; background-color: red;"></div>
+                            <div style="font-weight: bold;color: #775637">基本信息:</div>
+                        </div>
+                        <div >
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">基本信息</a></li>
+                                <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">行政处罚</a></li>
+                                <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">列入经营异常名录信息</a></li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content" style="background-color: #F8F8F8;margin-left: 20px;margin-top: 10px">
+                                <div role="tabpanel" class="tab-pane active" id="home">
+                                    <div style="flex-direction: row;display: flex">
+                                        <div style="color:#775637;font-size: 15px">法人代表::</div>
+                                        <div  th:text="刘明" ></div>
+                                    </div>
+
+                                    <div style="flex-direction: row;display: flex;padding-top: 10px">
+                                        <div style="color:#775637;font-size: 15px">经营范围:</div>
+                                        <div  th:text="${orgDetail.tbIndustrialDevelopChiMed.intruduce}" ></div>
+                                    </div>
+
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="profile">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr >
+                                            <th style="text-align: center">决定文书</th>
+                                            <th style="text-align: center">违法行为类型</th>
+                                            <th style="text-align: center">行政处罚内容</th>
+                                            <th style="text-align: center">决定机关名称</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody style="background-color: white">
+                                        <tr>
+                                            <td>11111111111</td>
+                                            <td>222222222</td>
+                                            <td>333333333</td>
+                                            <td>4444444444</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="messages">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr >
+                                            <th style="text-align: center">列入异常经营名录原因</th>
+                                            <th style="text-align: center">列入日期</th>
+                                            <th style="text-align: center">做出决定机关(列入)</th>
+                                            <th style="text-align: center">移出异常经营名录原因</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody style="background-color: white">
+                                        <tr>
+                                            <td>11111111111</td>
+                                            <td>222222222</td>
+                                            <td>333333333</td>
+                                            <td>4444444444</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--           服务项目 -->
+                    <div  style="margin-top: 10px">
+                        <div  style=" display: flex;flex-direction: row" >
+                            <div  style="width: 3px;height: 16px; background-color: red;"></div>
+                            <div style="font-weight: bold;color: #775637">服务项目:</div>
+                        </div>
+                        <div style="display: flex;flex-direction: column;background-color: #F8F8F8;margin-left: 20px" >
+                            <div th:each="SerPro,status:${tbIndustrialDevelopSerPros}" style="display: flex;flex-direction: row;margin-top: 10px">
+                                <div th:text="${status.index+1}+'、'"></div>
+                                <a  th:href="@{/org/serproDetail(itemcode=${SerPro.itemcode},itemid=${SerPro.itemid},orgCode=${SerPro.orgCode})}">
+                                    <div th:text="${SerPro.serviceProject}"></div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--        	旅游康养机构-->
+                <div  th:if="${orgDetail.orgIdentify eq '旅游康养机构'} ">
+                    <div style="margin-left: 230px">
+                        <img th:src="@{/images/home/u133.png}"
+                             src="../../static/images/home/u133.png" alt="">
+                        <span th:text="${orgDetail.orgName}" style="position: relative;top: 4px;right: 140px;font-size: 20px;font-weight: bold"></span>
+                    </div>
+                    <div  >
+                        <div  style=" display: flex;flex-direction: row" >
+                            <div  style="width: 3px;height: 16px; background-color: red;"></div>
+                            <div style="font-weight: bold;color: #775637" >基地介绍:</div>
+                        </div>
+                        <div style="margin-top: 10px;background-color: #F8F8F8;margin-left: 20px" th:text="'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'
+               +${orgDetail.tbIndustrialDevelopTecSerOrg.intruduce}" ></div>
+                    </div>
+                    <!--图片-->
+                    <div th:each="imgfile,status:${Imgfile}">
+                        <img  th:src="@{${imgfile.filePath}}" th:if="${imgfile.fileName eq orgDetail.orgName}"  style="width: 664px;height: auto"
+                              src="../../static/images/industry-dev/u1509.png" alt="">
+                    </div>
+                    <!--            基本信息-->
+                    <div style="margin-top: 10px" >
+                        <div  style=" display: flex;flex-direction: row" >
+                            <div  style="width: 3px;height: 16px; background-color: red;"></div>
+                            <div style="font-weight: bold;color: #775637" }>基地基本信息:</div>
+                        </div>
+                        <div style="background-color: #F8F8F8;margin-left: 20px"  >
+                            <div style="flex-direction: row;display: flex;padding-top: 10px"  >
+                                <div style="color:#775637;font-size: 15px">特色服务:</div>
+                                <div  th:text="${orgDetail.tbIndustrialDevelopTecSerOrg.specialService}" ></div>
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding-top: 10px"  >
+                                <div style="color:#775637;font-size: 15px">占地面积:</div>
+                                <div  th:text="${orgDetail.tbIndustrialDevelopTecSerOrg.areaCoverd}" ></div>
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding-top: 10px" >
+                                <div style="color:#775637;font-size: 15px">地址:</div>
+                                <div th:text="${orgDetail.tbIndustrialDevelopTecSerOrg.address}" ></div >
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding-top: 10px" >
+                                <div style="color:#775637;font-size: 15px">联系人:</div>
+                                <div th:text="${orgDetail.tbIndustrialDevelopTecSerOrg.contacts}" ></div >
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding-top: 10px"  >
+                                <div style="color:#775637;font-size: 15px">联系电话:</div>
+                                <div  th:text="${orgDetail.tbIndustrialDevelopTecSerOrg.phone}" ></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--          基地风采 -->
+                    <div  style="margin-top: 10px">
+                        <div  style=" display: flex;flex-direction: row" >
+                            <div  style="width: 3px;height: 16px; background-color: red;"></div>
+                            <div style="font-weight: bold;color: #775637" }>基地风采:</div>
+                        </div>
+                        <div th:each="img,status:${Imgfile}">
+                            <img th:src="@{${img.filePath}}" th:if="${img.fileName eq '基地风采'}" style="width: 196px;height:106px;margin-left: 20px"
+                                 src="../../static/images/industry-dev/u1955.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+<!--    底部-->
+<div id="footer" th:include="public/footer :: publicFooter"></div>
+</body>
+</html>

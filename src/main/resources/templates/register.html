@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>河北中医药网-注册</title>
+    <link th:href="@{/component/bootstrap-3.3.7/css/bootstrap.css}"
+          href="../static/component/bootstrap-3.3.7/css/bootstrap.css" rel="stylesheet" />
+    <link th:href="@{/component/inspinia/css/plugins/sweetalert/sweetalert.css}"
+          href="../static/component/inspinia/css/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+    <link th:href="@{/project/myCss/register.css}"
+          href="../static/project/myCss/register.css" rel="stylesheet" />
+    <script th:src="@{/component/jquery-2.2.4.js}"
+            src="../static/component/jquery-2.2.4.js"></script>
+    <script th:src="@{/component/bootstrap-3.3.7/js/bootstrap.js}"
+            src="../static/component/bootstrap-3.3.7/js/bootstrap.js"></script>
+    <script th:src="@{/component/inspinia/js/plugins/sweetalert/sweetalert.min.js}"
+            src="../static/component/inspinia/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <script th:src="@{/project/myJs/register.js}"
+            src="../static/project/myJs/register.js"></script>
+</head>
+<body>
+    <div class="col-md-12" style="height: 30px"></div>
+    <div class="col-md-11 col-lg-offset-1">
+        <p id="website-title"><b>河&nbsp;北&nbsp;中&nbsp;医&nbsp;药&nbsp;网</b></p>
+    </div>
+    <div class="col-md-11 col-lg-offset-1">
+        <p id="website-en-title">HEBEI&nbsp;TRADITIONAL&nbsp;CHINESE&nbsp;MEDICINE&nbsp;NETWORK</p>
+    </div>
+    <div class="col-md-12" style="height: 30px"></div>
+    <div class="col-md-12">
+        <form id="registerForm" method="post" action="javascript:submit()">
+            <div class="col-sm-offset-4 " id="form-bg-div">
+                <table id="table" align="center">
+                    <tr>
+                        <td><b>企业名称：</b></td>
+                        <td><input id="orgName" name="orgName" placeholder="请输入企业名称" class="input-border" type="text" /></td>
+                    </tr>
+                    <tr>
+                        <td><b>机构类型：</b></td>
+                        <td>
+                            <select id="orgType" name="orgType" class="input-border">
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>统一社会信用代码：</b></td>
+                        <td><input id="orgCode" name="orgCode" placeholder="请输入统一社会信用代码" class="input-border" type="text" /></td>
+                    </tr>
+                    <tr>
+                        <td><b>用户名：</b></td>
+                        <td><input id="name" name="name" placeholder="请输入用户名" class="input-border" type="text" onblur="javascript:userNameCheck()"/></td>
+                    </tr>
+                    <tr>
+                        <td><b>密码：</b></td>
+                        <td><input id="password" name="password" placeholder="请输入密码" class="input-border" type="password" /></td>
+                    </tr>
+                    <tr>
+                        <td><b>确认密码：</b></td>
+                        <td><input id="certainPassword" name="certainPassword" placeholder="请再输入一次密码" class="input-border" type="password" /></td>
+                    </tr>
+                    <tr>
+                        <td><b>电话号：</b></td>
+                        <td><input id="mobilephone" name="mobilephone" placeholder="请输入电话号码" class="input-border" type="text" /></td>
+                    </tr>
+                    <tr>
+                        <td><b>邮箱：</b></td>
+                        <td><input id="email" name="email" placeholder="请输入用于接收验证码的邮箱" class="input-border" type="text" /></td>
+                    </tr>
+                    <tr>
+                        <td><b>验证码：</b></td>
+                        <td>
+                            <input name="verifyCode" placeholder="请输入收到的验证码" id="input-varyCode-border" type="text" />
+                            <button type="button" id="button-varyCode-border" onclick="javascript:sendVerifyCode()">发送验证码</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button type="submit" class="col-md-10 col-lg-offset-1 sr-button">注&nbsp;&nbsp;&nbsp;&nbsp;册</button><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <a th:href="@{/toLogin}"><button type="button" class="col-md-10 col-lg-offset-1 sr-button">已有账号？去登陆</button></a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-12" style="height: 50px;">
+        <div class="col-md-3" style="margin-top: -180px;margin-left: -50px">
+            <img th:src="@{/images/my-image/leftImg.png}"
+                    src="../static/images/my-image/leftImg.png" alt="..." style="width: 100%">
+        </div>
+        <div class="col-md-3 col-lg-offset-6" style="margin-top: -245px;margin-left: 985px">
+            <img th:src="@{/images/my-image/rightImg.png}"
+                    src="../static/images/my-image/rightImg.png" alt="..." style="width: 100%">
+        </div>
+    </div>
+
+    <div class="col-md-12" style="margin-top: 100px;">
+        <p align="center" style="color: RGB(38,19,2)"><b>版权所有：河北中医药网</b></p>
+    </div>
+
+</body>
+</html>

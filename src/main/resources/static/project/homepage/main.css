@@ -1,0 +1,480 @@
+#header{
+    background-image: url('../../images/home/u16.png');
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    height: 150px;
+    width: 100%;
+    position: relative;
+
+}
+#nav{
+    background-color:hsla(29, 100%, 14%, 0.9);
+    opacity: 0.9;
+    height: 60px;
+    size: 50px;
+    margin-top:53px;
+    padding: 0;
+    text-align: center;
+}
+#navbar ul li a{
+    margin-top: -4px;
+    color: white;
+    text-align:center;
+    height: 58px;
+    width: 100px;
+    size: 70px;
+    display: block;
+}
+#navbar ul li  a:hover {
+    background-color: hsl(0, 100%, 35%);
+}
+#navbar ul li a:active{
+
+    background-color: hsl(0, 100%, 35%);
+}
+#navbar ul li a:visited{
+
+    background-color: hsl(0, 100%, 35%);
+}
+
+/*主页正文：*/
+.home-body{
+     border-left: 1px solid #ccc;
+     border-right: 1px solid #ccc;
+ }
+.carousel-control.left {/*去掉左右阴影*/
+
+    background-image:none;
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
+}
+.carousel-control.right {
+    left: auto;
+    right: 0;
+
+    background-image:none;
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
+}
+#home-carousel{
+    margin: 10px ;
+    width: 100%;
+    height: 375px;
+}
+.carousel-inner img {
+     width: 99%;
+     height: 370px;
+ }
+.carousel-title{
+    font-size: 22px;
+}
+.carousel-source{
+    font-size: 16px;
+}
+
+.cake2{
+    overflow: hidden; /*清除浮动*/
+    margin-top: 20px;
+}
+.cake2>div{
+    float: left;
+    width: 550px;
+}
+.cake2_left{
+
+    margin-right: 100px;
+}
+
+.cake2_left_1{
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+.cake2_left_2{
+    margin-left: 20px;
+}
+
+.cake2_right_1{
+    margin-bottom: 20px;
+}
+.title_1{
+    border-bottom: 2px solid hsla(29, 100%, 14%, 0.9);
+    height: 42px;
+    width: 100%;
+    padding: 1px 0px;
+    margin-bottom: 20px;
+}
+.title_1 span{
+    color: rgb(226, 240, 241);
+    background-color: hsla(29, 100%, 14%, 0.9);
+    float:left;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+}
+.title_1 p{
+    margin-left: 90px;
+    color: red;
+}
+a{
+    color: #0f0f0f;
+}
+.cake3{
+    overflow: hidden; /*清除浮动*/
+    margin-top: 20px;
+}
+.cake3>div{
+    float: left;
+}
+
+/*医疗服务*/
+.home-health-icon-body{
+    width: 100%;
+    display: inline-flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+}
+
+.home-medical-content-body{
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+.home-medical-content-item{
+    width: 290px;
+}
+.home-medical-head{
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+.home-medical-head-title{
+    font-family: 'Arial Normal', 'Arial', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    text-align: center;
+    color: #D9001B;
+    padding: 0;
+    margin: 0;
+}
+.home-medical-content-intro{
+    font-family: 'Arial Normal', 'Arial', sans-serif;
+    font-style: normal;
+    font-size: 13px;
+    text-align: center;
+}
+
+.home-medical-content-title{
+    background: url("../../images/home/u133.png");
+    background-repeat:no-repeat;
+    background-size:  100% 100%;
+    margin: 10px 40px;
+    text-align: center;
+    padding: 8px 0px;
+    /*min-width: 120px;*/
+    height: auto;
+}
+.home-medical-content-title span{
+    font-size: 18px;
+    font-family: 'Arial Normal', 'Arial', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+.home-medical-content{
+    width: 160px;
+}
+.home-medical-hospital-content{
+    display: flex;
+    flex-flow: row wrap;
+    margin-top: 10px;
+    height: 90px;
+    justify-content: center;
+}
+.home-medical-content-img-doctor{
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+.home-medical-content-doctor{
+    width: 195px;
+}
+.home-medical-content-img{
+    width: 115px;
+    display: flex;
+    /*display: inline-block;*/
+}
+.home-medical-content-img img{
+    margin: 0;
+    padding:  0;
+    width: 90px;
+    height:90px;
+}
+.home-medical-content a{
+    font-family: 'Arial Normal', 'Arial', sans-serif;
+    font-style: normal;
+    font-size: 14px;
+    color: hsla(29, 100%, 14%, 0.9);
+    /*margin-left: 10px;*/
+    padding: 0;
+    /*margin-top: 15px;*/
+    margin-bottom: 3px;
+    text-decoration: none;
+}
+.home-medical-content a:hover{
+    font-family: 'Arial Normal', 'Arial', sans-serif;
+    font-style: normal;
+    font-size: 13px;
+    color:hsla(29, 100%, 14%, 0.9);
+    /*margin-left: 20px;*/
+    padding: 0;
+    /*margin-top: 15px;*/
+    margin-bottom: 3px;
+    text-decoration: none;
+}
+
+.home-medical-content-name{
+    font-family: 'Arial Normal', 'Arial', sans-serif;
+    font-style: normal;
+    font-size: 13px;
+    color: hsla(29, 100%, 14%, 0.9);
+    margin: 0 10px;
+    padding: 0;
+    margin-bottom: 3px;
+    text-decoration: none;
+}
+.home-medical-content-name1{
+    font-family: 'Arial Normal', 'Arial', sans-serif;
+    font-style: normal;
+    font-size: 13px;
+    color: hsla(29, 100%, 14%, 0.9);
+    margin: -80px 10px;
+    padding: 0;
+    margin-bottom: 3px;
+    text-decoration: none;
+}
+.home-medical-content-intro{
+    font-family: 'Arial Normal', 'Arial', sans-serif;
+    font-style: normal;
+    font-size: 13px;
+    color: #333333;
+    margin: 0 10px;
+    padding: 0;
+    margin-bottom: 3px;
+    text-align: left;
+}
+.home-medical-text-div{
+    min-width: 165px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.home-medical-text{
+    display: inline-block;
+    min-width: 125px;
+    text-align: center;
+}
+/*产业发展*/
+.home-development-body{
+    margin-top: 20px;
+    width: 100%;
+}
+.home-health-icon-body{
+    width: 100%;
+    display: inline-flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+}
+.home-icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.home-develop-text-div{
+    min-width: 205px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.home-develop-text{
+    display: inline-block;
+    min-width: 165px;
+    text-align: center;
+}
+
+
+.home-development-body{
+    margin-top: 20px;
+    width: 100%;
+}
+
+
+.home-development-content-body{
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+.home-development-content{
+    width: 120px;
+    margin-top: 20px;
+    text-align: center;
+}
+.home-development-num{
+    font-family: 'Arial Normal', 'Arial', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 28px;
+    color: #CC0001;
+}
+.home-develop-name{
+    font-family: 'Arial Normal', 'Arial', sans-serif;
+    font-style: normal;
+    font-size: 13px;
+    margin-top: 10px;
+    color: #333333;
+}
+.news-list-right-title{
+    color: hsla(29, 100%, 14%, 0.9);
+    font-size: 18px;
+    text-decoration: none;/*去掉超链接下划线*/
+    font-weight: bold;/*字体加粗*/
+    font-family: 'Arial Normal', 'Arial', sans-serif;
+}
+.news-list-right-type{
+    font-size: 16px;
+}
+
+/*科研成果*/
+.cake5{
+    overflow: hidden; /*清除浮动*/
+    margin-top: 20px;
+
+}
+.cake5>div{
+    overflow: hidden;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+.cake5_one>div{
+    float: left;
+    margin-right: 100px;
+}
+.cake5_one_1{
+    width: 322px;
+}
+.cake5_one_2{
+    width: 196px;
+}
+.cake5_one_3{
+    margin-left: 30px;
+    width: 126px;
+}
+.cake5_one_4{
+    margin-left: 30px;
+}
+.cake5_two>div{
+    float: left;
+    margin-right: 100px;
+}
+.cake5_three>div{
+    float: left;
+    margin-right: 100px;
+}
+.cake6{
+    overflow: hidden; /*清除浮动*/
+    margin-top: 20px;
+}
+
+.cake6>div{
+    float: left;
+    width: 390px;
+    margin-left: 10px;
+}
+.ming img{
+    margin-top: 20px;
+    width: 120px;
+    height: 180px;
+    float: left;
+}
+.ming img:nth-child(-n+2){
+    margin-right: 15px;
+}
+.liu{
+    padding-top: 20px;
+    padding-left: 15%;
+}
+.liu li{
+    margin-top: 15px;
+}
+.you img{
+    float: left;
+    margin-top: 20px;
+    margin-right: 10px;
+    width: 120px;
+    height: 85px;
+}
+
+.cake7{
+    overflow: hidden;
+    margin-top: 20px;
+}
+.cake7>div{
+    float: left;
+    width: 390px;
+    margin-left: 10px;
+}
+.cake7_1 img{
+    margin-left: 22%;
+}
+.text_list_1 li{
+    margin-left: 40px;
+    margin-top: 20px;
+}
+
+.panel-body{
+    background-color: hsla(29, 100%, 14%, 0.9);
+    height: 80px;
+}
+.container1{
+    position: relative;
+    left: 30%;
+}
+.col_1{
+    position: relative;
+    margin-right: 15px;
+    height: 40px;
+}
+
+.container2{
+    position: relative;
+    left: 40%;
+}
+.panel-footer{
+    background-color: #fff5ea;
+}
+.foot-head-title{
+    position: absolute;
+    /*z-index: 2;*/
+    left: 15px;
+    top: 20px;
+    color: white;
+    font-size: 14px;
+}
+.footer-font{
+    position: relative;
+    margin-right: 100px;
+    font-size: 12px;
+}
+.table > thead > tr > th, .table > tbody > tr > th,
+.table > tfoot > tr > th, .table > thead > tr > td,
+.table > tbody > tr > td, .table > tfoot > tr > td{
+    padding: 0;
+    border-top: 0px;
+}
+body{
+    overflow-x: hidden;
+}
+

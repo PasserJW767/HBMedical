@@ -1,0 +1,38 @@
+#header{
+    background-image: url('../../images/home/u16.png');
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    height: 150px;
+    width: 100%;
+    position: relative;
+
+}
+#nav{
+    background-color:hsla(29, 100%, 14%, 0.9);
+    opacity: 0.9;
+    height: 60px;
+    size: 50px;
+    margin-top:53px;
+    padding: 0;
+    text-align: center;
+}
+#navbar ul li a{
+    margin-top: -4px;
+    color: white;
+    text-align:center;
+    height: 58px;
+    width: 100px;
+    size: 70px;
+    display: block;
+}
+#navbar ul li  a:hover {
+    background-color: hsl(0, 100%, 35%);
+}
+#navbar ul li a:active{
+
+    background-color: hsl(0, 100%, 35%);
+}
+#navbar ul li a:visited{
+
+    background-color: hsl(0, 100%, 35%);
+}

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>政策法规</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <link th:href="@{/component/bootstrap-3.3.7/css/bootstrap.css}"
+         href="../../static/component/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" >
+    <!-- Sweet Alert -->
+    <link th:href="@{/component/inspinia/css/plugins/sweetalert/sweetalert.css}"
+          href="../../static/component/inspinia/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+    <!--引入css样式-->
+    <link th:href="@{/project/public/header.css}"
+          href="../../static/project/public/header.css" rel="stylesheet">
+    <link th:href="@{/project/policies_regulations/centerList.css}"
+          href="../../static/project/policies_regulations/centerList.css" rel="stylesheet">
+    <link th:href="@{/project/homepage/main.css}"
+          href="../../static/project/homepage/main.css" rel="stylesheet">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script th:src="@{/component/jquery-2.2.4.js}"
+            src="../../static/component/jquery-2.2.4.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script th:src="@{/component/bootstrap-3.3.7/js/bootstrap.min.js}"
+            src="../../static/component/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+    <!--头部-->
+    <div id="header" th:include="public/header :: publicHeader"></div>
+
+    <!--页面主体-->
+    <div class="container-fluid ">
+        <div class="row clearfix">
+            <div class="col-md-8 col-lg-offset-2 column home-body" id="content-body">
+
+                <div class="row clearfix" style="margin-top: 40px">
+                    <!-- 左边标签 -->
+                    <div class="col-md-2 column">
+                        <div  class=" regulationsTag" >
+                            <a th:href="@{/Policies_regulations/regulation(datatype='法律')}"  >法律</a>
+                        </div>
+                        <br><br>
+                        <div class=" regulationsTag">
+                            <a th:href="@{/Policies_regulations/regulation(datatype='行政法规')}"  >行政法规</a>
+                        </div>
+                        <br><br>
+                        <div class=" regulationsTag">
+                            <a th:href="@{/Policies_regulations/regulation(datatype='部门规章')}" >部门规章</a>
+                        </div>
+                        <br><br>
+                        <div class=" regulationsTag">
+                            <a style="padding-top: 0px" th:href="@{/Policies_regulations/regulation(datatype='地方性法规和政府规章')}">地方性法规<br>和政府规章</a>
+                        </div>
+                        <br><br>
+                        <div class=" regulationsTag">
+                            <a th:href="@{/regulatoryDocuments/regulation(datatype='规范性文件')}">规范性文件</a>
+                        </div>
+                        <br><br>
+                    </div>
+                    <!-- 右边内容列表 -->
+                    <div class="col-md-10 column">
+                        <!--迭代-->
+                        <div th:each="cul,status:${culproDataList}" style="margin-top: 10px;margin-bottom: 20px">
+                            <div class="world" >
+                                <hr class="regulation-hr" align="left">
+                                <a th:text="${cul.getDataTitle()}"
+                                   th:href="@{/Policies_regulations/regulationDetail(itemid=${cul.getItemid()},pageNum=-1)}"
+                                   class="content-title"></a>
+                                <br>
+                                <span th:text="'来源：'+${cul.dataSource}" class="content-span"/>
+                                <span th:text="'发布时间：'+${#dates.format(cul.getItemupdateat(), 'yyyy-MM-dd')}" style="margin-left: 110px" class="content-span"/>
+
+                                <div class="content-detail" >
+                                    <p th:utext="${#strings.abbreviate(cul.getDataContent(),300)}"/>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div id="pages1">
+                            <nav aria-label="Page navigation"  style="margin-left: 250px">
+                                <ul class="pagination">
+                                    <li th:if="${culproDataList.pageNum le culproDataList.pages}">
+                                        <a th:href="@{/Policies_regulations(pageNum=1)}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li th:if="${culproDataList.pageNum}>1">
+                                        <a th:href="@{/Policies_regulations(pageNum=${culproDataList.pageNum}-1)}">&lt;</a>
+                                    </li>
+                                    <li th:if="${culproDataList.pageNum -3 gt 1}">
+                                        <a th:text="${culproDataList.pageNum -4}" th:href="@{/Policies_regulations(pageNum=${culproDataList.pageNum}-4)}"></a>
+                                    </li>
+                                    <li th:if="${culproDataList.pageNum -2 gt 1}">
+                                        <a th:text="${culproDataList.pageNum -3}" th:href="@{/Policies_regulations(pageNum=${culproDataList.pageNum}-3)}"></a>
+                                    </li>
+                                    <li th:if="${culproDataList.pageNum -1 gt 1}">
+                                        <a th:text="${culproDataList.pageNum -2}" th:href="@{/Policies_regulations(pageNum=${culproDataList.pageNum}-2)}"></a>
+                                    </li>
+                                    <li th:if="${culproDataList.pageNum gt 1}" >
+                                        <a th:text="${culproDataList.pageNum -1}" th:href="@{/Policies_regulations(pageNum=${culproDataList.pageNum}-1)}"></a>
+                                    </li>
+                                    <!--/* 当前页 */-->
+                                    <li th:if="${culproDataList.pageNum le culproDataList.pages}" th:class="${culproDataList.pageNum le culproDataList.pages ? 'active':''}">
+                                        <a th:text="${culproDataList.pageNum}" th:href="@{/Policies_regulations(pageNum=${culproDataList.pageNum})}"></a>
+                                    </li>
+                                    <li th:if="${culproDataList.pageNum+1 le culproDataList.pages}">
+                                        <a th:text="${culproDataList.pageNum+1}" th:href="@{/Policies_regulations(pageNum=${culproDataList.pageNum}+1)}"></a>
+                                    </li>
+                                    <li th:if="${culproDataList.pageNum+2 le culproDataList.pages}">
+                                        <a th:text="${culproDataList.pageNum+2}" th:href="@{/Policies_regulations(pageNum=${culproDataList.pageNum}+2)}"></a>
+                                    </li>
+                                    <li th:if="${culproDataList.pageNum+3 le culproDataList.pages}">
+                                        <a th:text="${culproDataList.pageNum+3}" th:href="@{/Policies_regulations(pageNum=${culproDataList.pageNum}+3)}"></a>
+                                    </li>
+                                    <li th:if="${culproDataList.pageNum lt culproDataList.pages}">
+                                        <a th:href="@{/Policies_regulations(pageNum=${culproDataList.pageNum}+1)}">&gt;</a>
+                                    </li>
+                                    <li th:if="${culproDataList.pageNum lt culproDataList.pages}">
+                                        <a th:href="@{/Policies_regulations(pageNum=${culproDataList.pages})}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <div style="width: 150px; height: 30px;float:left; position: relative;left: 100px">
+                                            <form th:action="@{Policies_regulations}" class="form-inline"  method="get">
+                                                <span  style="float:left;width: 50px;height: 30px;text-align: center;line-height: 30px">跳至</span>
+                                                <input id="pageNum" name="pageNum" type="text"
+                                                       th:placeholder="${culproDataList.pageNum}+'/'+${culproDataList.pages}"
+                                                       style="width: 60px;height:30px;float:left;">
+                                                <!--<input id="datatype" name="datatype" th:value="${culproDataList[0].getDataFileType()}" style="display: none"> &lt;!&ndash;隐藏传参&ndash;&gt;-->
+                                                <button  type="submit" class="btn btn-default" style="width: 40px;height: 30px;">go</button>
+                                            </form>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--底部-->
+    <div id="footer" th:include="public/footer :: publicFooter"></div>
+
+</body>
+</html>

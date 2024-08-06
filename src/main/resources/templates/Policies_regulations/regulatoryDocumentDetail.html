@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>regulatoryDocumentDetail</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <link th:href="@{/component/bootstrap-3.3.7/css/bootstrap.css}"
+          href="../../static/component/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" >
+    <!-- Sweet Alert -->
+    <link th:href="@{/component/inspinia/css/plugins/sweetalert/sweetalert.css}"
+          href="../../static/component/inspinia/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+    <link th:href="@{/project/public/header.css}"
+          href="../../static/project/public/header.css" rel="stylesheet">
+    <link th:href="@{/project/policies_regulations/centerList.css}"
+          href="../../static/project/policies_regulations/centerList.css" rel="stylesheet">
+    <link th:href="@{/project/policies_regulations/detail.css}"
+          href="../../static/project/policies_regulations/detail.css" rel="stylesheet">
+    <link th:href="@{/project/homepage/main.css}"
+          href="../../static/project/homepage/main.css" rel="stylesheet">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script th:src="@{/component/jquery-2.2.4.js}"
+            src="../../static/component/jquery-2.2.4.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script th:src="@{/component/bootstrap-3.3.7/js/bootstrap.min.js}"
+            src="../../static/component/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+<!--头部-->
+<div id="header" th:include="public/header :: publicHeader"></div>
+
+<!--页面主体-->
+<div class="container-fluid ">
+    <div class="row clearfix">
+        <div class="col-md-8 col-lg-offset-2 column home-body" id="content-body">
+
+            <div class="row clearfix" style="margin-top: 40px">
+                <!-- 左边标签 -->
+                <div class="col-md-2 column">
+                    <div  class=" regulationsTag" >
+                        <a th:href="@{/Policies_regulations/regulation(datatype='法律')}" >法律</a>
+                    </div>
+                    <br><br>
+                    <div class=" regulationsTag">
+                        <a th:href="@{/Policies_regulations/regulation(datatype='行政法规')}">行政法规</a>
+                    </div>
+                    <br><br>
+                    <div class=" regulationsTag">
+                        <a th:href="@{/Policies_regulations/regulation(datatype='部门规章')}" >部门规章</a>
+                    </div>
+                    <br><br>
+                    <div class=" regulationsTag ">
+                        <a style="padding-top:0px" th:href="@{/Policies_regulations/regulation(datatype='地方性法规和政府规章')}">地方性法规<br>和政府规章</a>
+                    </div>
+                    <br><br>
+                    <div class=" regulationsTag">
+                        <a th:href="@{/regulatoryDocuments/regulation(datatype='规范性文件')}">规范性文件</a>
+                    </div>
+                    <br><br>
+                </div>
+                <!-- 右边内容列表 -->
+                <div class="col-md-10 column">
+                    <a style="color: red" th:href="@{/regulatoryDocuments/regulation(datatype=${culproData.getDataFileType()},pageNum=${pageNum})}">&lt;返回列表</a>
+                    <br>
+                    <span style="text-align: center;font-size: 18px;font-weight: bold;" th:text="${culproData.dataTitle}"/>
+                    <div class="detail-from">
+                        [来源：<span th:text="${culproData.dataSource}"/>]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[浏览次数：<span th:text="${culproData.visitNum}"/>]
+                    </div>
+                    <p class="detail-content" th:utext="${culproData.getDataContent()}"/>
+                    <br>
+                    <div id="regulationDetail-Left-Div">
+                        <li class="preAndNextLi" th:if="${preCulProData} != null">
+                            <span class="preAndNextSpan">上一篇：</span>
+                            <a class="preAndNextA" th:href="@{/regulatoryDocuments/regulationDetail(itemid=${preCulProData.getItemid()},pageNum=${pagers.getPageNum() - 1})}">
+                                <span th:text="${preCulProData.getDataTitle()}"></span>
+                            </a>
+                        </li>
+
+                        <li class="preAndNextLi" th:if="${nextCulProData} != null">
+                            <span class="preAndNextSpan">下一篇：</span>
+                            <a class="preAndNextA" th:href="@{/regulatoryDocuments/regulationDetail(itemid=${nextCulProData.getItemid()},pageNum=${pagers.getPageNum() + 1})}">
+                                <span th:text="${nextCulProData.getDataTitle()}"></span>
+                            </a>
+                        </li>
+                    </div>
+                    <div id="regulationDetail-Right-Div">
+                        <li class="preAndNextLi" th:if="${filePath} != null">
+                            <span>下载文件：</span>
+                            <a class="preAndNextA"
+                               th:href=" 'http://localhost:8081/portals' + ${filePath} "
+                               th:text="${culproData.dataTitle}"></a>
+                        </li>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--底部-->
+<div id="footer" th:include="public/footer :: publicFooter"></div>
+</body>
+</html>

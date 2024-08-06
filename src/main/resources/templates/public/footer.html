@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>公共底部</title>
+
+    <!-- Bootstrap -->
+    <link th:href="@{/static/component/bootstrap-3.3.7/css/bootstrap.min.css}"
+          href="../../static/component/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link th:href="@{/static/component/inspinia/css/plugins/sweetalert/sweetalert.css}"
+          href="../../static/component/inspinia/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+    <link th:href="@{/static/project/public/header.css}"
+          href="../../static/project/public/header.css" rel="stylesheet">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script th:src="@{/static/component/jquery-2.2.4.js}"
+            src="../../static/component/jquery-2.2.4.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script th:src="@{/static/component/bootstrap-3.3.7/js/bootstrap.min.js}"
+            src="../../static/component/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+    <!--底部-->
+    <footer id="footer" th:fragment="publicFooter">
+        <div class="panel-body">
+            <div class="container1">
+
+                <div class="col">
+                    <div style="display: flex" >
+
+                        <div class="col_1">
+                            <img th:src="@{/images/home/u22.png}"
+                                 src="../static/images/home/u22.png" style="width: 90%">
+                            <div>
+                                <a class="foot-head-title" href="http://www.satcm.gov.cn/">国家中医药管理局</a>
+                            </div>
+                        </div>
+
+                        <div class="col_1">
+                            <img th:src="@{/images/home/u22.png}"
+                                 src="../static/images/home/u22.png" style="width: 90%">
+                            <div>
+                                <a class="foot-head-title" target="_blank" href="http://wsjkw.hebei.gov.cn/">河北省卫生健康委</a>
+                            </div>
+                        </div>
+
+                        <div class="col_1">
+                            <img th:src="@{/images/home/u22.png}"
+                                 src="../static/images/home/u22.png" style="width: 90%">
+                            <div>
+                                <a class="foot-head-title" target="_blank" href="http://whly.hebei.gov.cn/">河北省文化旅游厅</a>
+                            </div>
+                        </div>
+
+                        <div class="col_1">
+                            <img th:src="@{/images/home/u22.png}"
+                                 src="../static/images/home/u22.png" style="width: 90%">
+                            <div >
+                                <a class="foot-head-title" target="_blank" href="https://www.hbstm.cn/">河北省科技馆</a>
+                            </div>
+                        </div>
+
+                        <div class="col_1">
+                            <img th:src="@{/images/home/u22.png}"
+                                 src="../static/images/home/u22.png" style="width: 90%">
+                            <div>
+                                <a class="foot-head-title" target="_blank" href="http://nync.hebei.gov.cn/">河北省农业农村厅</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="panel-footer">
+
+            <div class="container2">
+                <div class="col">
+                    <div style="display: flex">
+
+                        <div class="footer-font">
+                            <p><span>主办单位：河北省中医药管理局 </span></p>
+                            <p><span>E-MAIL:webmaster@hebwst.gov.cn</span></p>
+                            <p><span>网站标识码：1300000033</span></p>
+                        </div>
+
+                        <div class="footer-font">
+                            <p><span>联系方式：河北省石家庄市合作路42号</span></p>
+                            <p><span>网站备案号：冀ICP备14016372号-1 </span></p>
+                            <p><span>公安备案号：13010502001655</span></p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+</body>
+</html>

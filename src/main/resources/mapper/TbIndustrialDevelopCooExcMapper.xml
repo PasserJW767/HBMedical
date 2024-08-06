@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanqiao.zzy.mapper.TbIndustrialDevelopCooExcMapper">
+  <resultMap id="BaseResultMap" type="com.lanqiao.zzy.domain.TbIndustrialDevelopCooExc">
+    <id column="itemID" jdbcType="INTEGER" property="itemid" />
+    <id column="itemCode" jdbcType="CHAR" property="itemcode" />
+    <result column="COOPERATION_EXCHANGE_NAME" jdbcType="VARCHAR" property="cooperationExchangeName" />
+    <result column="COOPERATION_EXCHANGE_LEADER" jdbcType="VARCHAR" property="cooperationExchangeLeader" />
+    <result column="VISIT_NUM" jdbcType="INTEGER" property="visitNum" />
+    <result column="PROJECT_INTRODUCE" jdbcType="VARCHAR" property="projectIntroduce" />
+    <result column="CONTACTS" jdbcType="VARCHAR" property="contacts" />
+    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+    <result column="COOPERATIVE_ORG" jdbcType="VARCHAR" property="cooperativeOrg" />
+    <result column="ORG_CODE" jdbcType="CHAR" property="orgCode" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="CREATER" jdbcType="VARCHAR" property="creater" />
+    <result column="itemCreateAt" jdbcType="TIMESTAMP" property="itemcreateat" />
+    <result column="UPDATER" jdbcType="VARCHAR" property="updater" />
+    <result column="itemUpdateAt" jdbcType="TIMESTAMP" property="itemupdateat" />
+  </resultMap>
+
+    <resultMap id="BaseandOrgResultMap" type="com.lanqiao.zzy.domain.TbIndustrialDevelopCooExc">
+      <id column="e_itemID" jdbcType="INTEGER" property="itemid" />
+      <id column="e_itemCode" jdbcType="CHAR" property="itemcode" />
+      <result column="COOPERATION_EXCHANGE_NAME" jdbcType="VARCHAR" property="cooperationExchangeName" />
+      <result column="COOPERATION_EXCHANGE_LEADER" jdbcType="VARCHAR" property="cooperationExchangeLeader" />
+      <result column="VISIT_NUM" jdbcType="INTEGER" property="visitNum" />
+      <result column="PROJECT_INTRODUCE" jdbcType="VARCHAR" property="projectIntroduce" />
+      <result column="CONTACTS" jdbcType="VARCHAR" property="contacts" />
+      <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+      <result column="COOPERATIVE_ORG" jdbcType="VARCHAR" property="cooperativeOrg" />
+      <result column="ORG_CODE" jdbcType="CHAR" property="orgCode" />
+      <result column="STATUS" jdbcType="VARCHAR" property="status" />
+      <result column="CREATER" jdbcType="VARCHAR" property="creater" />
+      <result column="e_itemCreateAt" jdbcType="TIMESTAMP" property="itemcreateat" />
+      <result column="e_UPDATER" jdbcType="VARCHAR" property="updater" />
+      <result column="e_itemUpdateAt" jdbcType="TIMESTAMP" property="itemupdateat" />
+      <collection property="organization" ofType="com.lanqiao.zzy.domain.Organization">
+        <result column="ORG_NAME" property="orgName"/>
+      </collection>
+      <collection property="tbCulproFile" ofType="com.lanqiao.zzy.domain.TbCulproFile">
+        <result column="FILE_NAME" property="fileName"/>
+        <result column="FILE_PATH" property="filePath"/>
+      </collection>
+    </resultMap>
+  <sql id="Base_Column_List">
+    itemID, itemCode, COOPERATION_EXCHANGE_NAME, COOPERATION_EXCHANGE_LEADER, VISIT_NUM, 
+    PROJECT_INTRODUCE, CONTACTS, PHONE, COOPERATIVE_ORG, ORG_CODE, `STATUS`, CREATER, 
+    itemCreateAt, UPDATER, itemUpdateAt
+  </sql>
+  <select id="selectByTitle" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from tb_industrial_develop_coo_exc
+    where
+    <bind name="TitlePattern" value="'%' + cooexc.cooperationExchangeName + '%'"/>
+    tb_industrial_develop_coo_exc.COOPERATION_EXCHANGE_NAME  like #{TitlePattern}
+    and STATUS='展示中'
+  </select>
+  <select id="selectByitemid" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+from tb_industrial_develop_coo_exc
+where itemID=#{value} and STATUS='展示中'
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.lanqiao.zzy.domain.TbIndustrialDevelopCooExc" resultMap="BaseandOrgResultMap">
+    select
+      e.itemID e_itemID, e.itemCode e_itemCode , COOPERATION_EXCHANGE_NAME, COOPERATION_EXCHANGE_LEADER, VISIT_NUM,
+      PROJECT_INTRODUCE, CONTACTS, PHONE, COOPERATIVE_ORG, e.ORG_CODE, `STATUS`, e.CREATER,
+      e.itemCreateAt e_itemCreateAt, e.UPDATER e_UPDATER, e.itemUpdateAt e_temUpdateAt,ORG_NAME,FILE_NAME,FILE_PATH
+    from tb_industrial_develop_coo_exc e,organization o,tb_culpro_file f
+    where e.itemID = #{itemid,jdbcType=INTEGER}
+      and e.itemCode = #{itemcode,jdbcType=CHAR}
+        and e.ORG_CODE=o.ORG_CODE
+        and e.itemcode=f.DATA_CODE and STATUS='展示中'
+  </select>
+  <select id="selectForPage" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+from tb_industrial_develop_coo_exc where  STATUS='展示中'
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.lanqiao.zzy.domain.TbIndustrialDevelopCooExc">
+    delete from tb_industrial_develop_coo_exc
+    where itemID = #{itemid,jdbcType=INTEGER}
+      and itemCode = #{itemcode,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" keyColumn="itemID" keyProperty="itemid" parameterType="com.lanqiao.zzy.domain.TbIndustrialDevelopCooExc" useGeneratedKeys="true">
+    insert into tb_industrial_develop_coo_exc (itemCode, COOPERATION_EXCHANGE_NAME, COOPERATION_EXCHANGE_LEADER, 
+      VISIT_NUM, PROJECT_INTRODUCE, CONTACTS, 
+      PHONE, COOPERATIVE_ORG, ORG_CODE, 
+      `STATUS`, CREATER, itemCreateAt, 
+      UPDATER, itemUpdateAt)
+    values (#{itemcode,jdbcType=CHAR}, #{cooperationExchangeName,jdbcType=VARCHAR}, #{cooperationExchangeLeader,jdbcType=VARCHAR}, 
+      #{visitNum,jdbcType=INTEGER}, #{projectIntroduce,jdbcType=VARCHAR}, #{contacts,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{cooperativeOrg,jdbcType=VARCHAR}, #{orgCode,jdbcType=CHAR}, 
+      #{status,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{itemcreateat,jdbcType=TIMESTAMP}, 
+      #{updater,jdbcType=VARCHAR}, #{itemupdateat,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="itemID" keyProperty="itemid" parameterType="com.lanqiao.zzy.domain.TbIndustrialDevelopCooExc" useGeneratedKeys="true">
+    insert into tb_industrial_develop_coo_exc
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="itemcode != null">
+        itemCode,
+      </if>
+      <if test="cooperationExchangeName != null">
+        COOPERATION_EXCHANGE_NAME,
+      </if>
+      <if test="cooperationExchangeLeader != null">
+        COOPERATION_EXCHANGE_LEADER,
+      </if>
+      <if test="visitNum != null">
+        VISIT_NUM,
+      </if>
+      <if test="projectIntroduce != null">
+        PROJECT_INTRODUCE,
+      </if>
+      <if test="contacts != null">
+        CONTACTS,
+      </if>
+      <if test="phone != null">
+        PHONE,
+      </if>
+      <if test="cooperativeOrg != null">
+        COOPERATIVE_ORG,
+      </if>
+      <if test="orgCode != null">
+        ORG_CODE,
+      </if>
+      <if test="status != null">
+        `STATUS`,
+      </if>
+      <if test="creater != null">
+        CREATER,
+      </if>
+      <if test="itemcreateat != null">
+        itemCreateAt,
+      </if>
+      <if test="updater != null">
+        UPDATER,
+      </if>
+      <if test="itemupdateat != null">
+        itemUpdateAt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="itemcode != null">
+        #{itemcode,jdbcType=CHAR},
+      </if>
+      <if test="cooperationExchangeName != null">
+        #{cooperationExchangeName,jdbcType=VARCHAR},
+      </if>
+      <if test="cooperationExchangeLeader != null">
+        #{cooperationExchangeLeader,jdbcType=VARCHAR},
+      </if>
+      <if test="visitNum != null">
+        #{visitNum,jdbcType=INTEGER},
+      </if>
+      <if test="projectIntroduce != null">
+        #{projectIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null">
+        #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="cooperativeOrg != null">
+        #{cooperativeOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null">
+        #{orgCode,jdbcType=CHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="itemcreateat != null">
+        #{itemcreateat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null">
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="itemupdateat != null">
+        #{itemupdateat,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lanqiao.zzy.domain.TbIndustrialDevelopCooExc">
+    update tb_industrial_develop_coo_exc
+    <set>
+      <if test="cooperationExchangeName != null">
+        COOPERATION_EXCHANGE_NAME = #{cooperationExchangeName,jdbcType=VARCHAR},
+      </if>
+      <if test="cooperationExchangeLeader != null">
+        COOPERATION_EXCHANGE_LEADER = #{cooperationExchangeLeader,jdbcType=VARCHAR},
+      </if>
+      <if test="visitNum != null">
+        VISIT_NUM = #{visitNum,jdbcType=INTEGER},
+      </if>
+      <if test="projectIntroduce != null">
+        PROJECT_INTRODUCE = #{projectIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null">
+        CONTACTS = #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="cooperativeOrg != null">
+        COOPERATIVE_ORG = #{cooperativeOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null">
+        ORG_CODE = #{orgCode,jdbcType=CHAR},
+      </if>
+      <if test="status != null">
+        `STATUS` = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        CREATER = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="itemcreateat != null">
+        itemCreateAt = #{itemcreateat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null">
+        UPDATER = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="itemupdateat != null">
+        itemUpdateAt = #{itemupdateat,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where itemID = #{itemid,jdbcType=INTEGER}
+      and itemCode = #{itemcode,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lanqiao.zzy.domain.TbIndustrialDevelopCooExc">
+    update tb_industrial_develop_coo_exc
+    set COOPERATION_EXCHANGE_NAME = #{cooperationExchangeName,jdbcType=VARCHAR},
+      COOPERATION_EXCHANGE_LEADER = #{cooperationExchangeLeader,jdbcType=VARCHAR},
+      VISIT_NUM = #{visitNum,jdbcType=INTEGER},
+      PROJECT_INTRODUCE = #{projectIntroduce,jdbcType=VARCHAR},
+      CONTACTS = #{contacts,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      COOPERATIVE_ORG = #{cooperativeOrg,jdbcType=VARCHAR},
+      ORG_CODE = #{orgCode,jdbcType=CHAR},
+      `STATUS` = #{status,jdbcType=VARCHAR},
+      CREATER = #{creater,jdbcType=VARCHAR},
+      itemCreateAt = #{itemcreateat,jdbcType=TIMESTAMP},
+      UPDATER = #{updater,jdbcType=VARCHAR},
+      itemUpdateAt = #{itemupdateat,jdbcType=TIMESTAMP}
+    where itemID = #{itemid,jdbcType=INTEGER}
+      and itemCode = #{itemcode,jdbcType=CHAR}
+  </update>
+</mapper>

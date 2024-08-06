@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanqiao.zzy.mapper.OrganizationMapper">
+  <resultMap id="BaseResultMap" type="com.lanqiao.zzy.domain.Organization">
+    <id column="itemID" jdbcType="INTEGER" property="itemid" />
+    <result column="itemCode" jdbcType="CHAR" property="itemcode" />
+    <result column="ORG_NAME" jdbcType="VARCHAR" property="orgName" />
+    <result column="ORG_CODE" jdbcType="VARCHAR" property="orgCode" />
+    <result column="ORG_DESCRIPTION" jdbcType="VARCHAR" property="orgDescription" />
+    <result column="ORG_IDENTIFY" jdbcType="VARCHAR" property="orgIdentify" />
+    <result column="ORG_LOCATE" jdbcType="VARCHAR" property="orgLocate" />
+    <result column="AUDIT_STATUS" jdbcType="VARCHAR" property="auditStatus" />
+    <result column="backup2" jdbcType="VARCHAR" property="backup2" />
+    <result column="LEFT" jdbcType="INTEGER" property="left" />
+    <result column="RIGHT" jdbcType="INTEGER" property="right" />
+    <result column="LEVEL" jdbcType="INTEGER" property="level" />
+    <result column="CREATER" jdbcType="VARCHAR" property="creater" />
+    <result column="itemCreateAt" jdbcType="TIMESTAMP" property="itemcreateat" />
+    <result column="UPDATER" jdbcType="VARCHAR" property="updater" />
+    <result column="itemUpdateAt" jdbcType="TIMESTAMP" property="itemupdateat" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    itemID, itemCode, ORG_NAME, ORG_CODE, ORG_DESCRIPTION, ORG_IDENTIFY, ORG_LOCATE,
+    AUDIT_STATUS, backup2, `LEFT`, `RIGHT`, `LEVEL`, CREATER, itemCreateAt, UPDATER,
+    itemUpdateAt
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from organization
+    where itemID = #{itemid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from organization
+    where itemID = #{itemid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="itemID" keyProperty="itemid" parameterType="com.lanqiao.zzy.domain.Organization" useGeneratedKeys="true">
+    insert into organization (itemCode, ORG_NAME, ORG_CODE,
+      ORG_DESCRIPTION, ORG_IDENTIFY, ORG_LOCATE,
+      AUDIT_STATUS, backup2, `LEFT`,
+      `RIGHT`, `LEVEL`, CREATER,
+      itemCreateAt, UPDATER, itemUpdateAt
+      )
+    values (#{itemcode,jdbcType=CHAR}, #{orgName,jdbcType=VARCHAR}, #{orgCode,jdbcType=VARCHAR},
+      #{orgDescription,jdbcType=VARCHAR}, #{orgIdentify,jdbcType=VARCHAR}, #{orgLocate,jdbcType=VARCHAR},
+      #{auditStatus,jdbcType=VARCHAR}, #{backup2,jdbcType=VARCHAR}, #{left,jdbcType=INTEGER},
+      #{right,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, #{creater,jdbcType=VARCHAR},
+      #{itemcreateat,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{itemupdateat,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="itemID" keyProperty="itemid" parameterType="com.lanqiao.zzy.domain.Organization" useGeneratedKeys="true">
+    insert into organization
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="itemcode != null">
+        itemCode,
+      </if>
+      <if test="orgName != null">
+        ORG_NAME,
+      </if>
+      <if test="orgCode != null">
+        ORG_CODE,
+      </if>
+      <if test="orgDescription != null">
+        ORG_DESCRIPTION,
+      </if>
+      <if test="orgIdentify != null">
+        ORG_IDENTIFY,
+      </if>
+      <if test="orgLocate != null">
+        ORG_LOCATE,
+      </if>
+      <if test="auditStatus != null">
+        AUDIT_STATUS,
+      </if>
+      <if test="backup2 != null">
+        backup2,
+      </if>
+      <if test="left != null">
+        `LEFT`,
+      </if>
+      <if test="right != null">
+        `RIGHT`,
+      </if>
+      <if test="level != null">
+        `LEVEL`,
+      </if>
+      <if test="creater != null">
+        CREATER,
+      </if>
+      <if test="itemcreateat != null">
+        itemCreateAt,
+      </if>
+      <if test="updater != null">
+        UPDATER,
+      </if>
+      <if test="itemupdateat != null">
+        itemUpdateAt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="itemcode != null">
+        #{itemcode,jdbcType=CHAR},
+      </if>
+      <if test="orgName != null">
+        #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null">
+        #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgDescription != null">
+        #{orgDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="orgIdentify != null">
+        #{orgIdentify,jdbcType=VARCHAR},
+      </if>
+      <if test="orgLocate != null">
+        #{orgLocate,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStatus != null">
+        #{auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="backup2 != null">
+        #{backup2,jdbcType=VARCHAR},
+      </if>
+      <if test="left != null">
+        #{left,jdbcType=INTEGER},
+      </if>
+      <if test="right != null">
+        #{right,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="itemcreateat != null">
+        #{itemcreateat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null">
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="itemupdateat != null">
+        #{itemupdateat,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lanqiao.zzy.domain.Organization">
+    update organization
+    <set>
+      <if test="itemcode != null">
+        itemCode = #{itemcode,jdbcType=CHAR},
+      </if>
+      <if test="orgName != null">
+        ORG_NAME = #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null">
+        ORG_CODE = #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgDescription != null">
+        ORG_DESCRIPTION = #{orgDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="orgIdentify != null">
+        ORG_IDENTIFY = #{orgIdentify,jdbcType=VARCHAR},
+      </if>
+      <if test="orgLocate != null">
+        ORG_LOCATE = #{orgLocate,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStatus != null">
+        AUDIT_STATUS = #{auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="backup2 != null">
+        backup2 = #{backup2,jdbcType=VARCHAR},
+      </if>
+      <if test="left != null">
+        `LEFT` = #{left,jdbcType=INTEGER},
+      </if>
+      <if test="right != null">
+        `RIGHT` = #{right,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        `LEVEL` = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null">
+        CREATER = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="itemcreateat != null">
+        itemCreateAt = #{itemcreateat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null">
+        UPDATER = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="itemupdateat != null">
+        itemUpdateAt = #{itemupdateat,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where itemID = #{itemid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lanqiao.zzy.domain.Organization">
+    update organization
+    set itemCode = #{itemcode,jdbcType=CHAR},
+      ORG_NAME = #{orgName,jdbcType=VARCHAR},
+      ORG_CODE = #{orgCode,jdbcType=VARCHAR},
+      ORG_DESCRIPTION = #{orgDescription,jdbcType=VARCHAR},
+      ORG_IDENTIFY = #{orgIdentify,jdbcType=VARCHAR},
+      ORG_LOCATE = #{orgLocate,jdbcType=VARCHAR},
+      AUDIT_STATUS = #{auditStatus,jdbcType=VARCHAR},
+      backup2 = #{backup2,jdbcType=VARCHAR},
+      `LEFT` = #{left,jdbcType=INTEGER},
+      `RIGHT` = #{right,jdbcType=INTEGER},
+      `LEVEL` = #{level,jdbcType=INTEGER},
+      CREATER = #{creater,jdbcType=VARCHAR},
+      itemCreateAt = #{itemcreateat,jdbcType=TIMESTAMP},
+      UPDATER = #{updater,jdbcType=VARCHAR},
+      itemUpdateAt = #{itemupdateat,jdbcType=TIMESTAMP}
+    where itemID = #{itemid,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select *
+    from organization
+  </select>
+
+        <resultMap id="baseOrganizationResult" type="com.lanqiao.zzy.domain.Organization">
+            <id column="ITEMID" property="itemid"/>
+            <result column="ORG_NAME" property="orgName"/>
+            <result column="ORG_DESCRIPTION" property="orgDescription"/>
+            <result column="ORG_IDENTIFY" property="orgIdentify"/>
+            <result column="ORG_LOCATE" property="orgLocate"/>
+            <result column="ORG_CODE" property="orgCode"/>
+            <result column="NUM" property="num"/>
+        </resultMap>
+        <select id="selectNumofOrgByLocal" resultMap="baseOrganizationResult"  >
+            select  ORG_LOCATE ,count(itemID) num from organization group by ORG_LOCATE
+        </select>
+
+        <select id="selectTotalnum"  resultType="int">
+            select count(itemID)    from organization
+        </select>
+
+        <select id="selectOrgList" resultMap="baseOrganizationResult">
+            select  itemID,
+            ORG_NAME,
+            ORG_LOCATE,
+            ORG_IDENTIFY
+            from organization
+            <where>
+                <if test="org.orgName !=null and org.orgName.trim().length()>0">
+                    <bind name="orgNamePattern" value="'%' + org.orgName + '%'"/>
+                    AND  ORG_NAME like #{orgNamePattern}
+                </if>
+                <if test="org.orgLocate!=null and  org.orgLocate.trim().length()>0 ">
+                    AND ORG_LOCATE=#{org.orgLocate}
+                </if>
+                <if test="org.orgIdentify !=null  and org.orgIdentify.trim().length()>0 "  >
+                    AND ORG_IDENTIFY=#{org.orgIdentify}
+                </if>
+            </where>
+            order by itemID
+        </select>
+        <select id="selectLocate" resultMap="baseOrganizationResult">
+            select
+                ORG_LOCATE
+            from organization group by ORG_LOCATE
+        </select>
+        <select id="selectIdentify" resultMap="baseOrganizationResult">
+            select
+                ORG_IDENTIFY
+            from  organization group by ORG_IDENTIFY
+        </select>
+
+        <!--    详情查询-->
+        <resultMap id="organizationDetailResultMap" type="com.lanqiao.zzy.domain.Organization">
+            <id column="ITEMID" property="itemid"/>
+            <result column="ITEMCODE" property="itemcode"/>
+            <result column="ORG_CODE" property="orgCode"/>
+            <result column="ORG_NAME" property="orgName"/>
+            <result column="ORG_IDENTIFY" property="orgIdentify"/>
+            <result column="AREA_COVERD" property="areaCoverd"/>
+            <result column="ORG__ADDRESS" property="address"/>
+            <result column="CONTACTS" property="contacts"/>
+            <result column="PHONE" property="phone"/>
+            <!--        医院-->
+            <collection property="tbCulproHosp" ofType="com.lanqiao.zzy.domain.TbCulproHosp" >
+                <id column="HOSPITAL_itemID" jdbcType="INTEGER" property="itemid" />
+                <id column="HOSPITAL_itemCode" jdbcType="CHAR" property="itemcode" />
+                <result column="HOSPITAL_NAME" jdbcType="VARCHAR" property="hospitalName" />
+                <result column="HOSPITAL_LEVEL" jdbcType="VARCHAR" property="hospitalLevel" />
+                <result column="HOSPITAL_KEY_SPECIALTY" jdbcType="VARCHAR" property="hospitalKeySpecialty" />
+                <result column="HOSPITAL_BRIEF_INTRODUCE" jdbcType="VARCHAR" property="hospitalBriefIntroduce" />
+                <result column="HOSPITAL_INTRODUCE" jdbcType="VARCHAR" property="hospitalIntroduce" />
+                <result column="HOSPITAL_TELEPHONE" jdbcType="VARCHAR" property="hospitalTelephone" />
+                <result column="HOSPITAL_ADDRESS_PRO" jdbcType="VARCHAR" property="hospitalAddressPro" />
+                <result column="HOSPITAL_ADDRESS_CITY" jdbcType="VARCHAR" property="hospitalAddressCity" />
+                <result column="HOSPITAL_ADDRESS_COUNTRY" jdbcType="VARCHAR" property="hospitalAddressCountry" />
+                <result column="HOSPITAL_ADDRESS" jdbcType="VARCHAR" property="hospitalAddress" />
+                <result column="HOSPITAL_LINK" jdbcType="VARCHAR" property="hospitalLink" />
+                <result column="HOSPITAL_STATUS" jdbcType="VARCHAR" property="hospitalStatus" />
+                <result column="CREATER" jdbcType="VARCHAR" property="creater" />
+                <result column="itemCreateAt" jdbcType="TIMESTAMP" property="itemcreateat" />
+                <result column="UPDATER" jdbcType="VARCHAR" property="updater" />
+                <result column="itemUpdateAt" jdbcType="TIMESTAMP" property="itemupdateat" />
+                <result column="HOSPITAL_ORG_CODE" jdbcType="VARCHAR" property="orgCode" />
+            </collection>
+            <!--        企业-->
+            <collection property="tbIndustrialDevelopChiMed" ofType="com.lanqiao.zzy.domain.TbIndustrialDevelopChiMed" >
+                <id column="itemID" jdbcType="INTEGER" property="itemid" />
+                <id column="itemCode" jdbcType="CHAR" property="itemcode" />
+                <result column="NAME" jdbcType="VARCHAR" property="name" />
+                <result column="AREA_COVERD" jdbcType="VARCHAR" property="areaCoverd" />
+                <result column="SALES_CATEGORY" jdbcType="VARCHAR" property="salesCategory" />
+                <result column="PROCESSING_TYPE" jdbcType="VARCHAR" property="processingType" />
+                <result column="PEODUCE_TYPE" jdbcType="VARCHAR" property="peoduceType" />
+                <result column="PLANT_TYPE" jdbcType="VARCHAR" property="plantType" />
+                <result column="PEODUCE_DRUG" jdbcType="VARCHAR" property="peoduceDrug" />
+                <result column="SELLING_DRUGS" jdbcType="VARCHAR" property="sellingDrugs" />
+                <result column="CONTACTS" jdbcType="VARCHAR" property="contacts" />
+                <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+                <result column="ADDRESS_PRO" jdbcType="VARCHAR" property="addressPro" />
+                <result column="ADDRESS_CITY" jdbcType="VARCHAR" property="addressCity" />
+                <result column="ADDRESS_COUNTRY" jdbcType="VARCHAR" property="addressCountry" />
+                <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
+                <result column="INTRUDUCE" jdbcType="VARCHAR" property="intruduce" />
+                <result column="STATUS" jdbcType="VARCHAR" property="status" />
+                <result column="REASON" jdbcType="VARCHAR" property="reason" />
+                <result column="ORG_CODE" jdbcType="CHAR" property="orgCode" />
+                <result column="TYPE" jdbcType="VARCHAR" property="type" />
+                <result column="CREATER" jdbcType="VARCHAR" property="creater" />
+                <result column="itemCreateAt" jdbcType="TIMESTAMP" property="itemcreateat" />
+                <result column="UPDATER" jdbcType="VARCHAR" property="updater" />
+                <result column="itemUpdateAt" jdbcType="TIMESTAMP" property="itemupdateat" />
+            </collection>
+            <!--        学校-->
+            <collection property="tbIndustrialDevelopSchool" ofType="com.lanqiao.zzy.domain.TbIndustrialDevelopSchool"  >
+                <id column="SCHOOL_itemID" jdbcType="INTEGER" property="itemid" />
+                <id column="SCHOOL_itemCode" jdbcType="CHAR" property="itemcode" />
+                <result column="SCHOOL_NAME" jdbcType="VARCHAR" property="schoolName" />
+                <result column="SCHOOL_INTRODUCE" jdbcType="VARCHAR" property="schoolIntroduce" />
+                <result column="SECONDARY_COLLEGE" jdbcType="VARCHAR" property="secondaryCollege" />
+                <result column="ENROLLMENT_MAJOR" jdbcType="VARCHAR" property="enrollmentMajor" />
+                <result column="GRADUATE_ENROLLMENT_MAJOR" jdbcType="VARCHAR" property="graduateEnrollmentMajor" />
+                <result column="SCHOOL_PHONE" jdbcType="VARCHAR" property="phone" />
+                <result column="ONLINE_ADDRESS" jdbcType="VARCHAR" property="onlineAddress" />
+                <result column="SCHOOL_TEXT" jdbcType="VARCHAR" property="schoolText" />
+                <result column="SCHOOL_ADDRESS_PRO" jdbcType="VARCHAR" property="addressPro" />
+                <result column="SCHOOL_ADDRESS_CITY" jdbcType="VARCHAR" property="addressCity" />
+                <result column="SCHOOL_ADDRESS_COUNTRY" jdbcType="VARCHAR" property="addressCountry" />
+                <result column="SCHOOL_ADDRESS" jdbcType="VARCHAR" property="address" />
+                <result column="SCHOOL_STATUS" jdbcType="VARCHAR" property="status" />
+                <result column="CREATER" jdbcType="VARCHAR" property="creater" />
+                <result column="itemCreateAt" jdbcType="TIMESTAMP" property="itemcreateat" />
+                <result column="UPDATER" jdbcType="VARCHAR" property="updater" />
+                <result column="itemUpdateAt" jdbcType="TIMESTAMP" property="itemupdateat" />
+            </collection>
+            <collection property="tbIndustrialDevelopTecSerOrg" ofType="com.lanqiao.zzy.domain.TbIndustrialDevelopTecSerOrg">
+                <id column="t_itemID" jdbcType="INTEGER" property="itemid" />
+                <id column="t_itemCode" jdbcType="CHAR" property="itemcode" />
+                <result column="t_NAME" jdbcType="VARCHAR" property="name" />
+                <result column="t_AREA_COVERD" jdbcType="VARCHAR" property="areaCoverd" />
+                <result column="t_SPECIAL_SERVICE" jdbcType="VARCHAR" property="specialService" />
+                <result column="t_PROJECT_NAME" jdbcType="VARCHAR" property="projectName" />
+                <result column="t_CONTACTS" jdbcType="VARCHAR" property="contacts" />
+                <result column="t_PHONE" jdbcType="VARCHAR" property="phone" />
+                <result column="t_ADDRESS_PRO" jdbcType="VARCHAR" property="addressPro" />
+                <result column="t_ADDRESS_CITY" jdbcType="VARCHAR" property="addressCity" />
+                <result column="t_ADDRESS_COUNTRY" jdbcType="VARCHAR" property="addressCountry" />
+                <result column="t_ADDRESS" jdbcType="VARCHAR" property="address" />
+                <result column="t_ONLINE_ADDRESS" jdbcType="VARCHAR" property="onlineAddress" />
+                <result column="t_INTRUDUCE" jdbcType="VARCHAR" property="intruduce" />
+                <result column="t_STATUS" jdbcType="VARCHAR" property="status" />
+                <result column="t_REASON" jdbcType="VARCHAR" property="reason" />
+                <result column="t_ORG_CODE" jdbcType="CHAR" property="orgCode" />
+                <result column="t_TYPE" jdbcType="VARCHAR" property="type" />
+                <result column="t_CREATER" jdbcType="VARCHAR" property="creater" />
+                <result column="t_itemCreateAt" jdbcType="TIMESTAMP" property="itemcreateat" />
+                <result column="t_UPDATER" jdbcType="VARCHAR" property="updater" />
+                <result column="t_itemUpdateAt" jdbcType="TIMESTAMP" property="itemupdateat" />
+            </collection>
+        </resultMap>
+        <select id="selectorgDetail" resultMap="organizationDetailResultMap"  parameterType="string">
+            select
+                o.itemID,
+                o.ORG_CODE,
+                o.itemCode,
+                ORG_NAME,
+                ORG_LOCATE,
+                ORG_IDENTIFY,
+
+                h.itemID, h.itemCode, h.HOSPITAL_NAME, h.HOSPITAL_LEVEL, h.HOSPITAL_BRIEF_INTRODUCE, h.HOSPITAL_KEY_SPECIALTY,
+                h.HOSPITAL_INTRODUCE, h.HOSPITAL_TELEPHONE, h.HOSPITAL_ADDRESS_PRO, h.HOSPITAL_ADDRESS_CITY,
+                h.HOSPITAL_ADDRESS_COUNTRY, h.HOSPITAL_ADDRESS, h.HOSPITAL_LINK, h.REASON, h.HOSPITAL_STATUS, h.CREATER,
+                h.itemCreateAt, h.UPDATER, h.itemUpdateAt, h.ORG_CODE,
+
+                c.NAME,c.AREA_COVERD, c.SALES_CATEGORY, c.PROCESSING_TYPE, c.PEODUCE_TYPE,
+                c.PLANT_TYPE, c.PEODUCE_DRUG, c.SELLING_DRUGS, c.CONTACTS, c.PHONE, c.ADDRESS_PRO, c.ADDRESS_CITY,
+                c.ADDRESS_COUNTRY, c.ADDRESS, c.INTRUDUCE, c.STATUS, c.REASON, c.ORG_CODE, c.TYPE, c.CREATER,
+                c.itemCreateAt, c.UPDATER, c.itemUpdateAt,
+
+                s.SCHOOL_NAME, s.SCHOOL_INTRODUCE, s.SECONDARY_COLLEGE, s.ENROLLMENT_MAJOR,
+                s.GRADUATE_ENROLLMENT_MAJOR, s.PHONE SCHOOL_PHONE, s.ONLINE_ADDRESS, s.SCHOOL_TEXT,
+                s.ADDRESS_PRO SCHOOL_ADDRESS_PRO, s.ADDRESS_CITY SCHOOL_ADDRESS_CITY, s.ADDRESS_COUNTRY SCHOOL_ADDRESS_COUNTRY,
+                s.ADDRESS SCHOOL_ADDRESS, s.STATUS SCHOOL_STATUS, s.CREATER, s.itemCreateAt, s.UPDATER, s.itemUpdateAt,
+
+                t.itemID t_itemID, t.itemCode t_itemDode,t. NAME t_NAME, t.AREA_COVERD t_AREA_COVERD,
+                t.SPECIAL_SERVICE t_SPECIAL_SERVICE, t.PROJECT_NAME t_PROJECT_NAME, t.CONTACTS t_CONTACTS, t.PHONE t_PHONE,
+                t.ADDRESS_PRO t_ADDRESS_PRO, t.ADDRESS_CITY t_ADDRESS_CITY, t.ADDRESS_COUNTRY t_ADDRESS_COUNTRY,
+                t.ADDRESS t_ADDRESS, t.ONLINE_ADDRESS t_ONLINE_ADDRESS, t.INTRUDUCE t_INTRUDUCE, t.STATUS t_STATUS,
+                t.REASON  t_REASON, t.ORG_CODE t_ORG_CODE, t.TYPE t_TYPE, t.CREATER t_CREATER,
+                t.itemCreateAt t_itemCreateAt , t.UPDATER t_UPDATER, t.itemUpdateAt t_itemUpdateAt
+
+
+            from organization o
+                     left join tb_culpro_hosp h on o.ORG_NAME=h.HOSPITAL_NAME
+                     left join tb_industrial_develop_chi_med c on o.ORG_NAME=c.NAME
+                     left join tb_industrial_develop_school s on o.ORG_NAME=s.SCHOOL_NAME
+                     left join tb_industrial_develop_tec_ser_org t on o.ORG_NAME=t.NAME
+            where    h.HOSPITAL_NAME=#{value}   or  c.Name=#{value}  or s.SCHOOL_NAME=#{value}  or t.NAME=#{value}
+        </select>
+        <select id="selectbyOrgCode" resultMap="baseOrganizationResult">
+            select itemID, itemCode, ORG_NAME, ORG_CODE, ORG_DESCRIPTION,
+                   ORG_IDENTIFY, ORG_LOCATE, AUDIT_STATUS, `LEFT`, `RIGHT`, LEVEL,
+                   CREATER, itemCreateAt, UPDATER, itemUpdateAt
+            from organization where ORG_CODE=#{orgcode}
+        </select>
+</mapper>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanqiao.zzy.mapper.CulproFileMapper">
+    <resultMap id="BaseResultMap" type="com.lanqiao.zzy.domain.CulproFile">
+        <id property="itemid" column="itemID" jdbcType="INTEGER"/>
+        <id property="itemcode" column="itemCode" jdbcType="CHAR"/>
+        <result property="dataCode" column="DATA_CODE" jdbcType="CHAR"/>
+        <result property="uploader" column="UPLOADER" jdbcType="VARCHAR"/>
+        <result property="uploaderCode" column="UPLOADER_CODE" jdbcType="CHAR"/>
+        <result property="fileName" column="FILE_NAME" jdbcType="VARCHAR"/>
+        <result property="fileType" column="FILE_TYPE" jdbcType="VARCHAR"/>
+        <result property="fileSize" column="FILE_SIZE" jdbcType="DOUBLE"/>
+        <result property="filePath" column="FILE_PATH" jdbcType="VARCHAR"/>
+        <result property="itemcreateat" column="itemCreateAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        itemID,itemCode,DATA_CODE,
+        UPLOADER,UPLOADER_CODE,FILE_NAME,
+        FILE_TYPE,FILE_SIZE,FILE_PATH,
+        itemCreateAt
+    </sql>
+
+</mapper>

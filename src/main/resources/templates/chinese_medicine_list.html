@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en"
+      mlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>中药常识</title>
+    <link rel="import" href="title.html" id="page1"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="${pageContext.request.contextPath}/">
+    <!-- Bootstrap -->
+    <link th:href="@{/component/bootstrap-3.3.7/css/bootstrap.min.css}"
+          href="../static/component/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link th:href="@{/component/inspinia/css/plugins/sweetalert/sweetalert.css}"
+          href="../static/component/inspinia/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script th:src="@{/component/jquery-2.2.4.js}"
+            src="../static/component/jquery-2.2.4.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script th:src="@{/component/bootstrap-3.3.7/js/bootstrap.min.js}"
+            src="../static/component/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <!--引入css样式-->
+    <link th:href="@{/project/public/header.css}"
+          href="../../static/project/public/header.css" rel="stylesheet">
+    <link th:href="@{/project/policies_regulations/centerList.css}"
+          href="../../static/project/policies_regulations/centerList.css" rel="stylesheet">
+    <link th:href="@{/project/homepage/main.css}"
+          href="../../static/project/homepage/main.css" rel="stylesheet">
+
+    <style>
+        .medicalTag{
+            text-align: center;
+            height: 35px;
+            width: 100px;
+            margin-left: 10px;
+            position: relative;
+        }
+
+        .medicine{
+            text-align:center;
+            margin-top: 5px;
+        }
+
+        .medicine a{
+            background-image:url('../../images/home/u22.png');
+            background-size: 80% auto;
+            background-repeat: no-repeat;
+            text-decoration: none;
+            display: block;
+            height: 20px;
+            width: 80px;
+            color: black;
+            size: 70px;
+            padding-top: 2px;
+        }
+        .medicalTag a{
+            background-image:url('../../images/home/u22.png');
+            background-size: 100% auto;
+            background-repeat: no-repeat;
+            text-decoration: none;
+            display: block;
+            height: 35px;
+            width: 100px;
+            color: #775637;
+            size: 70px;
+            padding-top: 2px;
+            margin-top: -20px;
+
+        }
+        .medicalTag a:visited{
+            background-color: chocolate;
+        }
+        .medicalTag a:hover {
+            background-color: chocolate;
+        }
+        .medicalTag a:active{
+            background-color: chocolate;
+        }
+
+        .fmedicalTag{
+            background-image:url('../../images/health-care/u133.png');
+            background-size: 100% auto;
+            background-repeat: no-repeat;
+            text-decoration: none;
+            display: block;
+            height: 50px;
+            width: 100px;
+            color: black;
+            size: 70px;
+            padding-top: 2px;
+            padding-left: 28px;
+        }
+
+
+
+        .pagination  li a{
+            color:rgba(0, 0, 0, 0.647058823529412);
+        }
+/*
+
+        .pagination li a:link{
+            background-color:rgba(119, 86, 55, 1);
+            color: white;
+        }
+        !*.pagination li a:hover{
+            background-color:rgba(119, 86, 55, 1);
+            color: white;
+        }*!
+        !*.pagination li a:visited{
+            background-color:rgba(119, 86, 55, 1);
+            color: white;
+        }*!
+        .pagination li a:active{
+            background-color:rgba(119, 86, 55, 1);
+            color: white;
+        }*/
+    </style>
+
+</head>
+<body>
+<!--头部-->
+<div id="header" th:include="public/header :: publicHeader"></div>
+    <!--内容-->
+    <div class="container-fluid">
+        <div class="row clearfix">
+            <div class="col-md-8 col-lg-offset-2 column" style="border-left: 1px gray solid;border-right:1px gray solid">
+
+                <div class="row clearfix" style="margin-top: 40px">
+                    <!--左边-->
+                    <div class="col-md-2 column">
+                        <div  class="img-rounded medicalTag">
+                            <a th:href="@{/healthcare/science/list}">科普知识</a>
+                        </div><br><br>
+                        <div  class="img-rounded medicalTag" >
+                            <a th:href="@{/medicine/list?pageNum=1}">中药常识</a>
+                        </div><br><br>
+                        <div class="img-rounded medicalTag">
+                            <a th:href="@{/fam/list?pageNum=1}" >历史名方</a>
+                        </div><br><br>
+                        <div class="img-rounded medicalTag">
+                            <a th:href="@{/doctor/list?pageNum=1}">国医话健康</a>
+                        </div><br><br>
+                    </div>
+                    <!--右边-->
+                    <div class="col-md-10 column">
+                       <!--搜索框-->
+                        <form action="/medicine/search" method="post">
+                            <div class="navbar-form  navbar-center">
+                                <div class="form-group">
+                                    <input type="text" name="chineseMedicineName" class="form-control" placeholder="Search" >
+                                </div>
+                                <button type="submit" class="btn btn-danger" >搜索</button>
+                            </div>
+                        </form><br><br>
+
+                        <!--解表药-->
+                        <div class="navbar-form  navbar-center">
+                            <div class="navbar-form  navbar-center">
+                                    <div style="float: left">
+                                        <img  class="img " src="../../images/health-care/u542.svg" style="width: 200px;height: 2px" />
+                                        <img  class="img " src="../../images/health-care/u2399.svg" style="width: 25px;margin-left: -14px;"/>
+                                    </div>
+                                    <span class="fmedicalTag" style="float: left">
+                                            解表药
+                                    </span>
+                                    <div >
+                                        <img  class="img " src="../../images/health-care/u2399.svg" style="width: 25px;margin-right: -11px"/>
+                                        <img  class="img " src="../../images/health-care/u542.svg" style="width: 200px;height: 2px"/>
+                                    </div>
+                            </div>
+                                    <div><br></div>
+                                <!--解表药列表-->
+                                    <div id="u2401" class="nav navbar-nav" th:each="fcm,status : ${firstChineseMedicinesList}" style="height: 50px;width: 150px">
+                                        <div class="img-rounded medicine" style="width: 15px;height: 10px;font-size: 6px" >
+                                                <a th:href="@{/medicine/detail(itemId=${fcm.itemid})}" th:text="${fcm.chineseMedicineName}" style="padding-right: 10px;margin-right: 10px"></a>
+                                        </div>
+                                    </div>
+                                    <div><br><p><br><br><br></p></div>
+                                <!-- 清热药-->
+                        </div>
+
+
+                        <!--清热药-->
+                        <div style="float: left;margin-left: 15px">
+                            <img  class="img " src="../../images/health-care/u542.svg" style="width: 200px;height: 2px" />
+                            <img  class="img " src="../../images/health-care/u2399.svg" style="width: 25px;margin-left: -14px;"/>
+                        </div>
+                        <span class="fmedicalTag" style="float: left">
+                                清热药
+                        </span>
+                        <div >
+                            <img  class="img " src="../../images/health-care/u543.jpg" style="width: 225px;height: 40px;margin-top: -9px" />
+                        </div>
+
+                        <div class="navbar-form navbar-left" >
+                       <!-- 清热药列表-->
+                        <div id="u2403" class="nav navbar-nav" th:each="scm,status : ${secondChineseMedicinesList}" style="height: 50px;width: 150px ">
+                            <div class="img-rounded medicine" style="width: 8px;height: 10px;font-size: 6px" >
+                                <a th:href="@{/medicine/detail(itemId=${scm.itemid})}" th:text="${scm.chineseMedicineName}" ></a>
+                            </div>
+                        </div>-->
+
+             <!--           <div class="navbar-form  navbar-center">
+                            <div class="navbar-form  navbar-center">
+                                <div style="float: left;margin-left: 15px">
+                                    <img  class="img " src="../../images/health-care/u542.svg" style="width: 200px;height: 2px" />
+                                    <img  class="img " src="../../images/health-care/u2399.svg" style="width: 25px;margin-left: -14px;"/>
+                                </div>
+                                <span class="fmedicalTag" style="float: left">
+                                            清热药
+                                    </span>
+                                <div style="float: right;margin-right: 90px">
+                                    <img  class="img " src="../../images/health-care/u2399.svg" style="width: 25px;margin-right: -11px"/>
+                                    <img  class="img " src="../../images/health-care/u542.svg" style="width: 200px;height: 2px"/>
+                                </div>
+                            </div>
+
+                            <div><br></div>
+                            &lt;!&ndash;清热药列表&ndash;&gt;
+                            <div id="u2403" class="nav navbar-nav" th:each="scm,status : ${secondChineseMedicinesList}" style="height: 50px;width: 150px;float: left ">
+                                <div class="img-rounded medicine" style="width: 8px;height: 10px;font-size: 6px" >
+                                    <a th:href="@{/medicine/detail(itemId=${scm.itemid})}" th:text="${scm.chineseMedicineName}" ></a>
+                                </div>
+                            </div>-->
+                            <div><br><p><br><br><br><br><br><br></p></div>
+                            <nav aria-label="Page navigation" class="text-center navbar-center " style="margin-left: -30px;margin-right: 180px">
+                                <ul class="pagination">
+                                    <li th:if="${firstChineseMedicinesList.pageNum}>0">
+                                        <a th:href="@{/medicine/list(pageNum=${firstChineseMedicinesList.pageNum}-1)}">&lt;</a>
+                                    </li>
+                                    <li th:if="${firstChineseMedicinesList.pageNum-3 gt 1}">
+                                        <a th:text="${firstChineseMedicinesList.pageNum-4}" th:href="@{/medicine/list(pageNum=${firstChineseMedicinesList.pageNum}-4)}"></a>
+                                    </li>
+                                    <li th:if="${firstChineseMedicinesList.pageNum-2 gt 1}">
+                                        <a th:text="${firstChineseMedicinesList.pageNum-3}" th:href="@{/medicine/list(pageNum=${firstChineseMedicinesList.pageNum}-3)}"></a>
+                                    </li>
+                                    <li th:if="${firstChineseMedicinesList.pageNum-1 gt 1}">
+                                        <a th:text="${firstChineseMedicinesList.pageNum-2}" th:href="@{/medicine/list(pageNum=${firstChineseMedicinesList.pageNum}-2)}"></a>
+                                    </li>
+                                    <li th:if="${firstChineseMedicinesList.pageNum gt 1}" >
+                                        <a th:text="${firstChineseMedicinesList.pageNum-1}" th:href="@{/medicine/list(pageNum=${firstChineseMedicinesList.pageNum}-1)}"></a>
+                                    </li>
+                                    <!--/* 当前页 */-->
+                                    <li th:if="${firstChineseMedicinesList.pageNum le firstChineseMedicinesList.pages}" th:class="${firstChineseMedicinesList.pageNum le firstChineseMedicinesList.pages ? 'active':''}">
+                                        <a th:text="${firstChineseMedicinesList.pageNum}" th:href="@{/medicine/list(pageNum=${firstChineseMedicinesList.pageNum})}"></a>
+                                    </li>
+                                    <li th:if="${firstChineseMedicinesList.pageNum+1 le firstChineseMedicinesList.pages}">
+                                        <a th:text="${firstChineseMedicinesList.pageNum+1}" th:href="@{/medicine/list(pageNum=${firstChineseMedicinesList.pageNum}+1)}"></a>
+                                    </li>
+                                    <li th:if="${firstChineseMedicinesList.pageNum+2 le firstChineseMedicinesList.pages}">
+                                        <a th:text="${firstChineseMedicinesList.pageNum+2}" th:href="@{/medicine/list(pageNum=${firstChineseMedicinesList.pageNum}+2)}"></a>
+                                    </li>
+                                    <li th:if="${firstChineseMedicinesList.pageNum+3 le firstChineseMedicinesList.pages}">
+                                        <a th:text="${firstChineseMedicinesList.pageNum+3}" th:href="@{/medicine/list(pageNum=${firstChineseMedicinesList.pageNum}+3)}"></a>
+                                    </li>
+                                    <li th:if="${firstChineseMedicinesList.pageNum lt firstChineseMedicinesList.pages}+1">
+                                        <a th:href="@{/medicine/list(pageNum=${firstChineseMedicinesList.pageNum}+1)}">&gt;</a>
+                                    </li>
+                                    <li>
+                                        跳至<input type="number" name="pageNum" style="width: 50px">页
+                                        <button  type="submit" class="btn btn-default" style="margin-left:3px;width: 40px;height: 28px;">go</button>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--底部-->
+<div id="footer" th:include="public/footer :: publicFooter"></div>
+</body>
+</html>
+

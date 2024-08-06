@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanqiao.zzy.mapper.HealthCareSciKnowMapper">
+  <resultMap id="BaseResultMap" type="com.lanqiao.zzy.domain.HealthCareSciKnow">
+    <id column="itemID" jdbcType="INTEGER" property="itemid" />
+    <id column="itemCode" jdbcType="CHAR" property="itemcode" />
+    <result column="SCIENCE_KNOWLEDGE_NAME" jdbcType="VARCHAR" property="scienceKnowledgeName" />
+    <result column="SCIENCE_KNOWLEDGE_SOURCE" jdbcType="VARCHAR" property="scienceKnowledgeSource" />
+    <result column="SCIENCE_KNOWLEDGE_AUTHOR" jdbcType="VARCHAR" property="scienceKnowledgeAuthor" />
+    <result column="VISIT_NUM" jdbcType="INTEGER" property="visitNum" />
+    <result column="CONTENT" jdbcType="VARCHAR" property="content" />
+    <result column="SCIENCE_KNOWLEDGE_STATUS" jdbcType="VARCHAR" property="scienceKnowledgeStatus" />
+    <result column="CREATER" jdbcType="VARCHAR" property="creater" />
+    <result column="itemCreateAt" jdbcType="TIMESTAMP" property="itemcreateat" />
+    <result column="UPDATER" jdbcType="VARCHAR" property="updater" />
+    <result column="itemUpdateAt" jdbcType="TIMESTAMP" property="itemupdateat" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    itemID, itemCode, SCIENCE_KNOWLEDGE_NAME, SCIENCE_KNOWLEDGE_SOURCE, SCIENCE_KNOWLEDGE_AUTHOR,
+    VISIT_NUM, CONTENT, SCIENCE_KNOWLEDGE_STATUS, CREATER, itemCreateAt, UPDATER, itemUpdateAt
+  </sql>
+  <!--首页：科普知识-->
+  <select id="selectHealthCareSciKnowForHome" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_health_care_sci_know
+    where SCIENCE_KNOWLEDGE_STATUS='展示中'
+  </select>
+
+    <select id="selectAllForSciKnow" resultMap="BaseResultMap">
+        select itemID,SCIENCE_KNOWLEDGE_NAME,CONTENT
+        FROM tb_health_care_sci_know
+    </select>
+
+    <select id="selectSciDetailById" resultMap="BaseResultMap">
+        select itemID,itemCode,SCIENCE_KNOWLEDGE_NAME,
+        SCIENCE_KNOWLEDGE_SOURCE,SCIENCE_KNOWLEDGE_AUTHOR,VISIT_NUM,
+        CONTENT,SCIENCE_KNOWLEDGE_STATUS,CREATER,
+        itemCreateAt,UPDATER,itemUpdateAt
+        from  tb_health_care_sci_know
+        where  itemID = #{value}
+        order by VISIT_NUM desc
+    </select>
+
+    <select id="selectSciAllDetail" resultMap="BaseResultMap">
+        select itemID,itemCode,SCIENCE_KNOWLEDGE_NAME,
+        SCIENCE_KNOWLEDGE_SOURCE,SCIENCE_KNOWLEDGE_AUTHOR,VISIT_NUM,
+        CONTENT,SCIENCE_KNOWLEDGE_STATUS,CREATER,
+        itemCreateAt,UPDATER,itemUpdateAt
+        from  tb_health_care_sci_know
+    </select>
+
+
+</mapper>

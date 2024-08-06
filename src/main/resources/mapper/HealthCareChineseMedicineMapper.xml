@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanqiao.zzy.mapper.HealthCareChineseMedicineMapper">
+
+    <resultMap id="BaseResultMap" type="com.lanqiao.zzy.domain.HealthCareChineseMedicine">
+            <id property="itemid" column="itemID" jdbcType="INTEGER"/>
+            <id property="itemcode" column="itemCode" jdbcType="CHAR"/>
+            <result property="chineseMedicineName" column="CHINESE_MEDICINE_NAME" jdbcType="VARCHAR"/>
+            <result property="chineseMedicineType" column="CHINESE_MEDICINE_TYPE" jdbcType="VARCHAR"/>
+            <result property="chineseMedicineAlias" column="CHINESE_MEDICINE_ALIAS" jdbcType="VARCHAR"/>
+            <result property="chineseMedicineSource" column="CHINESE_MEDICINE_SOURCE" jdbcType="VARCHAR"/>
+            <result property="chineseMedicineHarvesting" column="CHINESE_MEDICINE_HARVESTING" jdbcType="VARCHAR"/>
+            <result property="chineseMedicineTaste" column="CHINESE_MEDICINE_TASTE" jdbcType="VARCHAR"/>
+            <result property="chineseMedicineMerTro" column="CHINESE_MEDICINE_MER_TRO" jdbcType="VARCHAR"/>
+            <result property="chineseMedicineEffect" column="CHINESE_MEDICINE_EFFECT" jdbcType="VARCHAR"/>
+            <result property="chineseMedicineUsage" column="CHINESE_MEDICINE_USAGE" jdbcType="VARCHAR"/>
+            <result property="chineseMedicineStatus" column="CHINESE_MEDICINE_STATUS" jdbcType="VARCHAR"/>
+            <result property="creater" column="CREATER" jdbcType="VARCHAR"/>
+            <result property="itemcreateat" column="itemCreateAt" jdbcType="TIMESTAMP"/>
+            <result property="updater" column="UPDATER" jdbcType="VARCHAR"/>
+            <result property="itemupdateat" column="itemUpdateAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        itemID,itemCode,CHINESE_MEDICINE_NAME,
+        CHINESE_MEDICINE_TYPE,CHINESE_MEDICINE_ALIAS,CHINESE_MEDICINE_SOURCE,
+        CHINESE_MEDICINE_HARVESTING,CHINESE_MEDICINE_TASTE,CHINESE_MEDICINE_MER_TRO,
+        CHINESE_MEDICINE_EFFECT,CHINESE_MEDICINE_USAGE,CHINESE_MEDICINE_STATUS,
+        CREATER,itemCreateAt,UPDATER,
+        itemUpdateAt
+    </sql>
+    <select id="selectForFirst" resultMap="BaseResultMap">
+        select itemID,chinese_Medicine_Name from tb_health_care_chinese_medicine where itemID > 83
+    </select>
+
+    <select id="selectForSecond" resultMap="BaseResultMap">
+        select itemID,chinese_Medicine_Name from tb_health_care_chinese_medicine where itemID &lt; 84
+    </select>
+
+    <select id="selectForSearch" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include>
+        from tb_health_care_chinese_medicine
+        where CHINESE_MEDICINE_NAME like '${value}'
+    </select>
+
+    <select id="selectForDetailById" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include>
+        from  tb_health_care_chinese_medicine
+        where itemID = #{value}
+    </select>
+    <select id="selectForAll" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include>
+        from  tb_health_care_chinese_medicine
+    </select>
+
+    <select id="selectForImage" resultMap="BaseResultMap">
+        select t1.FILE_PATH
+        FROM   tb_culpro_file t1
+               left join tb_health_care_chinese_medicine t2
+                on t1.itemCode = t2.itemCode
+        where t2.itemid = #{value}
+    </select>
+</mapper>

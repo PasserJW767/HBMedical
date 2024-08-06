@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:background="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>药材详情</title>
+    <!-- Bootstrap -->
+    <link th:href="@{/component/bootstrap-3.3.7/css/bootstrap.min.css}"
+          href="../../static/component/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link   th:href="@{/component/inspinia/css/plugins/sweetalert/sweetalert.css}"
+            href="../../static/component/inspinia/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- 静态资源起始位为static-->
+    <script  th:src="@{/component/jquery-2.2.4.js}"
+             src="../../static/component/jquery-2.2.4.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script th:src="@{/component/bootstrap-3.3.7/js/bootstrap.min.js}"
+            src="../../static/component/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <link th:href="@{/project/homepage/main.css}"
+          href="../../static/project/homepage/main.css" rel="stylesheet">
+        <style>
+            .nav-tabs>li>a{
+                color: black;
+            }
+       .nav-tabs>li.active>a,
+       .nav-tabs>li.active>a:focus{
+           background-color: #D9001B;
+           color: white;
+       }
+       a,a:hover{
+           text-decoration: none;
+           color: #775637;
+       }
+
+        </style>
+</head>
+<body>
+<!--头部-->
+<div id="header" th:include="public/header :: publicHeader"></div>
+<div class="container">
+    <div class="col-md-1"></div>
+    <div class="col-md-10 col-md-offset-1">
+        <div id="IndustrialDetailBody" style="display: flex ;border: #f6f5f5 solid 1px; width: 910px" >
+            <!--    标题-->
+            <div id="IndustrialTitle" style="display: flex ; flex-direction: column;margin-top: 50px;width: 190px;margin-left: 50px">
+                <div style="display: flex;margin-top: 30px"  >
+                    <img th:src="@{/images/home/u22.png}" width="102px" height="38px"
+                         src="../../static/images/home/u22.png" alt="">
+                    <span style="display: flex;position: relative; right: 105px;top: 10px;width: 102px;height: 20px;
+                                text-align: center">
+                    <a  th:href="@{/org/index}"
+                        href="#" style="width: 102px;height: 20px">资源分布</a>
+                </span>
+                </div>
+                <div style="display: flex;margin-top: 30px"  >
+                    <img th:src="@{/images/home/u22.png}" width="102px" height="38px"
+                         src="../../static/images/home/u22.png" alt="">
+                    <span style="display: flex;position: relative; right: 105px;top: 10px;width: 102px;height: 20px;
+                                text-align: center">
+                    <a  th:href="@{/achi/achiList}"
+                        href="#" style="width: 102px;height: 20px">科研成果</a>
+                </span>
+                </div>
+                <div style="display: flex;margin-top: 30px"  >
+                    <img th:src="@{/images/home/u22.png}" width="102px" height="38px"
+                         src="../../static/images/home/u22.png" alt="">
+                    <span style="display: flex;position: relative; right: 105px;top: 10px;width: 102px;height: 20px;
+                                text-align: center">
+                    <a th:href="@{/cooexc/cooexcList}"
+                       href="#" style="width: 102px;height: 20px">合作研究</a>
+                </span>
+                </div>
+                <div style="display: flex;margin-top: 30px"  >
+                    <img th:src="@{/images/home/u22.png}" width="102px" height="38px"
+                         src="../../static/images/home/u22.png" alt="">
+                    <span style="display: flex;position: relative; right: 105px;top: 10px;width: 102px;height: 20px;
+                                text-align: center">
+                    <a   th:href="@{/talrec/talrecList}" width="102px" height="38px"
+                         href="#" style="width: 102px;height: 20px">人才招募</a>
+                </span>
+                </div>
+            </div>
+            <!--       主体部分 -->
+            <div style="display: flex;flex-direction: column;margin-top: 100px" >
+                <div id="returnlist">
+                 <span>
+                <p ><a th:href="@{/org//MedMatlist(pageNum=${pageNum})}" style="color: red;text-decoration: none">&lt;返回</a></p>
+            </span>
+                </div>
+
+                <div id="" >
+                    <div style="margin-left: 230px">
+                        <img th:src="@{/images/home/u133.png}"
+                             src="../../static/images/home/u133.png" alt="">
+                        <span th:text="${MedMat.name}" style="position: relative;top: 4px;right: 140px;font-size: 20px;font-weight: bold"></span>
+                    </div>
+                    <!--图片-->
+                    <div style="display: flex;flex-direction: row;margin-top: 20px" >
+                        <img   th:src="@{${MedMat.tbCulproFile.filePath}}" style="width: 282px;height: 210px"
+                               src="../../static/images/industry-dev/u1509.png" alt="">
+                    </div>
+                    <!--            基本信息-->
+                    <div style="margin-top: 10px" >
+                        <div  style=" display: flex;flex-direction: row" >
+                            <div  style="width: 3px;height: 16px; background-color: red;"></div>
+                            <div style="font-weight: bold;color: #775637" >药品基本信息:</div>
+                        </div>
+                        <div style="background-color: #F8F8F8;margin-left: 20px"  >
+                            <div style="flex-direction: row;display: flex;padding: 10px" >
+                                <div style="color:#775637;font-size: 15px">药品名称:</div>
+                                <div th:text="${MedMat.name}"></div >
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding: 10px;" >
+                                <div style="color:#775637;font-size: 15px">规格:</div>
+                                <div th:text="${MedMat.specifications}"></div >
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding: 10px" >
+                                <div style="color:#775637;font-size: 15px">价格:</div>
+                                <div th:text="${MedMat.price}"></div >
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding: 10px" >
+                                <div style="color:#775637;font-size: 15px">产地:</div>
+                                <div th:text="${MedMat.place}"></div >
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding: 10px" >
+                                <div style="color:#775637;font-size: 15px">种植园:</div>
+                                <div th:text="${organzation.orgName}"></div>
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding: 10px" >
+                                <div style="color:#775637;font-size: 15px">联系人:</div>
+                                <div th:text="${MedMat.contacts}"></div >
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding: 10px" >
+                                <div style="color:#775637;font-size: 15px">联系电话:</div>
+                                <div th:text="${organzation.phone}"></div >
+                            </div>
+                        </div>
+                    </div>
+                    <!--           科研成果 -->
+                    <div  style="margin-top: 10px">
+                        <div  style=" display: flex;flex-direction: row" >
+                            <div  style="width: 3px;height: 16px; background-color: red;"></div>
+                            <div style="font-weight: bold;color: #775637" >药品备案信息:</div>
+                        </div>
+                        <div style="background-color: #F8F8F8;margin-left: 20px"  >
+                            <div style="flex-direction: row;display: flex;padding: 10px" >
+                                <div style="color:#775637;font-size: 15px">批准文号:</div>
+                                <div th:text="国药准字Z20040063"></div >
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding: 10px;" >
+                                <div style="color:#775637;font-size: 15px">生产单位:</div>
+                                <div th:text="${organzation.orgName}"></div >
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding: 10px" >
+                                <div style="color:#775637;font-size: 15px">生产地址:</div>
+                                <div th:text="${organzation.address}"></div >
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding: 10px" >
+                                <div style="color:#775637;font-size: 15px">产品类别:</div>
+                                <div th:text="中药"></div >
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding: 10px" >
+                                <div style="color:#775637;font-size: 15px">批准日期:</div>
+                                <div th:text="2020-03-18"></div >
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding: 10px" >
+                                <div style="color:#775637;font-size: 15px">原批准文号:</div>
+                                <div th:text="123"></div >
+                            </div>
+                            <div style="flex-direction: row;display: flex;padding: 10px" >
+                                <div style="color:#775637;font-size: 15px">药品本位码:</div>
+                                <div th:text="86902767000395"></div >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+<!--    底部-->
+<div id="footer" th:include="public/footer :: publicFooter"></div>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanqiao.zzy.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.lanqiao.zzy.domain.User">
+            <id property="itemid" column="itemID" jdbcType="INTEGER"/>
+            <id property="itemcode" column="itemCode" jdbcType="CHAR"/>
+            <result property="orgCode" column="ORG_CODE" jdbcType="CHAR"/>
+            <result property="username" column="USERNAME" jdbcType="VARCHAR"/>
+            <result property="password" column="PASSWORD" jdbcType="VARCHAR"/>
+            <result property="salt" column="SALT" jdbcType="VARCHAR"/>
+            <result property="name" column="NAME" jdbcType="VARCHAR"/>
+            <result property="gender" column="GENDER" jdbcType="VARCHAR"/>
+            <result property="idcardType" column="IDCARD_TYPE" jdbcType="VARCHAR"/>
+            <result property="idcardNo" column="IDCARD_NO" jdbcType="VARCHAR"/>
+            <result property="email" column="EMAIL" jdbcType="VARCHAR"/>
+            <result property="state" column="STATE" jdbcType="VARCHAR"/>
+            <result property="contacts" column="CONTACTS" jdbcType="VARCHAR"/>
+            <result property="mobilephone" column="mobilePhone" jdbcType="VARCHAR"/>
+            <result property="creater" column="CREATER" jdbcType="VARCHAR"/>
+            <result property="itemcreateat" column="itemCreateAt" jdbcType="TIMESTAMP"/>
+            <result property="updater" column="UPDATER" jdbcType="VARCHAR"/>
+            <result property="itemupdateat" column="itemUpdateAt" jdbcType="TIMESTAMP"/>
+            <result property="cityid" column="CITYID" jdbcType="CHAR"/>
+            <result property="type" column="TYPE" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        itemID,itemCode,ORG_CODE,
+        USERNAME,PASSWORD,SALT,
+        NAME,GENDER,IDCARD_TYPE,
+        IDCARD_NO,EMAIL,STATE,
+        CONTACTS,mobilePhone,CREATER,
+        itemCreateAt,UPDATER,itemUpdateAt,
+        CITYID,TYPE,PORTRAIT
+    </sql>
+
+    <insert id="insertSelective" keyColumn="itemID" keyProperty="itemid" parameterType="com.lanqiao.zzy.domain.User" useGeneratedKeys="true">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="itemcode != null">
+                itemCode,
+            </if>
+            <if test="orgCode != null">
+                ORG_CODE,
+            </if>
+            <if test="username != null">
+                USERNAME,
+            </if>
+            <if test="password != null">
+                `PASSWORD`,
+            </if>
+            <if test="salt != null">
+                SALT,
+            </if>
+            <if test="name != null">
+                `NAME`,
+            </if>
+            <if test="gender != null">
+                GENDER,
+            </if>
+            <if test="idcardType != null">
+                IDCARD_TYPE,
+            </if>
+            <if test="idcardNo != null">
+                IDCARD_NO,
+            </if>
+            <if test="email != null">
+                EMAIL,
+            </if>
+            <if test="state != null">
+                `STATE`,
+            </if>
+            <if test="contacts != null">
+                CONTACTS,
+            </if>
+            <if test="mobilephone != null">
+                mobilePhone,
+            </if>
+            <if test="creater != null">
+                CREATER,
+            </if>
+            <if test="itemcreateat != null">
+                itemCreateAt,
+            </if>
+            <if test="updater != null">
+                UPDATER,
+            </if>
+            <if test="itemupdateat != null">
+                itemUpdateAt,
+            </if>
+            <if test="cityid != null">
+                CITYID,
+            </if>
+            <if test="type != null">
+                `TYPE`,
+            </if>
+            <if test="portrait != null">
+                PORTRAIT,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="itemcode != null">
+                #{itemcode,jdbcType=CHAR},
+            </if>
+            <if test="orgCode != null">
+                #{orgCode,jdbcType=CHAR},
+            </if>
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="salt != null">
+                #{salt,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null">
+                #{gender,jdbcType=VARCHAR},
+            </if>
+            <if test="idcardType != null">
+                #{idcardType,jdbcType=VARCHAR},
+            </if>
+            <if test="idcardNo != null">
+                #{idcardNo,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null">
+                #{state,jdbcType=VARCHAR},
+            </if>
+            <if test="contacts != null">
+                #{contacts,jdbcType=VARCHAR},
+            </if>
+            <if test="mobilephone != null">
+                #{mobilephone,jdbcType=VARCHAR},
+            </if>
+            <if test="creater != null">
+                #{creater,jdbcType=VARCHAR},
+            </if>
+            <if test="itemcreateat != null">
+                #{itemcreateat,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updater != null">
+                #{updater,jdbcType=VARCHAR},
+            </if>
+            <if test="itemupdateat != null">
+                #{itemupdateat,jdbcType=TIMESTAMP},
+            </if>
+            <if test="cityid != null">
+                #{cityid,jdbcType=CHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="portrait != null">
+                #{portrait,jdbcType=BLOB},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectForLogin" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from user
+        where username=#{username} and password=#{password}
+    </select>
+
+
+    <select id="selectByUsername" parameterType="string" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from user
+        where USERNAME='${value}'
+    </select>
+</mapper>

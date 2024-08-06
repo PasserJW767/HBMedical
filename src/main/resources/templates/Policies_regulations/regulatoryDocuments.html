@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>规范性文件</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <link th:href="@{/component/bootstrap-3.3.7/css/bootstrap.css}"
+          href="../../static/component/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" >
+    <!-- Sweet Alert -->
+    <link th:href="@{/component/inspinia/css/plugins/sweetalert/sweetalert.css}"
+          href="../../static/component/inspinia/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+    <!--引入css样式-->
+    <link th:href="@{/project/public/header.css}"
+          href="../../static/project/public/header.css" rel="stylesheet">
+    <link th:href="@{/project/policies_regulations/centerList.css}"
+          href="../../static/project/policies_regulations/centerList.css" rel="stylesheet">
+    <link th:href="@{/project/homepage/main.css}"
+          href="../../static/project/homepage/main.css" rel="stylesheet">
+    <link th:href="@{/project/policies_regulations/detail.css}"
+          href="../../static/project/policies_regulations/detail.css" rel="stylesheet">
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script th:src="@{/component/jquery-2.2.4.js}"
+            src="../../static/component/jquery-2.2.4.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script th:src="@{/component/bootstrap-3.3.7/js/bootstrap.min.js}"
+            src="../../static/component/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<!--头部-->
+<div id="header" th:include="public/header :: publicHeader"></div>
+
+<!--页面主体-->
+<div class="container-fluid ">
+    <div class="row clearfix">
+        <div class="col-md-8 col-lg-offset-2 column home-body" id="content-body">
+
+            <div class="row clearfix" style="margin-top: 40px">
+                <!-- 左边标签 -->
+                <div class="col-md-2 column">
+                    <div  class=" regulationsTag" >
+                        <a th:href="@{/Policies_regulations/regulation(datatype='法律')}" >法律</a>
+                    </div>
+                    <br><br>
+                    <div class=" regulationsTag">
+                        <a th:href="@{/Policies_regulations/regulation(datatype='行政法规')}" >行政法规</a>
+                    </div>
+                    <br><br>
+                    <div class=" regulationsTag">
+                        <a th:href="@{/Policies_regulations/regulation(datatype='部门规章')}" >部门规章</a>
+                    </div>
+                    <br><br>
+                    <div class=" regulationsTag ">
+                        <a style="padding-top:0px" th:href="@{/Policies_regulations/regulation(datatype='地方性法规和政府规章')}">地方性法规<br>和政府规章</a>
+                    </div>
+                    <br><br>
+                    <div class=" regulationsTag">
+                        <a th:href="@{/regulatoryDocuments/regulation(datatype='规范性文件')}">规范性文件</a>
+                    </div>
+                    <br><br>
+                </div>
+                <!-- 右边内容列表 -->
+                <div class="col-md-10 column">
+                    <!--迭代-->
+                    <div th:each="reg,status:${regulationList}" style="margin-top: 10px;margin-bottom: 20px">
+                        <div class="world" >
+                            <hr class="regulation-hr" align="left">
+                            <a th:text="${reg.getDataTitle()}"
+                               th:href="@{/regulatoryDocuments/regulationDetail(itemid=${reg.getItemid()},pageNum=-1)}"
+                               class="content-title"/>
+                            <br>
+                            <span th:text="'来源：'+${reg.dataSource}" class="content-span"/>
+                            <span th:text="'发布时间：'+${#dates.format(reg.getItemupdateat(), 'yyyy-MM-dd')}" style="margin-left: 110px" class="content-span"/>
+
+                            <div class="content-detail" >
+                                <p th:utext="${#strings.abbreviate(reg.getDataContent(),300)}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--分页-->
+                    <div id="pages1">
+                        <nav aria-label="Page navigation" style="margin-left: 250px">
+                            <ul class="pagination">
+                                <li th:if="${regulationList.pageNum le regulationList.pages}">
+                                    <a th:href="@{/regulatoryDocuments/regulation(datatype=${regulationList[0].getDataFileType()},pageNum=1)}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li th:if="${regulationList.pageNum}>1">
+                                    <a th:href="@{/regulatoryDocuments/regulation(datatype=${regulationList[0].getDataFileType()},pageNum=${regulationList.pageNum}-1)}">&lt;</a>
+                                </li>
+                                <li th:if="${regulationList.pageNum -3 gt 1}">
+                                    <a th:text="${regulationList.pageNum -4}" th:href="@{/regulatoryDocuments/regulation(datatype=${regulationList[0].getDataFileType()},pageNum=${regulationList.pageNum}-4)}"></a>
+                                </li>
+                                <li th:if="${regulationList.pageNum -2 gt 1}">
+                                    <a th:text="${regulationList.pageNum -3}" th:href="@{/regulatoryDocuments/regulation(datatype=${regulationList[0].getDataFileType()},pageNum=${regulationList.pageNum}-3)}"></a>
+                                </li>
+                                <li th:if="${regulationList.pageNum -1 gt 1}">
+                                    <a th:text="${regulationList.pageNum -2}" th:href="@{/regulatoryDocuments/regulation(datatype=${regulationList[0].getDataFileType()},pageNum=${regulationList.pageNum}-2)}"></a>
+                                </li>
+                                <li th:if="${regulationList.pageNum gt 1}" >
+                                    <a th:text="${regulationList.pageNum -1}" th:href="@{/regulatoryDocuments/regulation(datatype=${regulationList[0].getDataFileType()},pageNum=${regulationList.pageNum}-1)}"></a>
+                                </li>
+                                <!--/* 当前页 */-->
+                                <li th:if="${regulationList.pageNum le regulationList.pages}" th:class="${regulationList.pageNum le regulationList.pages ? 'active':''}">
+                                    <a th:text="${regulationList.pageNum}" th:href="@{/regulatoryDocuments/regulation(datatype=${regulationList[0].getDataFileType()},pageNum=${regulationList.pageNum})}"></a>
+                                </li>
+                                <li th:if="${regulationList.pageNum+1 le regulationList.pages}">
+                                    <a th:text="${regulationList.pageNum+1}" th:href="@{/regulatoryDocuments/regulation(datatype=${regulationList[0].getDataFileType()},pageNum=${regulationList.pageNum}+1)}"></a>
+                                </li>
+                                <li th:if="${regulationList.pageNum+2 le regulationList.pages}">
+                                    <a th:text="${regulationList.pageNum+2}" th:href="@{/regulatoryDocuments/regulation(datatype=${regulationList[0].getDataFileType()},pageNum=${regulationList.pageNum}+2)}"></a>
+                                </li>
+                                <li th:if="${regulationList.pageNum+3 le regulationList.pages}">
+                                    <a th:text="${regulationList.pageNum+3}" th:href="@{/regulatoryDocuments/regulation(datatype=${regulationList[0].getDataFileType()},pageNum=${regulationList.pageNum}+3)}"></a>
+                                </li>
+                                <li th:if="${regulationList.pageNum lt regulationList.pages}">
+                                    <a th:href="@{/regulatoryDocuments/regulation(datatype=${regulationList[0].getDataFileType()},pageNum=${regulationList.pageNum}+1)}">&gt;</a>
+                                </li>
+                                <li th:if="${regulationList.pageNum lt regulationList.pages}">
+                                    <a th:href="@{/regulatoryDocuments/regulation(datatype=${regulationList[0].getDataFileType()},pageNum=${regulationList.pages})}" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div style="width: 150px; height: 30px;float:left; position: relative;left: 100px">
+                                        <form th:action="@{regulation}" class="form-inline"  method="get">
+                                            <span  style="float:left;width: 50px;height: 30px;text-align: center;line-height: 30px">跳至</span>
+                                            <input id="pageNum" name="pageNum" type="text"
+                                                   th:placeholder="${regulationList.pageNum}+'/'+${regulationList.pages}"
+                                                   style="width: 60px;height:30px;float:left;">
+                                            <input id="datatype" name="datatype" th:value="${regulationList[0].getDataFileType()}" style="display: none"> <!--隐藏传参-->
+                                            <button  type="submit" class="btn btn-default" style="width: 40px;height: 30px;">go</button>
+                                        </form>
+                                    </div>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="footer" th:include="public/footer :: publicFooter" style="margin-top: 950px"></div>
+</body>
+</html>

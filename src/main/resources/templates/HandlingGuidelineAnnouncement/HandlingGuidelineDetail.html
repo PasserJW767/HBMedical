@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>办事指南</title>
+    <!-- Bootstrap -->
+    <link th:href="@{/component/bootstrap-3.3.7/css/bootstrap.min.css}"
+          href="../../static/component/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link th:href="@{/component/inspinia/css/plugins/sweetalert/sweetalert.css}"
+          href="../../static/component/inspinia/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- 静态资源起始位为static-->
+    <script  th:src="@{/component/jquery-2.2.4.js}"
+             src="../../static/component/jquery-2.2.4.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script th:src="@{/component/bootstrap-3.3.7/js/bootstrap.min.js}"
+            src="../../static/component/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <link th:href="@{/project/homepage/main.css}"
+          href="../../static/project/homepage/main.css" rel="stylesheet">
+    <style>
+        .pagination>li>a{
+            margin-left: 9px;
+        }
+        #detail{
+            text-decoration: none;
+            color: #775637;
+        }
+        a,a:hover{
+            text-decoration: none;
+            color: #775637;
+        }
+        /*圆形*/
+        .circul{
+            width:51px;
+            height:51px;
+            border: 1px solid #8F7043;
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px;
+            border-radius: 50%;
+            color: #8F7043;
+            line-height: 51px;
+        }
+        td{
+            border: none;
+        }
+    </style>
+
+</head>
+<body>
+<!--头部-->
+<div id="header" th:include="public/header :: publicHeader"></div>
+<div class="container">
+    <div class="col-md-1"></div>
+    <div class="col-md-10 col-md-offset-1">
+        <div id="IndustrialListBody" style="display: flex ;border: #f6f5f5 solid 1px; width: 910px" >
+            <!--       主体部分 -->
+            <div style="display: flex;flex-direction: column;margin-top: 100px" >
+                <div id="returnindex">
+                    <!--         返回-->
+                    <span>
+                <p ><a th:href="@{/hg/handlingguidelinelist(pageNum=${pageNum})}" style="color: red;text-decoration: none">&lt;返回</a></p>
+            </span>
+                </div>
+                <!--招聘详情-->
+                <div style="flex-direction: column;display: flex;margin-top: 30px">
+                    <div style="text-align: center">
+                        <p th:text="${znDetial.dataTitle}" style="font-weight: bold;font-size: 20px"></p>
+                        <div style="margin-left: 400px;font-weight: bold">
+                            <span th:text="'【来源:'+${znDetial.dataSource}+'】'"></span>
+                            <span th:text="'【浏览次数:'+${znDetial.visitNum}+'】'"></span>
+                        </div>
+                    </div>
+                    <!--            正文-->
+                    <div th:utext="${znDetial.dataContent}">
+                    </div>
+                    <!--            &lt;!&ndash;附件内容&ndash;&gt;-->
+                    <!--            <div class="col-md-offset-5">-->
+                    <!--                <span th:text="'附件:'" style="font-size: 18px">附件:</span>-->
+                    <!--                <a    th:href="@{${handlingguidelineDetial.tbCulproFile.filePath}}" style="color: red"-->
+                    <!--                      href="" th:text="${handlingguidelineDetial.tbCulproFile.fileName}"></a>-->
+                    <!--                <p th:text="${#dates.format(handlingguidelineDetial.itemupdateat, 'yyyy.MM.hh')}" style="margin-left: 400px"></p>-->
+                    <!--            </div>-->
+                </div>
+                <!--上一篇，下一篇-->
+                <div style="text-align: center">
+                    <div th:if="${before ne null}">
+                        <span th:text="'上一篇:'">上一篇:</span>
+                        <a  th:href="@{/hg/HandlingGuidelinedetail(itemid=${before.itemid},itemcode=${before.itemcode},pagNum=${pageNum})}" th:text="${before.dataTitle}"
+                            href="#"></a>
+                    </div>
+                    <div th:if="${after ne null}">
+                        <span th:text="'下一篇:'">下一篇:</span>
+                        <a  th:href="@{/hg/HandlingGuidelinedetail(itemid=${after.itemid},itemcode=${after.itemcode},pagNum=${pageNum})}" th:text="${after.dataTitle}"
+                            href="#"></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+
+</div>
+<!--底部-->
+<div id="footer" th:include="public/footer :: publicFooter"></div>
+</body>
+</html>

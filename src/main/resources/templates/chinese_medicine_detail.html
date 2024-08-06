@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>中药常识</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="${pageContext.request.contextPath}/">
+    <!-- Bootstrap -->
+    <link th:href="@{/component/bootstrap-3.3.7/css/bootstrap.min.css}"
+          href="../static/component/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link th:href="@{/component/inspinia/css/plugins/sweetalert/sweetalert.css}"
+          href="../static/component/inspinia/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script th:src="@{/component/jquery-2.2.4.js}"
+            src="../static/component/jquery-2.2.4.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script th:src="@{/component/bootstrap-3.3.7/js/bootstrap.min.js}"
+            src="../static/component/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <!--引入css样式-->
+    <link th:href="@{/project/public/header.css}"
+          href="../../static/project/public/header.css" rel="stylesheet">
+    <link th:href="@{/project/policies_regulations/centerList.css}"
+          href="../../static/project/policies_regulations/centerList.css" rel="stylesheet">
+    <link th:href="@{/project/homepage/main.css}"
+          href="../../static/project/homepage/main.css" rel="stylesheet">
+
+    <style>
+        .medicalTag{
+            text-align: center;
+            height: 35px;
+            width: 100px;
+            margin-left: 30px;
+            position: relative;
+        }
+        .medicalTag a{
+            background-image:url('../../../images/home/u22.png');
+            background-size: 100% auto;
+            background-repeat: no-repeat;
+            text-decoration: none;
+            display: block;
+            height: 35px;
+            width: 100px;
+            color: #775637;
+            size: 70px;
+            padding-top: 2px;
+            margin-top: -20px;
+
+
+        }
+        .medicalTag a:visited{
+            background-color: chocolate;
+        }
+        .medicalTag a:hover {
+            background-color: chocolate;
+        }
+        .medicalTag a:active{
+            background-color: chocolate;
+        }
+        .content{
+            width: 690px;
+            word-break: break-all;
+            text-overflow: ellipsis;
+            display: -webkit-box; /** 对象作为伸缩盒子模型显示 **/
+            -webkit-box-orient: vertical; /** 设置或检索伸缩盒对象的子元素的排列方式 **/
+            -webkit-line-clamp: 2; /** 显示的行数 **/
+            overflow: hidden;  /** 隐藏超出的内容 **/
+            color: black;
+            font-size: 5px;
+
+            /*1，word-break:break-all 例如div宽200px，它的内容就会到200px自动换行，
+            如果该行末端有个英文单词很长（congratulation等），它会把单词截断，
+            变成该行末端为conra(congratulation的前端部分)，下一行为tulation（conguatulation）的后端部分了。
+            2，word-wrap:break-word 例子与上面一样，但区别就是它会把congratulation整个单词看成一个整体，
+            如果该行末端宽度不够显示整个单词，它会自动把整个单词放到下一行，而不会把单词截断掉的。*/
+        }
+
+      .detail{
+          color: #775637;
+      }
+
+        .pre a{
+            margin-left: 200px;
+        }
+        .pre a span{
+            color: black;
+            font-size: 16px;
+        }
+
+        .next a{
+            margin-left: 200px;
+        }
+        .next a span{
+            color: black;
+            font-size: 16px;
+        }
+    </style>
+
+</head>
+<body>
+<!--头部-->
+<div id="header" th:include="public/header :: publicHeader"></div>
+<!--内容-->
+<div class="container-fluid">
+    <div class="row clearfix">
+        <div class="col-md-8 col-lg-offset-2 column" style="border-left: 1px gray solid;border-right:1px gray solid">
+
+            <div class="row clearfix" style="margin-top: 40px">
+                <!--左边-->
+                <div class="col-md-2 column">
+                    <div  class="img-rounded medicalTag">
+                        <a th:href="@{/healthcare/science/list}" >科普知识</a>
+                    </div><br><br>
+                    <div  class="img-rounded medicalTag" >
+                        <a th:href="@{/medicine/list?pageNum=1}">中药常识</a>
+                    </div><br><br>
+                    <div class="img-rounded medicalTag">
+                        <a th:href="@{/fam/list?pageNum=1}" >历史名方</a>
+                    </div><br><br>
+                    <div class="img-rounded medicalTag">
+                        <a th:href="@{/doctor/list?pageNum=1}">国医话健康</a>
+                    </div><br><br>
+                </div>
+
+                <!--右边-->
+                <div class="col-md-10 column">
+                    <!-- Unnamed (线段) -->
+
+                    <div class="tab-pane active">
+                        <p style="padding-top: 10px">
+                        <div >
+                            <a  th:href="@{/medicine/list}" style="text-decoration: none;color: rgba(204, 0, 1, 1);" >&lt;返回列表</a>
+                        </div>
+                        <image src="../../../images/health-care/wuzhigan.png" style="margin-left: 40px"></image>
+                        </p>
+
+                        <p><span class="detail">[&nbsp;别&nbsp;名&nbsp;]&nbsp;</span> <span th:utext="${detail.chineseMedicineAlias}"></span></p><br>
+                        <p><span class="detail">[&nbsp;来&nbsp;源&nbsp;]&nbsp;</span><span th:utext="${detail.chineseMedicineSource}"></span></p><br>
+                        <p><span class="detail">[&nbsp;采&nbsp;制&nbsp;]&nbsp;0</span><span th:utext="${detail.chineseMedicineHarvesting}"></span></p><br>
+                        <P><span class="detail">[&nbsp;性&nbsp;味&nbsp;]&nbsp;</span><span th:utext="${detail.chineseMedicineTaste}"></span></p><br>
+                        <p><span class="detail">[&nbsp;归&nbsp;经&nbsp;]&nbsp;</span><span th:utext="${detail.chineseMedicineMerTro}"></span></p><br>
+                        <p><span class="detail">[&nbsp;功&nbsp;效&nbsp;主&nbsp;治&nbsp;]&nbsp;</span><span th:utext="${detail.chineseMedicineEffect}"></span></p><br>
+                        <P><span class="detail">[&nbsp;用&nbsp;法&nbsp;用&nbsp;量&nbsp;]&nbsp;</span><span th:utext="${detail.chineseMedicineUsage}"></span></p><br>
+
+
+                        <div th:if="${not #strings.isEmpty(detailPre)}" class="pre">
+                            <a style="color: rgba(204, 0, 1, 1);" th:href="@{/medicine/detail(itemId=${detailPre.getItemid()})}">
+                                上一篇：
+                                <span th:text="${detailPre.getChineseMedicineName()}"></span>
+                            </a>
+                        </div>
+                        <div th:if="${not #strings.isEmpty(detailNext)}" class="next">
+                            <a style="color: rgba(204, 0, 1, 1);" th:href="@{//medicine/detail(itemId=${detailNext.getItemid()})}">
+                                下一篇：
+                                <span th:text="${detailNext.getChineseMedicineName()}"></span>
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--底部-->
+<div id="footer" th:include="public/footer :: publicFooter"></div>
+</body>
+</html>

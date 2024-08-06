@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>名老中医</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <link th:href="@{/component/bootstrap-3.3.7/css/bootstrap.min.css}"
+          href="../../static/component/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link th:href="@{/component/inspinia/css/plugins/sweetalert/sweetalert.css}"
+          href="../../static/component/inspinia/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script th:src="@{/component/jquery-2.2.4.js}"
+            src="../../static/component/jquery-2.2.4.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script th:src="@{/component/bootstrap-3.3.7/js/bootstrap.min.js}"
+            src="../../static/component/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <!--引入css样式-->
+    <link th:href="@{/project/public/header.css}"
+          href="../../static/project/public/header.css" rel="stylesheet">
+    <link th:href="@{/project/policies_regulations/centerList.css}"
+          href="../../static/project/policies_regulations/centerList.css" rel="stylesheet">
+    <link th:href="@{/project/homepage/main.css}"
+          href="../../static/project/homepage/main.css" rel="stylesheet">
+    <style>
+        #navbar ul li a{
+            color: white;
+            text-align:center;
+            height: 60px;
+            width:100px;
+            size: 70px;
+            display: block;
+            position: static;
+
+        }
+        #navbar ul li  a:hover {
+            background-color: hsl(0, 100%, 35%);
+        }
+        #navbar ul li a:active{
+            background-color: hsl(0, 100%, 35%);
+        }
+        #navbar ul li a:visited{
+
+            background-color: hsl(0, 100%, 35%);
+        }
+        .medicalTag{
+            text-align: center;
+            height: 35px;
+            width: 100px;
+            margin-left: 30px;
+            position: relative;
+
+
+        }
+        .medicalTag a{
+            background-image:url('../../../static/images/common/u22.png');
+            background-size: 100% auto;
+            background-repeat: no-repeat;
+            text-decoration: none;
+            display: block;
+            height: 35px;
+            width: 100px;
+            color: black;
+            size: 70px;
+            padding-top: 10px;
+        }
+        .medicalTag a:visited{
+            background-color: chocolate;
+        }
+        .medicalTag a:hover {
+            background-color: chocolate;
+        }
+        .medicalTag a:active{
+            background-color: chocolate;
+        }
+        #container {width: 100%;}
+        #photo {float: left; width: 15%;height: 120px;}
+        #content {float:left;height: 120px; width: 35%;margin-bottom: 10px}
+        #doctorName{width:160px;}
+        .doctorText{width:200px;}
+        #Img{ width: 90px;height: 120px;margin-top: 10px;margin-bottom: 10px;}
+        .doctorText a{
+            text-decoration: none;
+            display: block;
+            color: black;
+        }
+        #doctorName a{
+            text-decoration: none;
+            display: block;
+            color: saddlebrown;
+        }
+        .hospPromptwords span{
+            font-weight: unset;
+            color:black;
+            text-align: left;
+        }
+
+        #form{
+            width:fit-content;
+            width:-moz-fit-content;
+            margin: 0px auto;
+        }
+
+    </style>
+
+</head>
+<body>
+    <script>
+
+        $.getJSON('/culproChineseMedicines/all_hospitals', function (resp) {
+            var hospitalSelect = $('#hospitalSelect');
+            $.each(resp, function (index, h) {
+                const option = new Option(h.hospitalName, h.itemcode);
+                hospitalSelect.append(option)
+            })
+        });
+        // 加载科室下拉列表
+        $.getJSON('/culproChineseMedicines/all_specialties', function (resp) {
+            var specialtySelect = $('#specialtySelect');
+            $.each(resp, function (index, s) {
+                const option = new Option(s.specialtyName, s.itemcode)
+                specialtySelect.append(option)
+            })
+        });
+
+    </script>
+    <!--头部-->
+    <div id="header" th:include="public/header :: publicHeader"></div>
+    <!--内容-->
+    <div class="container-fluid">
+        <div class="row clearfix">
+
+            <div class="col-md-8 col-lg-offset-2 column" style="border-left: 1px gray solid;border-right:1px gray solid">
+
+                <div class="row clearfix" style="margin-top: 40px">
+                    <!--左边-->
+                    <div class="col-md-2 column">
+                        <div  class="img-rounded medicalTag" >
+                            <a class="active" th:href="@{/hospitals}"   th:style="|background-image:url('/images/home/u22.png');|">中医名院</a>
+                        </div><br>
+                        <div  class="img-rounded medicalTag" >
+                            <a  th:href="@{/culproSpecialties}" th:style="|background-image:url('/images/home/u22.png');|">中医名科</a>
+                        </div><br>
+                        <div class="img-rounded medicalTag">
+                            <a  th:href="@{/culproChineseMedicines}"  th:style="|background-image:url('/images/home/u22.png');|"> 名老中医</a>
+                        </div><br><br>
+                    </div>
+
+                    <!--右边-->
+                    <div class="col-md-10 column">
+                        <!--搜索框-->
+                        <form class="form-inline" id="form"  th:action="@{/culproChineseMedicines}" method="get" >
+                            <div class="form-group ">
+                                <input type="text"  name="chineseMedicineName"  placeholder="输入专家名称">&nbsp;&nbsp;
+                                <select id="specialtySelect" name="deptCode">
+                                    <option value="">请选择所在科室</option>
+                                </select>&nbsp;&nbsp;
+                                <select id="hospitalSelect" name="hospCode" >
+                                    <option value=""> 请选择所在医院</option>
+                                </select>&nbsp;&nbsp;
+                                <button type="submit" class="btn" style="background-color: hsl(0, 100%, 35%);color: white;width:45px;padding:3px;border: 1px gray solid">搜索</button>
+                            </div>
+                        </form><br>
+
+                        <!--内容:查询列表-->
+                        <div  class="row marketing" >
+                            <div class="col-lg-3" id="container">
+
+                                <div th:each="culproChineseMedicine,status : ${culproChineseMedicines}">
+                                    <!--医生图片-->
+                                    <div id="photo">
+                                       <a th:href="@{/culproChineseMedicines/detail(itemid=${culproChineseMedicine.itemid},pages=${culproChineseMedicines.pages})}" >
+                                           <!--<img id="Img" th:src="@{|${culproChineseMedicine.culproFile.filePath}|}" >-->
+                                           <!--该图片路径用于演示，上面的路径是真正的文件图片路径-->
+                                           <img id="Img" th:src="@{/images/medical_service/u1232.png}"   >
+                                       </a>
+                                    </div>
+                                    <div id="content">
+                                        <!--医生名称-->
+                                        <h5 id="doctorName">
+                                            <a  th:href="@{/culproChineseMedicines/detail(itemid=${culproChineseMedicine.itemid},pages=${culproChineseMedicines.pages})}" th:text="${culproChineseMedicine.chineseMedicineName}"></a>
+                                        </h5>
+                                        <!--主要诊治-->
+                                        <div class="doctorText">
+
+                                        <span class="hospPromptwords">主要诊治:&nbsp;
+                                           <a th:href="@{/culproChineseMedicines/detail(itemid=${culproChineseMedicine.itemid},pages=${culproChineseMedicines.pages})}" th:text="${culproChineseMedicine.culproSpecialty.specialtyName}"></a>
+                                        </span>
+                                        </div>
+                                        <!--出诊地点-->
+                                        <div class="doctorText">
+                                            出诊地点：<a th:href="@{/culproChineseMedicines/detail(itemid=${culproChineseMedicine.itemid},pages=${culproChineseMedicines.pages})}" th:text="${culproChineseMedicine.culproHosp.hospitalName}"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--分页-->
+                <nav aria-label="Page navigation" class="text-center" >
+                    <ul class="pagination">
+                        <li th:if="${culproChineseMedicines.pageNum}>1" style="margin-right: 20px;">
+                            <a th:href="@{/culproChineseMedicines(pageNum=${culproChineseMedicines.pageNum}-1)}">&lt;</a>
+                        </li>
+                        <li th:if="${culproChineseMedicines.pageNum gt 1}" >
+                            <a th:text="${culproChineseMedicines.pageNum-1}" th:href="@{/culproChineseMedicines(pageNum=${culproChineseMedicines.pageNum}-1)}"></a>
+                        </li>
+                        <!--/* 当前页 */-->
+                        <li th:if="${culproChineseMedicines.pageNum le culproChineseMedicines.pages}" th:class="${culproChineseMedicines.pageNum le culproChineseMedicines.pages ? 'active':''}">
+                            <a th:text="${culproChineseMedicines.pageNum}"></a>
+                        </li>
+                        <li th:if="${culproChineseMedicines.pageNum+1 le culproChineseMedicines.pages}">
+                            <a th:text="${culproChineseMedicines.pageNum+1}" th:href="@{/culproChineseMedicines(pageNum=${culproChineseMedicines.pageNum}+1)}"></a>
+                        </li>
+                        <li th:if="${culproChineseMedicines.pageNum+2 le culproChineseMedicines.pages}">
+                            <a th:text="${culproChineseMedicines.pageNum+2}" th:href="@{/culproChineseMedicines(pageNum=${culproChineseMedicines.pageNum}+2)}"></a>
+                        </li>
+                        <li th:if="${culproChineseMedicines.pageNum+3 le culproChineseMedicines.pages}">
+                            <a th:text="${culproChineseMedicines.pageNum+3}" th:href="@{/culproChineseMedicines(pageNum=${culproChineseMedicines.pageNum}+3)}"></a>
+                        </li>
+                        <li th:if="${culproChineseMedicines.pageNum+4 le culproChineseMedicines.pages}">
+                            <a th:text="${culproChineseMedicines.pageNum+4}" th:href="@{/culproChineseMedicines(pageNum=${culproChineseMedicines.pageNum}+4)}"></a>
+                        </li>
+                        <li th:if="${culproChineseMedicines.pageNum+5 le culproChineseMedicines.pages}">
+                            <a th:text="${culproChineseMedicines.pageNum+5}" th:href="@{/culproChineseMedicines(pageNum=${culproChineseMedicines.pageNum}+5)}"></a>
+                        </li>
+                        <li th:if="${culproChineseMedicines.pageNum+6 le culproChineseMedicines.pages}">
+                            <a th:text="${culproChineseMedicines.pageNum+6}" th:href="@{/culproChineseMedicines(pageNum=${culproChineseMedicines.pageNum}+6)}"></a>
+                        </li>
+                        <li th:if="${culproChineseMedicines.pageNum+7 le culproChineseMedicines.pages}">
+                            <a th:text="${culproChineseMedicines.pageNum+7}" th:href="@{/culproChineseMedicines(pageNum=${culproChineseMedicines.pageNum}+7)}"></a>
+                        </li>
+                        <li th:if="${culproChineseMedicines.pageNum+8 le culproChineseMedicines.pages}">
+                            <a th:text="${culproChineseMedicines.pageNum+8}" th:href="@{/culproChineseMedicines(pageNum=${culproChineseMedicines.pageNum}+8)}"></a>
+                        </li>
+                        <li th:if="${culproChineseMedicines.pageNum lt culproChineseMedicines.pages}">
+                            <a th:href="@{/culproChineseMedicines(pageNum=${culproChineseMedicines.pageNum}+1)}">&gt;</a>
+                        </li>
+                        <li>&nbsp;&nbsp;&nbsp;
+                            <form class="form-inline" th:action="@{/culproChineseMedicines}"  method="get" style="float: left ;margin-left: 30px" >
+                                <div class="form-group ">
+                                    <select id="pageSize" name="pageSize"  style="height: 30px; border-radius: 5px">
+                                        <option th:selected="${culproChineseMedicines.pageSize eq 5}" value="5">5条/页</option>
+                                        <option th:selected="${culproChineseMedicines.pageSize eq 10}"  value="10">10条/页</option>
+                                        <option th:selected="${culproChineseMedicines.pageSize eq 20}"  value="20">20条/页</option>
+                                        <option th:selected="${culproChineseMedicines.pageSize eq 30}" value="30">30条/页</option>
+                                    </select>
+                                    <input name="pages" type="hidden" th:value="${culproChineseMedicines.pages}" >
+                                    &nbsp;&nbsp;&nbsp;跳至&nbsp;&nbsp;&nbsp;<input  name="pageNum" type="text" class="g-input" style="height: 30px; width: 50px ;border-radius: 5px;border:1px solid">&nbsp;&nbsp;&nbsp;页
+                                    <button type="submit" class="btn  " style="background-color: hsl(0, 100%, 35%);color: white;width:45px;padding:3px;border: 1px gray solid">GO</button>
+                                </div>
+                            </form>
+
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-md-2 column">
+            </div>
+        </div>
+    </div>
+    <!--底部-->
+    <div id="footer" th:include="public/footer :: publicFooter"></div>
+</body>
+</html>

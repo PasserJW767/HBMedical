@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanqiao.zzy.mapper.CulproSpecialtyMapper">
+    <resultMap id="BaseResultMap" type="com.lanqiao.zzy.domain.CulproSpecialty">
+        <id property="itemid" column="itemID" jdbcType="INTEGER"/>
+        <id property="itemcode" column="itemCode" jdbcType="CHAR"/>
+        <result property="specialtyName" column="SPECIALTY_NAME" jdbcType="VARCHAR"/>
+        <result property="specialtyLevel" column="SPECIALTY_LEVEL" jdbcType="VARCHAR"/>
+        <result property="specialtyDisease" column="SPECIALTY_DISEASE" jdbcType="VARCHAR"/>
+        <result property="specialtyBriefIntroduce" column="SPECIALTY_BRIEF_INTRODUCE" jdbcType="VARCHAR"/>
+        <result property="specialtyIntroduce" column="SPECIALTY_INTRODUCE" jdbcType="VARCHAR"/>
+        <result property="specialtyPhone" column="SPECIALTY_PHONE" jdbcType="VARCHAR"/>
+        <result property="specialtyAddressPro" column="SPECIALTY_ADDRESS_PRO" jdbcType="VARCHAR"/>
+        <result property="specialtyAddressCity" column="SPECIALTY_ADDRESS_CITY" jdbcType="VARCHAR"/>
+        <result property="specialtyAddressCounty" column="SPECIALTY_ADDRESS_COUNTY" jdbcType="VARCHAR"/>
+        <result property="specialtyAddress" column="SPECIALTY_ADDRESS" jdbcType="VARCHAR"/>
+        <result property="specialtyLink" column="SPECIALTY_LINK" jdbcType="VARCHAR"/>
+        <result property="specialtyStatus" column="SPECIALTY_STATUS" jdbcType="VARCHAR"/>
+        <result property="creater" column="CREATER" jdbcType="VARCHAR"/>
+        <result property="itemcreateat" column="itemCreateAt" jdbcType="TIMESTAMP"/>
+        <result property="updater" column="UPDATER" jdbcType="VARCHAR"/>
+        <result property="itemupdateat" column="itemUpdateAt" jdbcType="TIMESTAMP"/>
+
+    </resultMap>
+
+
+    <resultMap id="CulproSpecialtyResultMap" type="com.lanqiao.zzy.domain.CulproSpecialty" extends="BaseResultMap">
+        <association property="culproFile" javaType="com.lanqiao.zzy.domain.CulproFile" resultMap="com.lanqiao.zzy.mapper.CulproFileMapper.BaseResultMap">
+        </association>
+    </resultMap>
+
+    <!--CulproSpecialty列表查询（条件查询）-->
+    <select id="selectForCulproSpecialtyList" parameterType="com.lanqiao.zzy.domain.CulproSpecialty" resultMap="CulproSpecialtyResultMap">
+        select  s.itemID,
+        s.itemCode,
+        s.SPECIALTY_NAME,
+        s.SPECIALTY_LEVEL,
+        s.SPECIALTY_DISEASE,
+        s.SPECIALTY_BRIEF_INTRODUCE,
+        s.SPECIALTY_INTRODUCE,
+        s.SPECIALTY_PHONE,
+        s.SPECIALTY_ADDRESS_PRO,
+        s.SPECIALTY_ADDRESS_CITY,
+        s.SPECIALTY_ADDRESS_COUNTY,
+        s.SPECIALTY_ADDRESS,
+        s.SPECIALTY_LINK,
+        s.SPECIALTY_STATUS,
+        f.itemID,
+        f.itemCode,
+        f.DATA_CODE,
+        f.UPLOADER,
+        f.UPLOADER_CODE,
+        f.FILE_NAME,
+        f.FILE_TYPE,
+        f.FILE_SIZE,
+        f.FILE_PATH,
+        f.itemCreateAt
+        from tb_culpro_specialty as s
+        left join tb_culpro_file f
+        on s.itemCode=f.DATA_CODE
+        <where>
+            s.SPECIALTY_STATUS = '展示中'
+            <if test="culproSpecialty.specialtyName !=null and culproSpecialty.specialtyName.trim().length()>0 ">
+                and s.SPECIALTY_NAME = #{culproSpecialty.specialtyName,jdbcType=VARCHAR}
+            </if>
+            <if test="culproSpecialty.specialtyAddressCity !=null and culproSpecialty.specialtyAddressCity.trim().length()>0 ">
+                and s.SPECIALTY_ADDRESS_CITY = #{culproSpecialty.specialtyAddressCity,jdbcType=VARCHAR}
+            </if>
+        </where>
+        order by s.itemID
+    </select>
+
+    <!--查询医院用于首页-->
+    <select id="selectSpecialtyForHome" resultMap="CulproSpecialtyResultMap">
+        select  s.itemID,
+        s.itemCode,
+        s.SPECIALTY_NAME,
+        s.SPECIALTY_LEVEL,
+        s.SPECIALTY_DISEASE,
+        s.SPECIALTY_BRIEF_INTRODUCE,
+        s.SPECIALTY_INTRODUCE,
+        s.SPECIALTY_PHONE,
+        s.SPECIALTY_ADDRESS_PRO,
+        s.SPECIALTY_ADDRESS_CITY,
+        s.SPECIALTY_ADDRESS_COUNTY,
+        s.SPECIALTY_ADDRESS,
+        s.SPECIALTY_LINK,
+        s.SPECIALTY_STATUS,
+        f.itemID,
+        f.itemCode,
+        f.DATA_CODE,
+        f.UPLOADER,
+        f.UPLOADER_CODE,
+        f.FILE_NAME,
+        f.FILE_TYPE,
+        f.FILE_SIZE,
+        f.FILE_PATH,
+        f.itemCreateAt
+        from tb_culpro_specialty as s
+        left join tb_culpro_file f
+        on s.itemCode=f.DATA_CODE
+        where s.SPECIALTY_STATUS = '展示中'
+        order by s.itemID
+    </select>
+
+    <!--根据itemid查询页码（）-->
+    <select id="selectPageNum"  resultType="java.lang.Integer">
+        select count(itemID) as count from (select itemID from tb_culpro_specialty where SPECIALTY_STATUS='展示中') as s
+        where <![CDATA[s.itemID<#{itemid}]]>
+    </select>
+
+    <!--根据科室itemCode来与医生的deptCode匹配查询关联医生-->
+    <select id="selectCulproChineseMedicineMapperByDeptCode" resultMap="com.lanqiao.zzy.mapper.CulproChineseMedicineMapper.BaseResultMap" >
+        select itemID,
+               itemCode,
+               CHINESE_MEDICINE_NAME,
+               CHINESE_MEDICINE_TYPE,
+               CHINESE_MEDICINE_TITLE,
+               DEPT_CODE,
+               HOSP_CODE,VISIT_TIME,
+               PHONE,
+               EXPERT_BRIEF_INTRODUCE,
+               EXPERT_INTRODUCE,
+               MAIN_VISIT,
+               MEDICINE_RECORDS,
+               CHINESE_MEDICINE_STATUS
+        from tb_culpro_chinese_medicine
+        where DEPT_CODE=#{itemcode} and CHINESE_MEDICINE_STATUS='展示中'
+    </select>
+
+
+
+    <!--查询所有的市-->
+    <select id="selectCulproSpecialtyCity" resultType="java.lang.String">
+        select SPECIALTY_ADDRESS_CITY
+        from tb_culpro_specialty
+        group by SPECIALTY_ADDRESS_CITY
+    </select>
+
+    <!--查询所有的医院科室-->
+    <select id="selectCulproSpecialtySpecialtyName" resultType="java.lang.String">
+        select SPECIALTY_NAME
+        from tb_culpro_specialty
+        group by SPECIALTY_NAME
+    </select>
+
+</mapper>

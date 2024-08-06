@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>办事指南</title>
+    <!-- Bootstrap -->
+    <link th:href="@{/component/bootstrap-3.3.7/css/bootstrap.min.css}"
+          href="../../static/component/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link th:href="@{/component/inspinia/css/plugins/sweetalert/sweetalert.css}"
+          href="../../static/component/inspinia/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- 静态资源起始位为static-->
+    <script  th:src="@{/component/jquery-2.2.4.js}"
+             src="../../static/component/jquery-2.2.4.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script th:src="@{/component/bootstrap-3.3.7/js/bootstrap.min.js}"
+            src="../../static/component/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <link th:href="@{/project/homepage/main.css}"
+          href="../../static/project/homepage/main.css" rel="stylesheet">
+    <script>
+        function Goto() {
+            let pageNum=$('#pageNumInput').val();
+            //取值方法[[ .....]]
+            var totalpage= [[${znPage.pages}]];
+            if (pageNum>totalpage)
+            {
+                pageNum=totalpage;
+            }
+            if (pageNum < 1) {
+                pageNum=1;
+            }
+            //console.log(totalpage);
+
+            window.location.href="/hg/handlingguidelinelist?pageNum="+pageNum
+        }
+
+    </script>
+    <style>
+        .pagination>li>a{
+            margin-left: 9px;
+        }
+        #detail{
+            text-decoration: none;
+            color: #775637;
+        }
+        a,a:hover{
+            text-decoration: none;
+            color: #775637;
+        }
+        /*圆形*/
+        .circul{
+            width:51px;
+            height:51px;
+            border: 1px solid #8F7043;
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px;
+            border-radius: 50%;
+            color: #8F7043;
+            line-height: 51px;
+        }
+        .line-limit-length {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 645px;
+        }
+        p{
+            word-wrap: break-word;
+            word-break: break-all;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<!--头部-->
+<div id="header" th:include="public/header :: publicHeader"></div>
+<div class="container">
+    <div class="col-md-1"></div>
+    <div class="col-md-10 col-md-offset-1">
+        <div id="IndustrialListBody" style="display: flex ;border: #f6f5f5 solid 1px; width: 910px" >
+            <!--       主体部分 -->
+            <div style="display: flex;flex-direction: column;" >
+                <!--    通知列表-->
+                <div th:each="zn,stastus:${znPage}" style="display: flex;flex-direction: row;margin-top: 20px;margin-left: 40px" >
+                    <div style="margin-top: 20px">
+                        <img th:src="@{/static/images/policies-regulations/u542.svg}"
+                             src="../../static/images/policies-regulations/u542.svg" alt="">
+                        <div th:text="${#dates.format(zn.itemupdateat, 'dd')}" class="circul"></div>
+                        <div th:text="${#dates.format(zn.itemupdateat, 'yyyy.MM')}" style="color:#8F7043;"></div>
+                    </div>
+                    <div style="margin-left: 40px;margin-top: 30px">
+                        <a  th:href="@{/hg/HandlingGuidelinedetail(itemid=${zn.itemid},itemcode=${zn.itemcode},pageNum=${znPage.pageNum})}"
+                            href="">
+                            <p th:text="${zn.dataTitle}" ></p>
+                        </a>
+                        <p th:text="'&nbsp&nbsp&nbsp'+${zn.content.substring(0,(zn.content.indexOf(':') eq -1 ? 200:zn.content.indexOf(':')+1))}"   ></p>
+                    </div>
+                </div>
+                <!--        分页-->
+                <div style="margin-top: 10px;margin-left: 180px">
+                    <nav aria-label="Page navigation" class="text-center" style="margin: 20px 0 0 0;padding: 0px">
+                        <ul class="pagination" style="height: 27px;margin: 0px">
+                            <li th:if="${znPage.pageNum le znPage.pages}">
+                                <a th:href="@{/hg/handlingguidelinelist(pageNum=1)}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li th:if="${znPage.pageNum}>1">
+                                <a th:href="@{/hg/handlingguidelinelist(pageNum=${znPage.pageNum}-1)}">&lt;</a>
+                            </li>
+                            <li th:if="${znPage.pageNum-3 gt 1}">
+                                <a th:text="${znPage.pageNum-4}" th:href="@{/hg/handlingguidelinelist(pageNum=${znPage.pageNum}-4)}"></a>
+                            </li>
+                            <li th:if="${znPage.pageNum-2 gt 1}">
+                                <a th:text="${znPage.pageNum-3}" th:href="@{/hg/handlingguidelinelist(pageNum=${znPage.pageNum}-3)}"></a>
+                            </li>
+                            <li th:if="${znPage.pageNum-1 gt 1}">
+                                <a th:text="${znPage.pageNum-2}" th:href="@{/hg/handlingguidelinelist(pageNum=${znPage.pageNum}-2)}"></a>
+                            </li>
+                            <li th:if="${znPage.pageNum gt 1}" >
+                                <a th:text="${znPage.pageNum-1}" th:href="@{/hg/handlingguidelinelist(pageNum=${znPage.pageNum}-1)}"></a>
+                            </li>
+                            <!--/* 当前页 */-->
+                            <li th:if="${znPage.pageNum le znPage.pages}" th:class="${znPage.pageNum le znPage.pages ? 'active':''}">
+                                <a th:text="${znPage.pageNum}" th:href="@{/hg/handlingguidelinelist(pageNum=${znPage.pageNum})}" style="background-color: #775637;border-color: #775637"></a>
+                            </li>
+                            <li th:if="${znPage.pageNum+1 le znPage.pages}">
+                                <a th:text="${znPage.pageNum+1}" th:href="@{/hg/handlingguidelinelist(pageNum=${znPage.pageNum}+1)}"></a>
+                            </li>
+                            <li th:if="${znPage.pageNum+2 le znPage.pages}">
+                                <a th:text="${znPage.pageNum+2}" th:href="@{/hg/handlingguidelinelist(pageNum=${znPage.pageNum}+2)}"></a>
+                            </li>
+                            <li th:if="${znPage.pageNum+3 le znPage.pages}">
+                                <a th:text="${znPage.pageNum+3}" th:href="@{/hg/handlingguidelinelist(pageNum=${znPage.pageNum}+3)}"></a>
+                            </li>
+                            <li th:if="${znPage.pageNum lt znPage.pages}">
+                                <a th:href="@{/hg/handlingguidelinelist(pageNum=${znPage.pageNum}+1)}">&gt;</a>
+                            </li>
+                            <li th:if="${znPage.pageNum lt znPage.pages}">
+                                <a th:href="@{/hg/handlingguidelinelist(pageNum=${znPage.pages})}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            <li>
+                                跳至
+                                <input type="text" name="pageNum" style="width: 47px;height: 29px" id="pageNumInput"  th:value="${param.pageNum}">
+                                页
+                                <button onclick="Goto()">Go</button>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+<!--    底部-->
+<div id="footer" th:include="public/footer :: publicFooter" style="margin-top: 20px"></div>
+
+</body>
+</html>

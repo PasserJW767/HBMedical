@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>合作交流</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link th:href="@{/project/css/main.css}"
+        href="../../static/project/css/main.css" rel="stylesheet">
+  <!--bootstrap-->
+  <link   th:href="@{/component/bootstrap-3.3.7/css/bootstrap.min.css}"
+          href="../../static/component/bootstrap-3.3.7/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
+  <!--js-->
+  <script th:src="@{/component/jquery-2.2.4.js}"
+          src="../../static/component/jquery-2.2.4.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script th:src="@{/component/bootstrap-3.3.7/js/bootstrap.min.js}"
+          src="../../static/component/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+  <link th:href="@{/project/homepage/main.css}"
+        href="../../static/project/homepage/main.css" rel="stylesheet">
+  <style>
+    /*中部*/
+    #menu{
+      list-style: none;
+    }
+
+    #menu>li{
+      height: 38px;
+      width:102px;
+      margin-bottom: 10px;
+      position: relative;
+      cursor: pointer;
+    }
+    #menu>li>img{
+      height: 38px;
+      width:102px;
+      position: absolute;
+      top: 0px;
+      bottom: 0px;
+    }
+    /*底部*/
+    #footer{
+      background-color:hsla(29, 100%, 14%, 0.9);
+      opacity: 0.9;
+      height: 35px;
+      size: 40px;
+      margin-top:0px;
+      padding: 0;
+    }
+    #footer-list>a{
+      height: 38px;
+      width:102px;
+      margin-bottom: 10px;
+      position: relative;
+      cursor: pointer;
+    }
+    #footer-list>image{
+      height: 38px;
+      width:102px;
+      position: absolute;
+      top: 0px;
+      bottom: 0px;
+    }
+
+    a,a:hover{
+      text-decoration: none;
+      color: #775637;
+    }
+    .pagination>li>a{
+      margin-left: 9px;
+      text-decoration: none;
+      color: #775637;
+    }
+  </style>
+</head>
+<body>
+<!--头部-->
+<div id="header" th:include="public/header :: publicHeader"></div>
+<!--中部-->
+<div class="container" >
+  <div class="row clearfix">
+    <!--<div class="col-md-12 column">-->
+    <div class="row clearfix">
+      <!--中部左侧-->
+      <div class="col-md-2 column">
+      </div>
+      <!--中部中部-->
+      <div class="col-md-10 column col-md-offset-1" style="padding: 0px;height: 100%;">
+        <div class="row clearfix" style="border-left:#e4d9ce solid 1px;border-right:#e4d9ce solid 1px ;height: auto">
+          <div style="margin-top: 50px;padding: 0px;">
+            <div class="col-md-2 column">
+              <ul id="menu">
+                <li>
+                  <a th:href="@{/org/index}">
+                    <img  th:src="@{/images/home/u22.png}" width="102px" height="38px"
+                          src="../../static/images/home/u22.png">
+                    <span style="position:absolute;width:100px;height:100px;z-indent:2;left:20px;top:7px;">资源分配</span>
+                    </img>
+                  </a>
+                </li>
+                <li>
+                  <a th:href="@{/achi/achiList}">
+                    <img  th:src="@{/images/home/u22.png}" width="102px" height="38px"
+                          src="../../static/images/home/u22.png">
+                    <span style="position:absolute;width:100px;height:100px;z-indent:2;left:20px;top:7px;">科研成果</span>
+                    </img>
+                  </a>
+                </li>
+                <li>
+                  <a th:href="@{/cooexc/cooexcList}">
+                    <img  th:src="@{/images/home/u22.png}" width="102px" height="38px"
+                          src="../../static/images/home/u22.png">
+                    <span style="position:absolute;width:100px;height:100px;z-indent:2;left:20px;top:7px;">合作交流</span>
+                    </img>
+                  </a>
+                </li>
+                <li>
+                  <a th:href="@{/talrec/talrecList}">
+                    <img  th:src="@{/images/home/u22.png}" width="102px" height="38px"
+                          src="../../static/images/home/u22.png">
+                    <span style="position:absolute;width:100px;height:100px;z-indent:2;left:20px;top:7px;">人才招募</span>
+                    </img>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-10 column"  style="height: 600px">
+            <!--中部里右侧主要内容-->
+            <!--搜索框-->
+            <div class="row clearfix">
+              <div class="col-md-12 column" >
+                <div style="padding-left: 350px;">
+                  <form th:action="@{/cooexc//serchByTitel}" method="get">
+                    <input id="cooperationExchangeName" name="cooperationExchangeName" value="" th:value="${param.cooperationExchangeName}"
+                            placeholder="请输入合作交流标题" style="width: 220px;">
+                    <button type="submit" >搜索</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <!--中部里右侧分页-->
+            <div class="row clearfix">
+              <div class="row col-md-12 column " style="padding-left: 30px;">
+                <!--列表-->
+                <div class="idea" th:each="cooexc,status:${cooExcPage}" style="margin-top: 35px;">
+                    <!--标题-->
+                  <div>
+                    <span><a th:text="${cooexc.cooperationExchangeName}"
+                             th:href="@{/cooexc/cooexcDetail(itemid=${cooexc.itemid},itemcode=${cooexc.itemcode},pageNum=${pageNum})}"></a></span>
+                    <span style="padding-left: 30px" th:text="${cooexc.cooperationExchangeLeader}"></span>
+                  </div>
+                  <!--内容-->
+                  <div th:utext="${#strings.abbreviate(cooexc.projectIntroduce,100)}" style="margin-top: 5px;"><p></p></div>
+                </div>
+
+                <!--分页-->
+                <div>
+                  <nav aria-label="Page navigation" class="text-center" style="margin: 0px;padding: 0px;">
+                    <ul class="pagination">
+                      <li th:if="${cooExcPage.pageNum le cooExcPage.pages}">
+                        <a th:href="@{/cooexc/cooexcList(pageNum=1)}" aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+                      <li th:if="${cooExcPage.pageNum}>1">
+                        <a th:href="@{/cooexc/cooexcList(pageNum=${cooExcPage.pageNum}-1)}">&lt;</a>
+                      </li>
+                      <li th:if="${cooExcPage.pageNum -3 gt 1}">
+                        <a th:text="${cooExcPage.pageNum -4}" th:href="@{/cooexc/cooexcList(pageNum=${cooExcPage.pageNum}-4)}"></a>
+                      </li>
+                      <li th:if="${cooExcPage.pageNum -2 gt 1}">
+                        <a th:text="${cooExcPage.pageNum -3}" th:href="@{/cooexc/cooexcList(pageNum=${cooExcPage.pageNum}-3)}"></a>
+                      </li>
+                      <li th:if="${cooExcPage.pageNum -1 gt 1}">
+                        <a th:text="${cooExcPage.pageNum -2}" th:href="@{/cooexc/cooexcList(pageNum=${cooExcPage.pageNum}-2)}"></a>
+                      </li>
+                      <li th:if="${cooExcPage.pageNum gt 1}" >
+                        <a th:text="${cooExcPage.pageNum -1}" th:href="@{/cooexc/cooexcList(pageNum=${cooExcPage.pageNum}-1)}"></a>
+                      </li>
+                      <!--/* 当前页 */-->
+                      <li th:if="${cooExcPage.pageNum le cooExcPage.pages}" th:class="${cooExcPage.pageNum le cooExcPage.pages ? 'active':''}">
+                        <a th:text="${cooExcPage.pageNum}" th:href="@{/cooexc/cooexcList(pageNum=${cooExcPage.pageNum})}" style="background-color: #775637"></a>
+                      </li>
+                      <li th:if="${cooExcPage.pageNum+1 le cooExcPage.pages}">
+                        <a th:text="${cooExcPage.pageNum+1}" th:href="@{/cooexc/cooexcList(pageNum=${cooExcPage.pageNum}+1)}"></a>
+                      </li>
+                      <li th:if="${cooExcPage.pageNum+2 le cooExcPage.pages}">
+                        <a th:text="${cooExcPage.pageNum+2}" th:href="@{/cooexc/cooexcList(pageNum=${cooExcPage.pageNum}+2)}"></a>
+                      </li>
+                      <li th:if="${cooExcPage.pageNum+3 le cooExcPage.pages}">
+                        <a th:text="${cooExcPage.pageNum+3}" th:href="@{/cooexc/cooexcList(pageNum=${cooExcPage.pageNum}+3)}"></a>
+                      </li>
+                      <li th:if="${cooExcPage.pageNum lt cooExcPage.pages}">
+                        <a th:href="@{/cooexc/cooexcList(pageNum=${cooExcPage.pageNum}+1)}">&gt;</a>
+                      </li>
+                      <li th:if="${cooExcPage.pageNum lt cooExcPage.pages}">
+                        <a th:href="@{/cooexc/cooexcList(pageNum=${cooExcPage.pages})}" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span>第</span>
+                          <span th:text="${cooExcPage.pageNum}"/>
+                          <span>页/共</span>
+                          <span th:text="${cooExcPage.pages}"/>
+                          <span>页</span>
+                          <span class="caret"/>
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li th:if="${cooExcPage.pageNum -3 gt 1}">
+                            <a th:text="${cooExcPage.pageNum -4}" th:href="@{/cooexc/cooexcList(pageNum=${cooExcPage.pageNum}-4)}"></a>
+                          </li>
+                          <li th:if="${cooExcPage.pageNum -2 gt 1}">
+                            <a th:text="${cooExcPage.pageNum -3}" th:href="@{/cooexc/cooexcList(pageNum=${cooExcPage.pageNum}-3)}"></a>
+                          </li>
+                          <li th:if="${cooExcPage.pageNum -1 gt 1}">
+                            <a th:text="${cooExcPage.pageNum -2}" th:href="@{/cooexc/cooexcList(pageNum=${cooExcPage.pageNum}-2)}"></a>
+                          </li>
+                          <li th:if="${cooExcPage.pageNum gt 1}" >
+                            <a th:text="${cooExcPage.pageNum -1}" th:href="@{/cooexc/cooexcList(pageNum=${cooExcPage.pageNum}-1)}"></a>
+                          </li>
+                          <!--/* 当前页 */-->
+                          <li th:if="${cooExcPage.pageNum le cooExcPage.pages}" th:class="${cooExcPage.pageNum le cooExcPage.pages ? 'active':''}">
+                            <a th:text="${cooExcPage.pageNum}" th:href="@{/cooexc/cooexcList(pageNum=${cooExcPage.pageNum})}" style="background-color:#775637 "></a>
+                          </li>
+                          <li th:if="${cooExcPage.pageNum+1 le cooExcPage.pages}">
+                            <a th:text="${cooExcPage.pageNum+1}" th:href="@{/cooexc/cooexcList(pageNum=${cooExcPage.pageNum}+1)}"></a>
+                          </li>
+                          <li th:if="${cooExcPage.pageNum+2 le cooExcPage.pages}">
+                            <a th:text="${cooExcPage.pageNum+2}" th:href="@{/cooexc/cooexcList(pageNum=${cooExcPage.pageNum}+2)}"></a>
+                          </li>
+                          <li th:if="${cooExcPage.pageNum+3 le cooExcPage.pages}">
+                            <a th:text="${cooExcPage.pageNum+3}" th:href="@{/cooexc/cooexcList(pageNum=${cooExcPage.pageNum}+3)}"></a>
+                          </li>
+                        </ul>
+                      </div>
+                    </ul>
+                  </nav>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--中部右侧-->
+      </div>
+    </div>
+  </div>
+</div><!--中部结束-->
+</div>
+<!--底部-->
+<div class="row clearfix" id="footer" th:include="public/footer :: publicFooter"></div>
+</body>
+</html>

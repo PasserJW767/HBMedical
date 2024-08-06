@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>中医文化</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/style/style.css}"
+          href="../../static/style/style.css" type="text/css" rel="stylesheet"/>
+    <!-- Bootstrap -->
+    <link th:href="@{/component/bootstrap-3.3.7/css/bootstrap.min.css}"
+          href="../../static/component/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link th:href="@{/component/inspinia/css/plugins/sweetalert/sweetalert.css}"
+          href="../../static/component/inspinia/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script th:src="@{/component/jquery-2.2.4.js}"
+            src="../../static/component/jquery-2.2.4.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script th:src="@{/component/bootstrap-3.3.7/js/bootstrap.min.js}"
+            src="../../static/component/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <!--引入css样式-->
+    <link th:href="@{/project/public/header.css}"
+          href="../../static/project/public/header.css" rel="stylesheet">
+    <link th:href="@{/project/policies_regulations/centerList.css}"
+          href="../../static/project/policies_regulations/centerList.css" rel="stylesheet">
+    <link th:href="@{/project/homepage/main.css}"
+          href="../../static/project/homepage/main.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!--头部-->
+<div id="header" th:include="public/header :: publicHeader"></div>
+
+<div class="container-fluid">
+    <div class="row clearfix">
+        <!--<div class="col-md-2 column">
+            <img alt="140x140" th:src="@{~/images/medicine-culture/u5.jpg}"
+                 src="../../static/images/medicine-culture/u5.jpg" style="float: right"/>
+        </div>-->
+        <div class="col-md-8 column col-lg-offset-2 home-body">
+            <div class="row clearfix" style="margin-top: 40px">
+                <div class="col-md-2 column">
+                    <div  class="ax_default _图片_" id="u2221" align="center">
+                        <!-- <img id="u2221_img" class="img " src="../../static/images/u22.png" tabindex="0" style="outline: none;">-->
+                        <a th:href="@{/chmedicineculs/zyys}" style="align: center;color: #775637;padding-left: 20px;padding-top: 10px">文化资源</a>
+                    </div>
+                    <div  class="ax_default _图片_" id="u2222" align="center">
+                        <!-- <img id="u2221_img" class="img " src="../../static/images/u22.png" tabindex="0" style="outline: none;">-->
+                        <a th:href="@{/chmedicineculs/whgj}" style="align: center;color: #775637;padding-left: 20px;padding-top: 10px">文化设施</a>
+                    </div>
+                    <div  class="ax_default _图片_" id="u2223" align="center">
+                        <!-- <img id="u2221_img" class="img " src="../../static/images/u22.png" tabindex="0" style="outline: none;">-->
+                        <a th:href="@{/chmedicineculs/dsdy}" style="align: center;color: #775637;padding-left: 20px;padding-top: 10px">文创产品</a>
+                    </div>
+                    <div  class="ax_default _图片_" id="u2224" align="center">
+                        <!-- <img id="u2221_img" class="img " src="../../static/images/u22.png" tabindex="0" style="outline: none;">-->
+                        <a th:href="@{/chmedicineculs/jkly}" style="align: center;color: #775637;padding-left: 20px;padding-top: 10px">健康旅游</a>
+                    </div>
+                </div>
+
+                <div class="col-md-10 column" id="u3331">
+                    <div class="tabbable" id="tabs-771161">
+                        <ul class="nav nav-tabs" id="my-tab">
+                            <li  >
+                                <a th:href="@{/chmedicineculs/zyys}"  >中医医史</a>
+                            </li>
+                            <li class ="active">
+                                <a th:href="@{/chmedicineculs/zylp}" >中医流派</a>
+                            </li>
+                            <li>
+                                <a th:href="@{/chmedicineculs/ldmj}" >历代名医</a>
+                            </li>
+                        </ul>
+
+                        <div style="float: left">
+                            <div th:each="res,status : ${schools}" th:if="${res.culType.trim() eq '中医流派'}" >
+                                <img th:src="@{~/images/medicine-culture/u3.png}"
+                                     src="../../static/images/medicine-culture/u3.png">
+                                <a th:href="@{/chmedicineculs/details(itemId=${res.getItemID()})}" class=""style="text-decoration: none">
+                                    <h5 th:text="${res.culName}" style="color: #775637"></h5><!--取出流派名称-->
+                                    <span th:utext="${delTagsUtil.getTextFromHtml(res.getCulContent()).substring(0,100)}" style="color: black"></span>
+                                </a>
+                            </div>
+
+                            <!--分页-->
+                            <div id="pages1">
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination">
+                                        <li th:if="${schools.pageNum le schools.pages}">
+                                            <a th:href="@{/chmedicineculs/zylp(pageNum=1)}" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <li th:if="${schools.pageNum}>1">
+                                            <a th:href="@{/chmedicineculs/zylp(pageNum=${schools.pageNum}-1)}">&lt;</a>
+                                        </li>
+                                        <li th:if="${schools.pageNum -3 gt 1}">
+                                            <a th:text="${schools.pageNum -4}" th:href="@{/chmedicineculs/zylp(pageNum=${schools.pageNum}-4)}"></a>
+                                        </li>
+                                        <li th:if="${schools.pageNum -2 gt 1}">
+                                            <a th:text="${schools.pageNum -3}" th:href="@{/chmedicineculs/zylp(pageNum=${schools.pageNum}-3)}"></a>
+                                        </li>
+                                        <li th:if="${schools.pageNum -1 gt 1}">
+                                            <a th:text="${schools.pageNum -2}" th:href="@{/chmedicineculs/zylp(pageNum=${schools.pageNum}-2)}"></a>
+                                        </li>
+                                        <li th:if="${schools.pageNum gt 1}" >
+                                            <a th:text="${schools.pageNum -1}" th:href="@{/chmedicineculs/zylp(pageNum=${schools.pageNum}-1)}"></a>
+                                        </li>
+                                        <!--/* 当前页 */-->
+                                        <li th:if="${schools.pageNum le schools.pages}" th:class="${schools.pageNum le schools.pages ? 'active':''}">
+                                            <a th:text="${schools.pageNum}" th:href="@{/chmedicineculs/zylp(pageNum=${schools.pageNum})}"></a>
+                                        </li>
+                                        <li th:if="${schools.pageNum+1 le schools.pages}">
+                                            <a th:text="${schools.pageNum+1}" th:href="@{/chmedicineculs/zylp(pageNum=${schools.pageNum}+1)}"></a>
+                                        </li>
+                                        <li th:if="${schools.pageNum+2 le schools.pages}">
+                                            <a th:text="${schools.pageNum+2}" th:href="@{/chmedicineculs/zylp(pageNum=${schools.pageNum}+2)}"></a>
+                                        </li>
+                                        <li th:if="${schools.pageNum+3 le schools.pages}">
+                                            <a th:text="${schools.pageNum+3}" th:href="@{/chmedicineculs/zylp(pageNum=${schools.pageNum}+3)}"></a>
+                                        </li>
+                                        <li th:if="${schools.pageNum lt schools.pages}">
+                                            <a th:href="@{/chmedicineculs/zylp(pageNum=${schools.pageNum}+1)}">&gt;</a>
+                                        </li>
+                                        <li th:if="${schools.pageNum lt schools.pages}">
+                                            <a th:href="@{/chmedicineculs/zylp(pageNum=${schools.pages})}" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div style="width: 150px; height: 30px;float:left; position: relative;left: 100px">
+                                                <form action="whgj" class="form-inline"  method="get">
+                                                    <span  style="float:left;width: 50px;height: 30px;text-align: center;line-height: 30px">跳至</span>
+                                                    <input id="pageNum" name="pageNum" type="text"
+                                                           th:placeholder="${schools.pageNum}+'/'+${schools.pages}"
+                                                           style="width: 50px;height:28px;float:left;">
+                                                    <button  type="submit" class="btn btn-default" style="margin-left:3px;width: 40px;height: 28px;">go</button>
+                                                </form>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+
+                        </div>
+
+
+                    </div><!-- div tabtable-->
+
+                </div><!--div class col-md-10-->
+
+            </div>
+        </div>
+
+        <!--<div class="col-md-2 column">
+            <img alt="140x140" th:src="@{~/images/medicine-culture/u5.jpg}"
+                 src="../../static/images/medicine-culture/u5.jpg" style="float: left"/>
+        </div>-->
+    </div>
+</div>
+<script type="text/javascript">
+    //tab异步加载
+    $(function () {
+        //准备tabs数据
+        var tabsData=[{
+            "id" : "panel-zyys",
+            "url" : "tab-content-zyys.html"
+        },{
+            "id" : "panel-zylp",
+            "url" : "tab-content-zylp.html"
+        },{
+            "id" : "panel-ldmj",
+            "url" : "tab-content-ldmj.html"
+        }];
+        //遍历json数组，循环添加a标签click事件：
+        $(tabsData).each(function () {
+            $("a[href='#"+this.id+"']").bind('click',{
+                id : this.id,
+                url: this.url
+            },tabsHandler);
+        });
+    });
+    function tabsHandler(event) {
+        var data =event.data;
+        showTabs(data.id,data.url);
+        return false;//阻止默认a标签响应
+    }
+
+    /**
+     * 激活tab选项卡并使用ajax异步加载内容
+     * @param {Object} tabsId
+     * @param {Object} url
+     */
+    function showTabs(tabsId,url) {
+        $("a[href='#"+tabsId+"']").tab('show');
+        var $tabContent = $('#'+tabsId);
+        if($tabContent.length < 100) {
+            $tabContent.load(url);
+        }
+    }
+
+    //依次为每个tab导航a标签添加单击事件
+    $('a[href="#panel-zyys"]').click(function(e) {
+        showTabs('panel-zyys','/chmedicineculs/zyys');
+        e.preventDefault();
+        var Index = $(this).index();
+        Cookies.set('Index',Index)
+    });
+
+    $('a[href="#panel-zylp"]').click(function(e) {
+        showTabs('panel-zylp','/chmedicineculs/zylp');
+        e.preventDefault();
+    });
+
+    $('a[href="#panel-ldmj"]').click(function(e) {
+        showTabs('panel-ldmj','/chmedicineculs/ldmj');
+        e.preventDefault();
+    });
+
+
+   /* $(function (pageNum) {
+        //准备分页数据数据
+        var pageData=[{"url" : "/chmedicineculs/zyys?pageNum="+pageNum},
+            {"url" : "/chmedicineculs/zylp?pageNum="+pageNum},
+            {"url" : "/chmedicineculs/ldmj?pageNum="+pageNum}];
+        //遍历json数组，循环添加a标签click事件：
+        $(pageData).each(function () {
+            $.ajax({
+                type: "POST",
+                url : this.
+
+            })
+        });
+    });
+
+    //异步分页请求
+    function loadPage(page) {
+        $.ajax({
+            type :"POST",
+            url : "/chmedicineculs"+
+        })
+    }*/
+
+
+
+</script>
+<!--底部-->
+<div id="footer" th:include="public/footer :: publicFooter"></div>
+</body>
+</html>

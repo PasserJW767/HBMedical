@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>人才招募详情</title>
+    <!-- Bootstrap -->
+    <link th:href="@{/component/bootstrap-3.3.7/css/bootstrap.min.css}"
+          href="../../static/component/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link   th:href="@{/component/inspinia/css/plugins/sweetalert/sweetalert.css}"
+            href="../../static/component/inspinia/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- 静态资源起始位为static-->
+    <script  th:src="@{/component/jquery-2.2.4.js}"
+             src="../../static/component/jquery-2.2.4.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script th:src="@{/component/bootstrap-3.3.7/js/bootstrap.min.js}"
+            src="../../static/component/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <link th:href="@{/project/homepage/main.css}"
+          href="../../static/project/homepage/main.css" rel="stylesheet">
+    <style>
+        .pagination>li>a{
+            margin-left: 9px;
+        }
+        #detail{
+            text-decoration: none;
+            color: #775637;
+        }
+        a,a:hover{
+            text-decoration: none;
+            color: #775637;
+        }
+        /*圆形*/
+        .circul{
+            width:51px;
+            height:51px;
+            border: 1px solid #8F7043;
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px;
+            border-radius: 50%;
+            color: #8F7043;
+            line-height: 51px;
+        }
+        td{
+            border: none;
+        }
+    </style>
+
+</head>
+<body>
+<!--头部-->
+<div id="header" th:include="public/header :: publicHeader"></div>
+<div class="container">
+    <div class="col-md-1"></div>
+    <div class="col-md-10 col-md-offset-1">
+        <div id="IndustrialListBody" style="display: flex ;border: #f6f5f5 solid 1px; width: 910px" >
+            <!--    标题-->
+            <div id="IndustrialTitle" style="display: flex ; flex-direction: column;margin-top: 50px;width: 190px;margin-left: 50px">
+                <div style="display: flex;margin-top: 30px"  >
+                    <img th:src="@{/images/home/u22.png}" width="102px" height="38px"
+                         src="../../static/images/home/u22.png" alt="">
+                    <span style="display: flex;position: relative; right: 105px;top: 10px;width: 102px;height: 20px;
+                                text-align: center">
+                    <a  th:href="@{/org/index}"
+                        href="#" style="width: 102px;height: 20px">资源分布</a>
+                </span>
+                </div>
+                <div style="display: flex;margin-top: 30px"  >
+                    <img th:src="@{/images/home/u22.png}" width="102px" height="38px"
+                         src="../../static/images/home/u22.png" alt="">
+                    <span style="display: flex;position: relative; right: 105px;top: 10px;width: 102px;height: 20px;
+                                text-align: center">
+                    <a  th:href="@{/achi/achiList}"
+                        href="#" style="width: 102px;height: 20px">科研成果</a>
+                </span>
+                </div>
+                <div style="display: flex;margin-top: 30px"  >
+                    <img th:src="@{/images/home/u22.png}" width="102px" height="38px"
+                         src="../../static/images/home/u22.png" alt="">
+                    <span style="display: flex;position: relative; right: 105px;top: 10px;width: 102px;height: 20px;
+                                text-align: center">
+                    <a th:href="@{/cooexc/cooexcList}"
+                       href="#" style="width: 102px;height: 20px">合作研究</a>
+                </span>
+                </div>
+                <div style="display: flex;margin-top: 30px"  >
+                    <img th:src="@{/images/home/u22.png}" width="102px" height="38px"
+                         src="../../static/images/home/u22.png" alt="">
+                    <span style="display: flex;position: relative; right: 105px;top: 10px;width: 102px;height: 20px;
+                                text-align: center">
+                    <a   th:href="@{/talrec/talrecList}" width="102px" height="38px"
+                         href="#" style="width: 102px;height: 20px">人才招募</a>
+                </span>
+                </div>
+            </div>
+            <!--       主体部分 -->
+            <div style="display: flex;flex-direction: column;margin-top: 100px" >
+                <div id="returnindex">
+                    <!--         返回-->
+                    <span>
+                <p ><a th:href="@{/talrec/talrecList(pageNum=${pageNum})}" style="color: red;text-decoration: none">&lt;返回</a></p>
+            </span>
+                </div>
+                <!--招聘详情-->
+                <div style="flex-direction: column;display: flex;margin-top: 30px">
+                    <div style="text-align: center">
+                        <p th:text="${talrec.recruitmentTitle}" style="font-weight: bold;font-size: 20px"></p>
+                        <div style="margin-left: 400px;font-weight: bold">
+                            <span th:text="'【来源:'+${talrec.creater}+'】'"></span>
+                            <span th:text="'【浏览次数:'+${talrec.visitNum}+'】'"></span>
+                        </div>
+                    </div>
+                    <!--
+                                <div style="margin-top: 20px">
+                                    <span th:text="'招聘职位:'" style="color: #775637;"></span>
+                                    <span th:text="${talrec.recruitmentPosition}" style="width: 100px"></span>
+                                    <span th:text="'招聘数量:'" style="color: #775637;margin-left: 60px"></span>
+                                    <span th:text="${talrec.recruitmentCount}" style="width: 100px"></span>
+                                    <span th:text="'工作地点:'" style="color: #775637;margin-left: 60px"></span>
+                                    <span th:text="${talrec.workplace}" style="width: 100px"></span>
+                                </div>
+                                <div style="margin-top: 20px">
+                                    <span th:text="'资薪:'" style="color: #775637;"></span>
+                                    <span th:text="${talrec.salary}"></span>
+                                    <span th:text="'学历要求:'" style="color: #775637;margin-left: 100px"></span>
+                                    <span th:text="'招聘数量:'+${talrec.education}" ></span>
+                                </div>
+                                <div style="margin-top: 20px">
+                                    <span th:text="'简历投递邮箱:'" style="color: #775637;"></span>
+                                    <span th:text="${talrec.emali}"></span>
+                                </div>-->
+                    <table style="border-collapse:separate; border-spacing:0px 20px;">
+                        <tr>
+                            <td th:text="'招聘职位:'" style="color: #775637;width: 80px"></td>
+                            <td  th:text="${talrec.recruitmentPosition}"></td>
+                            <td th:text="'招聘数量:'" style="color: #775637;width: 80px"></td>
+                            <td   th:text="${talrec.recruitmentCount}"></td>
+                            <td  th:text="'工作地点:'" style="color: #775637;width: 80px"></td>
+                            <td th:text="${talrec.workplace}" ></td>
+                        </tr>
+                        <tr>
+                            <td  th:text="'资薪:'" style="color: #775637;width: 80px"></td>
+                            <td th:text="${talrec.salary}"></td>
+                            <td th:text="'学历要求:'"style="color: #775637;width: 80px"></td>
+                            <td  th:text="${talrec.education}"></td>
+                        </tr>
+                        <tr>
+                            <td th:text="'简历投递邮箱:'" style="color: #775637;width: 100px"></td>
+                            <td th:text="${talrec.emali}"></td>
+                        </tr>
+                    </table>
+                    <div>
+                        <span style="color: #775637;">职位要求:</span>
+                        <!--                渲染富文本编辑内容使用 utext-->
+                        <div th:utext="${talrec.postDuty}" style="margin-left: 20px"></div>
+                    </div>
+                    <div style="margin-top: 20px">
+                        <span style="color: #775637;">职位描述:</span>
+                        <!--                渲染富文本编辑内容使用 utext-->
+                        <div th:utext="${talrec.postDescr}" style="margin-left: 20px"></div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+<!--    底部-->
+<div id="footer" th:include="public/footer :: publicFooter"></div>
+</body>
+</html>

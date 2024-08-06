@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanqiao.zzy.mapper.CulproChineseCulturalMapper">
+
+    <resultMap id="BaseResultMap" type="com.lanqiao.zzy.domain.CulproChineseCultural">
+            <id property="itemid" column="itemID" jdbcType="INTEGER"/>
+            <id property="itemcode" column="itemCode" jdbcType="CHAR"/>
+            <result property="chineseCulturalName" column="CHINESE_CULTURAL_NAME" jdbcType="VARCHAR"/>
+            <result property="chineseCulturalContent" column="CHINESE_CULTURAL_CONTENT" jdbcType="VARCHAR"/>
+            <result property="chineseCulturalSource" column="CHINESE_CULTURAL_SOURCE" jdbcType="VARCHAR"/>
+            <result property="chineseCulturalAuthor" column="CHINESE_CULTURAL_AUTHOR" jdbcType="VARCHAR"/>
+            <result property="visitNum" column="VISIT_NUM" jdbcType="INTEGER"/>
+            <result property="chineseCulturalType" column="CHINESE_CULTURAL_TYPE" jdbcType="VARCHAR"/>
+            <result property="chineseCulturalStatus" column="CHINESE_CULTURAL_STATUS" jdbcType="VARCHAR"/>
+            <result property="creater" column="CREATER" jdbcType="VARCHAR"/>
+            <result property="itemcreateat" column="itemCreateAt" jdbcType="TIMESTAMP"/>
+            <result property="updater" column="UPDATER" jdbcType="VARCHAR"/>
+            <result property="itemupdateat" column="itemUpdateAt" jdbcType="TIMESTAMP"/>
+
+            <association property= "culturalFacilities" >
+                <id property="itemId" column="itemID" />
+                <result property="itemCode" column="itemCode"/>
+                <result property="dataCode" column="DATA_CODE"/>
+                <result property="uploader" column="UPLOADER"/>
+                <result property="uploadereCode" column="UPLOADER_CODE"/>
+                <result property="fileName" column="FILE_NAME"/>
+                <result property="fileType" column="FILE_TYPE"/>
+                <result property="fileSize" column="FILE_SIZE"/>
+                <result property="filePath" column="FILE_PATH"/>
+                <result property="creater" column="itemCreateAt"/>
+            </association>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+        itemID,itemCode,CHINESE_CULTURAL_NAME,
+        CHINESE_CULTURAL_CONTENT,CHINESE_CULTURAL_SOURCE,CHINESE_CULTURAL_AUTHOR,
+        VISIT_NUM,CHINESE_CULTURAL_TYPE,CHINESE_CULTURAL_STATUS,
+        CREATER,itemCreateAt,UPDATER,
+        itemUpdateAt
+    </sql>
+
+    <select id="selectForHomeHealthTravel" resultMap="BaseResultMap">
+        select  tccc.itemID,
+                tccc.itemCode,
+                tccc.CHINESE_CULTURAL_NAME,
+                tccc.CHINESE_CULTURAL_CONTENT,
+                tccc.CHINESE_CULTURAL_SOURCE,
+                tccc.CHINESE_CULTURAL_AUTHOR,
+                tccc.VISIT_NUM,CHINESE_CULTURAL_TYPE,
+                tccc.CHINESE_CULTURAL_STATUS,
+                tccc.CREATER,
+                tccc.itemCreateAt,
+                tccc.UPDATER,
+                tccc.itemUpdateAt,
+                tcf.FILE_PATH
+        from tb_culpro_chinese_cultural tccc, tb_culpro_file tcf
+        where tccc.itemID = tcf.itemID and tccc.CHINESE_CULTURAL_TYPE = '健康旅游' and CHINESE_CULTURAL_STATUS = '展示中'
+        limit 6
+    </select>
+
+
+    <select id="selectGjForPage" resultMap="BaseResultMap">
+        select t1.itemID,
+               t1.itemCode,
+               t1.VISIT_NUM,
+               t1.CHINESE_CULTURAL_TYPE,
+               t1.CHINESE_CULTURAL_NAME,
+               t1.CHINESE_CULTURAL_SOURCE,
+               t1.CHINESE_CULTURAL_AUTHOR,
+               t1.CHINESE_CULTURAL_STATUS,
+               t1.CHINESE_CULTURAL_CONTENT,
+               t2.FILE_NAME,
+               t2.FILE_PATH
+               from tb_culpro_chinese_cultural t1
+                    left join tb_culpro_file t2
+                    on t1.itemID=t2.itemID
+                where CHINESE_CULTURAL_TYPE like "%文化古迹%" and CHINESE_CULTURAL_STATUS like "展示中"
+                order by VISIT_NUM desc
+    </select>
+
+    <select id="selectCgForPage" resultMap="BaseResultMap">
+        select t1.itemID,
+               t1.itemCode,
+               t1.VISIT_NUM,
+               t1.CHINESE_CULTURAL_TYPE,
+               t1.CHINESE_CULTURAL_NAME,
+               t1.CHINESE_CULTURAL_SOURCE,
+               t1.CHINESE_CULTURAL_AUTHOR,
+               t1.CHINESE_CULTURAL_STATUS,
+               t1.CHINESE_CULTURAL_CONTENT,
+               t2.FILE_NAME,
+               t2.FILE_PATH
+               from tb_culpro_chinese_cultural t1
+                    left join tb_culpro_file t2
+                    on t1.itemID=t2.itemID
+                where CHINESE_CULTURAL_TYPE like "%文化场馆%" and CHINESE_CULTURAL_STATUS like "展示中"
+                order by VISIT_NUM desc
+    </select>
+
+    <select id="selectYcForPage" resultMap="BaseResultMap">
+        select t1.itemID,
+               t1.itemCode,
+               t1.VISIT_NUM,
+               t1.CHINESE_CULTURAL_TYPE,
+               t1.CHINESE_CULTURAL_NAME,
+               t1.CHINESE_CULTURAL_SOURCE,
+               t1.CHINESE_CULTURAL_AUTHOR,
+               t1.CHINESE_CULTURAL_STATUS,
+               t1.CHINESE_CULTURAL_CONTENT,
+               t2.FILE_NAME,
+               t2.FILE_PATH
+               from tb_culpro_chinese_cultural t1
+                    left join tb_culpro_file t2
+                    on t1.itemID=t2.itemID
+                where CHINESE_CULTURAL_TYPE like "%非物质文化遗产%" and CHINESE_CULTURAL_STATUS like "展示中"
+                order by VISIT_NUM desc
+    </select>
+
+    <select id="selectDyForPage" resultMap="BaseResultMap">
+        select t1.itemID,
+               t1.itemCode,
+               t1.VISIT_NUM,
+               t1.CHINESE_CULTURAL_TYPE,
+               t1.CHINESE_CULTURAL_NAME,
+               t1.CHINESE_CULTURAL_SOURCE,
+               t1.CHINESE_CULTURAL_AUTHOR,
+               t1.CHINESE_CULTURAL_STATUS,
+               t1.CHINESE_CULTURAL_CONTENT,
+               t2.FILE_NAME,
+               t2.FILE_PATH
+               from tb_culpro_chinese_cultural t1
+                    left join tb_culpro_file t2
+                    on t1.itemID=t2.itemID
+                where CHINESE_CULTURAL_TYPE like "%电视电影%" and CHINESE_CULTURAL_STATUS like "展示中"
+                order by VISIT_NUM desc
+    </select>
+
+    <select id="selectDmForPage" resultMap="BaseResultMap">
+        select t1.itemID,
+               t1.itemCode,
+               t1.VISIT_NUM,
+               t1.CHINESE_CULTURAL_TYPE,
+               t1.CHINESE_CULTURAL_NAME,
+               t1.CHINESE_CULTURAL_SOURCE,
+               t1.CHINESE_CULTURAL_AUTHOR,
+               t1.CHINESE_CULTURAL_STATUS,
+               t1.CHINESE_CULTURAL_CONTENT,
+               t2.FILE_NAME,
+               t2.FILE_PATH
+               from tb_culpro_chinese_cultural t1
+                    left join tb_culpro_file t2
+                    on t1.itemID=t2.itemID
+                where CHINESE_CULTURAL_TYPE like "%动漫游戏%" and CHINESE_CULTURAL_STATUS like "展示中"
+                order by VISIT_NUM desc
+    </select>
+
+
+    <select id="selectMhForPage" resultMap="BaseResultMap">
+        select t1.itemID,
+               t1.itemCode,
+               t1.VISIT_NUM,
+               t1.CHINESE_CULTURAL_TYPE,
+               t1.CHINESE_CULTURAL_NAME,
+               t1.CHINESE_CULTURAL_SOURCE,
+               t1.CHINESE_CULTURAL_AUTHOR,
+               t1.CHINESE_CULTURAL_STATUS,
+               t1.CHINESE_CULTURAL_CONTENT,
+               t2.FILE_NAME,
+               t2.FILE_PATH
+               from tb_culpro_chinese_cultural t1
+                    left join tb_culpro_file t2
+                    on t1.itemID=t2.itemID
+                where CHINESE_CULTURAL_TYPE like "%漫画典故%" and CHINESE_CULTURAL_STATUS like "展示中"
+                order by VISIT_NUM desc
+    </select>
+
+    <select id="selectLyForPage" resultMap="BaseResultMap">
+        select t1.itemID,
+               t1.itemCode,
+               t1.VISIT_NUM,
+               t1.CHINESE_CULTURAL_TYPE,
+               t1.CHINESE_CULTURAL_NAME,
+               t1.CHINESE_CULTURAL_SOURCE,
+               t1.CHINESE_CULTURAL_AUTHOR,
+               t1.CHINESE_CULTURAL_STATUS,
+               t1.CHINESE_CULTURAL_CONTENT,
+               t2.FILE_NAME,
+               t2.FILE_PATH
+               from tb_culpro_chinese_cultural t1
+                    left join tb_culpro_file t2
+                    on t1.itemID=t2.itemID
+                where CHINESE_CULTURAL_TYPE like "%健康旅游%" and CHINESE_CULTURAL_STATUS like "展示中"
+                order by VISIT_NUM desc
+    </select>
+
+    <select id="selectDetailsById" resultMap="BaseResultMap">
+        select itemID,
+               itemCode,
+               VISIT_NUM,
+               CHINESE_CULTURAL_TYPE,
+               CHINESE_CULTURAL_NAME,
+               CHINESE_CULTURAL_SOURCE,
+               CHINESE_CULTURAL_AUTHOR,
+               CHINESE_CULTURAL_STATUS,
+               CHINESE_CULTURAL_CONTENT
+               from tb_culpro_chinese_cultural
+                where itemID = #{value}
+                order by VISIT_NUM desc
+    </select>
+
+    <select id="selectAllDetails" resultMap="BaseResultMap">
+        select itemID,
+               itemCode,
+               VISIT_NUM,
+               CHINESE_CULTURAL_TYPE,
+               CHINESE_CULTURAL_NAME,
+               CHINESE_CULTURAL_SOURCE,
+               CHINESE_CULTURAL_AUTHOR,
+               CHINESE_CULTURAL_STATUS,
+               CHINESE_CULTURAL_CONTENT
+               from tb_culpro_chinese_cultural
+                where CHINESE_CULTURAL_TYPE = #{chineseCulturalType}
+                order by VISIT_NUM desc
+    </select>
+
+</mapper>

@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanqiao.zzy.mapper.TbIndustrialDevelopMedMatMapper">
+  <resultMap id="BaseResultMap" type="com.lanqiao.zzy.domain.TbIndustrialDevelopMedMat">
+    <id column="itemID" jdbcType="INTEGER" property="itemid" />
+    <id column="itemCode" jdbcType="CHAR" property="itemcode" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="SPECIFICATIONS" jdbcType="VARCHAR" property="specifications" />
+    <result column="PLACE" jdbcType="VARCHAR" property="place" />
+    <result column="CONTACTS" jdbcType="VARCHAR" property="contacts" />
+    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="ORG_CODE" jdbcType="CHAR" property="orgCode" />
+    <result column="CREATER" jdbcType="VARCHAR" property="creater" />
+    <result column="itemCreateAt" jdbcType="TIMESTAMP" property="itemcreateat" />
+    <result column="UPDATER" jdbcType="VARCHAR" property="updater" />
+    <result column="itemUpdateAt" jdbcType="TIMESTAMP" property="itemupdateat" />
+    <result column="PRICE" jdbcType="VARCHAR" property="price" />
+    <result column="NUM" property="num"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    itemID, itemCode, `NAME`, SPECIFICATIONS, PLACE, CONTACTS, PHONE, `STATUS`, ORG_CODE, 
+    CREATER, itemCreateAt, UPDATER, itemUpdateAt, PRICE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.lanqiao.zzy.domain.TbIndustrialDevelopMedMat" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_industrial_develop_med_mat
+    where itemID = #{itemid,jdbcType=INTEGER}
+      and itemCode = #{itemcode,jdbcType=CHAR}
+  </select>
+  <select id="selectByplace" resultMap="BaseResultMap" parameterType="string">
+    select  <include refid="Base_Column_List"/>
+    from tb_industrial_develop_med_mat where
+    <bind name="place" value="'%' + vlaue + '%'"/>
+      PLACE like #{place} and STATUS='售卖中'
+  </select>
+  <select id="selectNum" resultMap="BaseResultMap">
+    select  count(itemID) num,PLACE FROM tb_industrial_develop_med_mat where STATUS='售卖中' group by PLACE
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.lanqiao.zzy.domain.TbIndustrialDevelopMedMat">
+    delete from tb_industrial_develop_med_mat
+    where itemID = #{itemid,jdbcType=INTEGER}
+      and itemCode = #{itemcode,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" keyColumn="itemID" keyProperty="itemid" parameterType="com.lanqiao.zzy.domain.TbIndustrialDevelopMedMat" useGeneratedKeys="true">
+    insert into tb_industrial_develop_med_mat (itemCode, `NAME`, SPECIFICATIONS, 
+      PLACE, CONTACTS, PHONE, 
+      `STATUS`, ORG_CODE, CREATER, 
+      itemCreateAt, UPDATER, itemUpdateAt, 
+      PRICE)
+    values (#{itemcode,jdbcType=CHAR}, #{name,jdbcType=VARCHAR}, #{specifications,jdbcType=VARCHAR}, 
+      #{place,jdbcType=VARCHAR}, #{contacts,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{orgCode,jdbcType=CHAR}, #{creater,jdbcType=VARCHAR}, 
+      #{itemcreateat,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{itemupdateat,jdbcType=TIMESTAMP}, 
+      #{price,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="itemID" keyProperty="itemid" parameterType="com.lanqiao.zzy.domain.TbIndustrialDevelopMedMat" useGeneratedKeys="true">
+    insert into tb_industrial_develop_med_mat
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="itemcode != null">
+        itemCode,
+      </if>
+      <if test="name != null">
+        `NAME`,
+      </if>
+      <if test="specifications != null">
+        SPECIFICATIONS,
+      </if>
+      <if test="place != null">
+        PLACE,
+      </if>
+      <if test="contacts != null">
+        CONTACTS,
+      </if>
+      <if test="phone != null">
+        PHONE,
+      </if>
+      <if test="status != null">
+        `STATUS`,
+      </if>
+      <if test="orgCode != null">
+        ORG_CODE,
+      </if>
+      <if test="creater != null">
+        CREATER,
+      </if>
+      <if test="itemcreateat != null">
+        itemCreateAt,
+      </if>
+      <if test="updater != null">
+        UPDATER,
+      </if>
+      <if test="itemupdateat != null">
+        itemUpdateAt,
+      </if>
+      <if test="price != null">
+        PRICE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="itemcode != null">
+        #{itemcode,jdbcType=CHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="specifications != null">
+        #{specifications,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null">
+        #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null">
+        #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null">
+        #{orgCode,jdbcType=CHAR},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="itemcreateat != null">
+        #{itemcreateat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null">
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="itemupdateat != null">
+        #{itemupdateat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lanqiao.zzy.domain.TbIndustrialDevelopMedMat">
+    update tb_industrial_develop_med_mat
+    <set>
+      <if test="name != null">
+        `NAME` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="specifications != null">
+        SPECIFICATIONS = #{specifications,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null">
+        PLACE = #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null">
+        CONTACTS = #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `STATUS` = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null">
+        ORG_CODE = #{orgCode,jdbcType=CHAR},
+      </if>
+      <if test="creater != null">
+        CREATER = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="itemcreateat != null">
+        itemCreateAt = #{itemcreateat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null">
+        UPDATER = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="itemupdateat != null">
+        itemUpdateAt = #{itemupdateat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="price != null">
+        PRICE = #{price,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where itemID = #{itemid,jdbcType=INTEGER}
+      and itemCode = #{itemcode,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lanqiao.zzy.domain.TbIndustrialDevelopMedMat">
+    update tb_industrial_develop_med_mat
+    set `NAME` = #{name,jdbcType=VARCHAR},
+      SPECIFICATIONS = #{specifications,jdbcType=VARCHAR},
+      PLACE = #{place,jdbcType=VARCHAR},
+      CONTACTS = #{contacts,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      `STATUS` = #{status,jdbcType=VARCHAR},
+      ORG_CODE = #{orgCode,jdbcType=CHAR},
+      CREATER = #{creater,jdbcType=VARCHAR},
+      itemCreateAt = #{itemcreateat,jdbcType=TIMESTAMP},
+      UPDATER = #{updater,jdbcType=VARCHAR},
+      itemUpdateAt = #{itemupdateat,jdbcType=TIMESTAMP},
+      PRICE = #{price,jdbcType=VARCHAR}
+    where itemID = #{itemid,jdbcType=INTEGER}
+      and itemCode = #{itemcode,jdbcType=CHAR}
+  </update>
+  <resultMap id="MedMatDetailResultMap"  type="com.lanqiao.zzy.domain.TbIndustrialDevelopMedMat">
+    <id column="med_itemID" jdbcType="INTEGER" property="itemid" />
+    <id column="med_itemCode" jdbcType="CHAR" property="itemcode" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="SPECIFICATIONS" jdbcType="VARCHAR" property="specifications" />
+    <result column="PLACE" jdbcType="VARCHAR" property="place" />
+    <result column="CONTACTS" jdbcType="VARCHAR" property="contacts" />
+    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="ORG_CODE" jdbcType="CHAR" property="orgCode" />
+    <result column="CREATER" jdbcType="VARCHAR" property="creater" />
+    <result column="itemCreateAt" jdbcType="TIMESTAMP" property="itemcreateat" />
+    <result column="UPDATER" jdbcType="VARCHAR" property="updater" />
+    <result column="itemUpdateAt" jdbcType="TIMESTAMP" property="itemupdateat" />
+    <result column="PRICE" jdbcType="VARCHAR" property="price" />
+            <collection property="tbCulproFile" ofType="com.lanqiao.zzy.domain.TbCulproFile">
+              <id column="f_itemCode" jdbcType="CHAR" property="itemcode" />
+              <result column="FILE_NAME" jdbcType="VARCHAR" property="fileName" />
+              <result column="FILE_PATH" jdbcType="VARCHAR" property="filePath" />
+            </collection>
+        <collection property="organization" ofType="com.lanqiao.zzy.domain.Organization">
+                <result column="ORG_NAME" property="orgName"/>
+                <result column="o_ORG_GODE" property="orgCode"/>
+        </collection>
+  </resultMap>
+<!--  药材详情及图片-->
+  <select id="selectByOrgCodeAndNameName" resultMap="MedMatDetailResultMap">
+    select   med.itemID med_itemID, med.itemCode med_itemCode, `NAME`, SPECIFICATIONS, PLACE, CONTACTS, PHONE, `STATUS`, ORG_CODE,
+             CREATER, med.itemCreateAt, UPDATER, itemUpdateAt, PRICE,
+             FILE_NAME,FILE_PATH,f.itemCode f_itemCode
+    from tb_industrial_develop_med_mat med ,tb_culpro_file f
+    where   med.ORG_CODE=#{medMat.orgCode} and med.name=#{medMat.name}
+      and med.itemID=#{medMat.itemid} and med.itemCODE=#{medMat.itemcode}
+      and med.ORG_CODE=f.itemCode and med.NAME=f.FILE_NAME and med.STATUS='售卖中'
+  </select>
+<!--  药材地-->
+  <select id="selectByLocate" resultMap="BaseResultMap">
+    select  PLACE from tb_industrial_develop_med_mat group by PLACE;
+  </select>
+  <select id="selectByName" resultMap="BaseResultMap">
+    select  NAME from tb_industrial_develop_med_mat group by NAME;
+  </select>
+  <select id="selectByorgcode" resultMap="MedMatDetailResultMap">
+    select   med.itemID med_itemID, med.itemCode med_itemCode, `NAME`, SPECIFICATIONS, PLACE, CONTACTS, PHONE, `STATUS`, ORG_CODE,
+             CREATER, med.itemCreateAt, UPDATER, itemUpdateAt, PRICE,
+             FILE_NAME,FILE_PATH,f.itemCode f_itemCode
+    from tb_industrial_develop_med_mat med ,tb_culpro_file f
+    where   med.ORG_CODE=#{orgcode}
+      and med.ORG_CODE=f.DATA_CODE and med.NAME=f.FILE_NAME and med.STATUS='售卖中'
+  </select>
+  <select id="selectMedMatList" resultMap="MedMatDetailResultMap">
+    select distinct
+    med.itemID med_itemID, med.itemCode med_itemCode, `NAME`, SPECIFICATIONS, PLACE, CONTACTS, PHONE, `STATUS`, med.ORG_CODE,
+    med.CREATER, med.itemCreateAt, med.UPDATER, med.itemUpdateAt, PRICE,
+    FILE_NAME,FILE_PATH,f.itemCode f_itemCode,ORG_NAME,o.ORG_CODE o_ORG_GODE
+    from tb_industrial_develop_med_mat med ,tb_culpro_file f,organization o
+    <where>
+      <if test="med.place !=null and med.place.trim().length()>0">
+        <bind name="placePattern" value="'%' + med.place + '%'"/>
+        AND  med.PLACE  like #{placePattern}
+      </if>
+      <if test="med.name!=null and  med.name.trim().length()>0 ">
+        AND med.NAME=#{med.name}
+      </if>
+      <if test="med.orgcode !=null  and med.orgcode.trim().length()>0 "  >
+        AND med.ORG_CODE=#{med.orgcode}
+      </if>
+        and  med.ORG_CODE=f.DATA_CODE and med.NAME=f.FILE_NAME and o.ORG_CODE=med.ORG_CODE and med.STATUS='售卖中'
+    </where>
+    order by med.itemID
+  </select>
+</mapper>

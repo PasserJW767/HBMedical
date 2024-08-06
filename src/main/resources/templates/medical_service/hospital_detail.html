@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>中医名院详情</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <link th:href="@{/component/bootstrap-3.3.7/css/bootstrap.min.css}"
+          href="../../static/component/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link th:href="@{/component/inspinia/css/plugins/sweetalert/sweetalert.css}"
+          href="../../static/component/inspinia/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script th:src="@{/component/jquery-2.2.4.js}"
+            src="../../static/component/jquery-2.2.4.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script th:src="@{/component/bootstrap-3.3.7/js/bootstrap.min.js}"
+            src="../../static/component/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <!--引入css样式-->
+    <link th:href="@{/project/public/header.css}"
+          href="../../static/project/public/header.css" rel="stylesheet">
+    <link th:href="@{/project/policies_regulations/centerList.css}"
+          href="../../static/project/policies_regulations/centerList.css" rel="stylesheet">
+    <link th:href="@{/project/homepage/main.css}"
+          href="../../static/project/homepage/main.css" rel="stylesheet">
+
+
+    <style>
+        .medicalTag{
+            text-align: center;
+            height: 35px;
+            width: 100px;
+            margin-left: 30px;
+            position: relative;
+
+
+        }
+        .medicalTag a{
+            background-image:url('../../static/images/home/u22.png');
+            background-size: 100% auto;
+            background-repeat: no-repeat;
+            text-decoration: none;
+            display: block;
+            height: 35px;
+            width: 100px;
+            color: black;
+            size: 70px;
+            padding-top: 10px;
+        }
+        .medicalTag a:visited{
+            background-color: chocolate;
+        }
+        .medicalTag a:hover {
+            background-color: chocolate;
+        }
+        .medicalTag a:active{
+            background-color: chocolate;
+        }
+        #Title{
+            background: url('../../static/images/medical_service/u133.png');
+            background-size: 100% 40px;
+            background-repeat: no-repeat;
+            text-decoration: none;
+            color:black;
+            font-weight: bold;
+            padding-right: 50px;
+            padding-left: 50px;
+            text-align: center;
+            line-height: 40px;
+            font-family:'新华隶书';
+            width:fit-content;
+            width:-moz-fit-content;
+            margin: 0px auto;
+        }
+        #hospLevel{
+            text-align: center;
+            width:fit-content;
+            width:-moz-fit-content;
+            font-family:'微软雅黑体';
+            margin: 2px auto;
+        }
+        .hospPromptwords{
+            font-weight: bold;
+            font-family:'新华隶书';
+            color:saddlebrown;
+            text-align: left;
+            margin-top: 10px;
+        }
+        #hospitalIntroduce{
+            font-size: 15px;
+            font-family:'新华隶书';
+            background-color: hsl(0, 0%, 96%);
+        }
+
+        #jumpToList{
+            text-decoration: none;
+            color: red;
+        }
+
+        .prenext li{
+            margin-bottom: 20px;
+        }
+
+        .prenext li a {
+            text-decoration: none;
+            color: black;
+            font-size: 18px;
+            font-family:'新华隶书';
+        }
+
+        .hospdetailImg img{
+            width: 750px;
+            height: 500px;
+        }
+    </style>
+
+</head>
+<body>
+<!--头部-->
+<div id="header" th:include="public/header :: publicHeader"></div>
+<!--内容-->
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-10 column col-md-offset-1" style="border-left: 1px gray solid;border-right:1px gray solid">
+
+            <div class="row clearfix" style="margin-top: 40px">
+                <!--左边-->
+                <div class="col-md-2 column" >
+                    <div  class="img-rounded medicalTag" >
+                        <a class="active" th:href="@{/hospitals}"   th:style="|background-image:url('/images/home/u22.png');|">中医名院</a>
+                    </div><br>
+                    <div  class="img-rounded medicalTag" >
+                        <a  th:href="@{/culproSpecialties}" th:style="|background-image:url('/images/home/u22.png');|">中医名科</a>
+                    </div><br>
+                    <div class="img-rounded medicalTag">
+                        <a  th:href="@{/culproChineseMedicines}"  th:style="|background-image:url('/images/home/u22.png');|"> 名老中医</a>
+                    </div><br><br>
+                </div>
+
+                <!--右边-->
+                <!--内容:查询列表-->
+                <div class="col-md-10 column" style="width: 780px;">
+                    <!--返回超链接-->
+                    <div>
+                        <a id="jumpToList" th:href="@{/hospitals}">&lt;返回列表</a>
+                    </div>
+                    <div id="content" th:each="hospital,status : ${hospitalDetails}" >
+                        <div class="row clearfix ">
+                            <!--医院名称-->
+                            <h4 id="Title"  th:style="|background-image: url('/images/home/u133.png')|" th:text="${hospital.hospitalName}"></h4>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-md-2"></div>
+                            <div class="col-lg-10">
+                                <!--医院级别-->
+                                <h5 id="hospLevel"  th:text="${hospital.hospitalLevel}"></h5>
+                            </div>
+
+                        </div>
+
+                        <!--医院文章-->
+                        <div class="hospPromptwords">医院介绍:</div>
+                        <div id="hospitalIntroduce" th:utext="|${hospital.hospitalIntroduce}|"></div>
+
+                        <div class="hospdetailImg">
+                            <!--<img  th:src="@{|${hospital.culproFile.filePath}|}"  >-->
+                            <!--该图片路径用于演示，上面的路径是真正的文件图片路径-->
+                            <img  th:src="@{/images/medical_service/u1000.png}">
+                        </div>
+
+
+                        <div style="background-color: #efefef ;margin-top: 10px ;">
+                            <div class="row clearfix">
+                                <!--重点专科-->
+                                <div style="float: left;margin-left: 15px" class="hospPromptwords">重点专科:&nbsp;
+                                </div>
+                                <div style="float: left" class="img-rounded medicalTag"  th:each="culproSpecialtyOfHosp,status : ${culproSpecialtyOfHosps}">
+                                    <a th:href="@{/culproSpecialties/detail(itemcode=${culproSpecialtyOfHosp.culproSpecialty.itemcode},itemid=${culproSpecialtyOfHosp.culproSpecialty.itemid})}" th:text="${culproSpecialtyOfHosp.culproSpecialty.specialtyName}"  th:style="|background-image:url('/images/home/u22.png');|"></a>
+                                </div>
+                            </div>
+                            <!--联系电话-->
+                            <div >
+                                <span class="hospPromptwords">联系电话:&nbsp;</span>
+                                <span th:text="${hospital.hospitalTelephone}"></span>
+                            </div>
+                            <!--医院地址-->
+                            <div >
+                                <span class="hospPromptwords">医院地址:&nbsp;</span>
+                                <span th:text="${hospital.hospitalAddress}"></span>
+                            </div>
+                            <!--链接地址-->
+                            <div >
+                                <span class="hospPromptwords">链接地址:&nbsp;</span>
+                                <span th:text="${hospital.hospitalLink}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix" style="padding-top: 50px">
+                    <div class="col-lg-5"></div>
+                    <div class="col-lg-7">
+                        <div class="prenextnav" >
+                            <ul class="prenext" style="list-style: none ">
+                                <li class="upAndDown" th:if="${hospitalDetails.pageNum gt 1}" th:each="pre,status:${preHospitalDetails}">
+                                    <a th:text="'上一篇：'+${pre.hospitalName}" th:href="@{/hospitals/detail(pageNum=${hospitalDetails.pageNum}-1,itemcode=${pre.itemcode})}"></a>
+                                </li>
+                                <li class="upAndDown" th:if="${hospitalDetails.pageNum+1 le hospitalDetails.pages}" th:each="next,status:${nextHospitalDetails}" >
+                                    <a th:text="'下一篇：'+${next.hospitalName}" th:href="@{/hospitals/detail(pageNum=${hospitalDetails.pageNum}+1,itemcode=${next.itemcode})}"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--底部-->
+<div id="footer" th:include="public/footer :: publicFooter"></div>
+</body>
+</html>

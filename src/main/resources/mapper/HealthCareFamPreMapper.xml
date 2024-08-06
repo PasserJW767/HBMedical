@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanqiao.zzy.mapper.HealthCareFamPreMapper">
+  <resultMap id="BaseResultMap" type="com.lanqiao.zzy.domain.HealthCareFamPre">
+    <id column="itemID" jdbcType="INTEGER" property="itemid" />
+    <id column="itemCode" jdbcType="CHAR" property="itemcode" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="SOURCE" jdbcType="VARCHAR" property="source" />
+    <result column="AUTHOR" jdbcType="VARCHAR" property="author" />
+    <result column="VISIT_NUM" jdbcType="INTEGER" property="visitNum" />
+    <result column="CONTENT" jdbcType="VARCHAR" property="content" />
+    <result column="TYPE" jdbcType="VARCHAR" property="type" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="CREATER" jdbcType="VARCHAR" property="creater" />
+    <result column="itemCreateAt" jdbcType="TIMESTAMP" property="itemcreateat" />
+    <result column="UPDATER" jdbcType="VARCHAR" property="updater" />
+    <result column="itemUpdateAt" jdbcType="TIMESTAMP" property="itemupdateat" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    itemID, itemCode, `NAME`, `SOURCE`, AUTHOR, VISIT_NUM, CONTENT, `TYPE`, `STATUS`,
+    CREATER, itemCreateAt, UPDATER, itemUpdateAt
+  </sql>
+  <!--首页：国医健康-->
+  <select id="selectHealthCareFamPreForHome"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_health_care_fam_pre
+    where STATUS='展示中'
+  </select>
+
+    <select id="selectAll" resultMap="BaseResultMap" >
+        select itemID,Name from tb_health_care_fam_pre
+    </select>
+
+    <select id="selectDoctorDetailById" resultMap="BaseResultMap">
+        select itemID,itemCode,NAME,
+        SOURCE,AUTHOR,VISIT_NUM,
+        CONTENT,TYPE,STATUS,
+        CREATER,itemCreateAt,UPDATER,
+        itemUpdateAt
+        from tb_health_care_fam_pre
+        where itemId = #{value}
+    </select>
+
+    <select id="selectAllDoctorDetail" resultMap="BaseResultMap">
+        select itemID,itemCode,NAME,
+        SOURCE,AUTHOR,VISIT_NUM,
+        CONTENT,TYPE,STATUS,
+        CREATER,itemCreateAt,UPDATER,
+        itemUpdateAt
+        from tb_health_care_fam_pre
+    </select>
+
+
+</mapper>

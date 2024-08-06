@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanqiao.zzy.mapper.CulproHospMapper">
+    <resultMap id="BaseResultMap" type="com.lanqiao.zzy.domain.CulproHosp">
+        <id property="itemid" column="itemID" jdbcType="INTEGER"/>
+        <id property="itemcode" column="itemCode" jdbcType="CHAR"/>
+        <result property="hospitalName" column="HOSPITAL_NAME" jdbcType="VARCHAR"/>
+        <result property="hospitalLevel" column="HOSPITAL_LEVEL" jdbcType="VARCHAR"/>
+        <result property="hospitalBriefIntroduce" column="HOSPITAL_BRIEF_INTRODUCE" jdbcType="VARCHAR"/>
+        <result property="hospitalKeySpecialty" column="HOSPITAL_KEY_SPECIALTY" jdbcType="VARCHAR"/>
+        <result property="hospitalIntroduce" column="HOSPITAL_INTRODUCE" jdbcType="VARCHAR"/>
+        <result property="hospitalTelephone" column="HOSPITAL_TELEPHONE" jdbcType="VARCHAR"/>
+        <result property="hospitalAddressPro" column="HOSPITAL_ADDRESS_PRO" jdbcType="VARCHAR"/>
+        <result property="hospitalAddressCity" column="HOSPITAL_ADDRESS_CITY" jdbcType="VARCHAR"/>
+        <result property="hospitalAddressCountry" column="HOSPITAL_ADDRESS_COUNTRY" jdbcType="VARCHAR"/>
+        <result property="hospitalAddress" column="HOSPITAL_ADDRESS" jdbcType="VARCHAR"/>
+        <result property="hospitalLink" column="HOSPITAL_LINK" jdbcType="VARCHAR"/>
+        <result property="reason" column="REASON" jdbcType="VARCHAR"/>
+        <result property="hospitalStatus" column="HOSPITAL_STATUS" jdbcType="VARCHAR"/>
+        <result property="creater" column="CREATER" jdbcType="VARCHAR"/>
+        <result property="itemcreateat" column="itemCreateAt" jdbcType="TIMESTAMP"/>
+        <result property="updater" column="UPDATER" jdbcType="VARCHAR"/>
+        <result property="itemupdateat" column="itemUpdateAt" jdbcType="TIMESTAMP"/>
+        <result property="orgCode" column="ORG_CODE" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="CulproHospResultMap" type="com.lanqiao.zzy.domain.CulproHosp" extends="BaseResultMap">
+        <association property="culproFile" column="itemCode" javaType="com.lanqiao.zzy.domain.CulproFile" resultMap="com.lanqiao.zzy.mapper.CulproFileMapper.BaseResultMap">
+        </association>
+        <collection property="culproSpecialties" column="itemCode" ofType="com.lanqiao.zzy.domain.CulproSpecialty" resultMap="com.lanqiao.zzy.mapper.CulproSpecialtyMapper.BaseResultMap">
+        </collection>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        itemID,itemCode,HOSPITAL_NAME,
+        HOSPITAL_LEVEL,HOSPITAL_BRIEF_INTRODUCE,HOSPITAL_KEY_SPECIALTY,
+        HOSPITAL_INTRODUCE,HOSPITAL_TELEPHONE,HOSPITAL_ADDRESS_PRO,
+        HOSPITAL_ADDRESS_CITY,HOSPITAL_ADDRESS_COUNTRY,HOSPITAL_ADDRESS,
+        HOSPITAL_LINK,REASON,HOSPITAL_STATUS,
+        CREATER,itemCreateAt,UPDATER,
+        itemUpdateAt,ORG_CODE
+    </sql>
+    <!--详情-->
+  <select id="selectHospitalForHome"  resultMap="CulproHospResultMap">
+      select  h.itemID,
+              h.itemCode,
+              h.HOSPITAL_NAME,
+              h.HOSPITAL_BRIEF_INTRODUCE,
+              h.HOSPITAL_INTRODUCE,
+              f.FILE_PATH
+      from tb_culpro_hosp  as h
+        left join tb_culpro_file f
+          on h.itemCode=f.DATA_CODE
+      where  h.HOSPITAL_STATUS = '展示中'
+  </select>
+
+    <!--详情-->
+    <select id="selectHospitalByCondiction" parameterType="com.lanqiao.zzy.domain.CulproHosp" resultMap="CulproHospResultMap">
+        select  h.itemID,
+        h.itemCode,
+        h.HOSPITAL_NAME,
+        h.HOSPITAL_LEVEL,
+        h.HOSPITAL_BRIEF_INTRODUCE,
+        h.HOSPITAL_KEY_SPECIALTY,
+        h.HOSPITAL_INTRODUCE,
+        h.HOSPITAL_TELEPHONE,
+        h.HOSPITAL_ADDRESS_PRO,
+        h.HOSPITAL_ADDRESS_CITY,
+        h.HOSPITAL_ADDRESS_COUNTRY,
+        h.HOSPITAL_ADDRESS,
+        h.HOSPITAL_LINK,
+        h.HOSPITAL_STATUS,
+        f.itemID,
+        f.itemCode,
+        f.DATA_CODE,
+        f.FILE_NAME,
+        f.FILE_PATH
+        from tb_culpro_hosp  as h
+        left join tb_culpro_file f
+        on h.itemCode=f.DATA_CODE
+        <where>
+            h.HOSPITAL_STATUS = '展示中'
+            <if test="culproHosp.hospitalName !=null and culproHosp.hospitalName.trim().length()>0 ">
+                <bind name="namePatterm" value="'%'+culproHosp.hospitalName+'%'"/>
+                and  h.HOSPITAL_NAME like #{namePatterm}
+            </if>
+            <if test="culproHosp.hospitalAddressCity !=null and culproHosp.hospitalAddressCity.trim().length()>0 ">
+                and h.HOSPITAL_ADDRESS_CITY = #{culproHosp.hospitalAddressCity,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+
+    <!--查询所有的市-->
+    <select id="selectHospitalCity" resultType="java.lang.String">
+        select HOSPITAL_ADDRESS_CITY
+        from tb_culpro_hosp
+        group by HOSPITAL_ADDRESS_CITY
+    </select>
+
+    <!--根据itemid查询页码（）-->
+    <select id="selectPageNum"  resultType="java.lang.Integer" parameterType="int">
+        select count(itemID) as count
+        from (select itemID from tb_culpro_hosp where HOSPITAL_STATUS="展示中") as h
+        where <![CDATA[h.itemID<#{itemid}]]>
+    </select>
+
+
+
+</mapper>

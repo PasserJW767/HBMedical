@@ -1,0 +1,104 @@
+spring:
+  application:
+    name: medicalwebfront
+  thymeleaf:
+    # prefix: classpath:/templates # 默认 thymeleaf 模板页面所在位置
+    cache: false
+    encoding: utf-8
+  # 热部署, 修改类和资源时不重启服务
+  devtools:
+    restart:
+      enabled: true  #设置开启热部署
+      additional-paths: src/main/java  #重启目录
+      exclude: static/**  #设置classpath下 static目录内容修改后不重启。一般设置为静态资源目录
+    freemarker:
+      cache: false  #页面不加载缓存，修改即时生效
+  mail:
+    host: smtp.qq.com    #邮箱服务器地址
+    protocol: smtps
+    username: 709263897@qq.com   #邮箱账号
+    password: jeimxdksssmybcje            #邮箱密码
+    default-encoding: UTF-8    #默认编码
+    # smtp的指定端口 使用465要将protocol改为smtps
+    port: 465
+    # 设置开启ssl
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          ssl:
+            enable: true
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+  # jdbc_config datasource
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/culpro?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useAffectedRows=true&zeroDateTimeBehavior=convertToNull&useOldAliasMetadataBehavior=true
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      stat-view-servlet:
+        enabled: false
+        login-username: admin
+        login-password: sin0s0ft
+        allow: 127.0.0.1
+        url-pattern: "/druid/*"
+      web-stat-filter:
+        enabled: false
+        exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
+        url-pattern: "/*"
+      initialSize: 5
+      maxActive: 10
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      filter:
+        stat:
+          log-slow-sql: true
+    name: tutorial
+mybatis:
+#  设置实体类别中
+  type-aliases-package: com.lanqiao.zzy.domain
+  mapper-locations: classpath:mapper/**/*.xml
+
+# 分页
+pagehelper:
+  helperDialect: mysql
+  offsetAsPageNum: true
+  rowBoundsWithCount: true
+  reasonable: false
+  supportMethodsArguments: true
+  returnPageInfo: true
+  params: count=countSql
+
+# 开放所有的 Web endpoints
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+# 输出 mybatis SQL日志
+logging:
+  level:
+    root: INFO
+    com.lanqiao.tutorials.mapper: DEBUG
+    com.lanqiao.tutorials.controller: DEBUG
+  pattern:
+    file: '%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{15} - %msg%n'
+    console: '%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{15} - %msg%n'
+  file:
+    name: tutorials.log
+#    path: #日志文件存入的目录
+
+
+

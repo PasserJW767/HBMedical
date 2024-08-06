@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanqiao.zzy.mapper.CulproFamPreMapper">
+  <resultMap id="BaseResultMap" type="com.lanqiao.zzy.domain.CulproFamPre">
+    <id column="itemID" jdbcType="INTEGER" property="itemid" />
+    <id column="itemCode" jdbcType="CHAR" property="itemcode" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="AUTHOR" jdbcType="VARCHAR" property="author" />
+    <result column="FAMSOURCE" jdbcType="VARCHAR" property="famsource" />
+    <result column="SOURCE" jdbcType="VARCHAR" property="source" />
+    <result column="PRESCRIPTION" jdbcType="VARCHAR" property="prescription" />
+    <result column="CONTENT" jdbcType="VARCHAR" property="content" />
+    <result column="VISIT_NUM" jdbcType="INTEGER" property="visitNum" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="TYPE" jdbcType="VARCHAR" property="type" />
+    <result column="CREATER" jdbcType="VARCHAR" property="creater" />
+    <result column="itemCreateAt" jdbcType="TIMESTAMP" property="itemcreateat" />
+    <result column="UPDATER" jdbcType="VARCHAR" property="updater" />
+    <result column="itemUpdateAt" jdbcType="TIMESTAMP" property="itemupdateat" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    itemID, itemCode, `NAME`, AUTHOR, FAMSOURCE, `SOURCE`, PRESCRIPTION, CONTENT, VISIT_NUM,
+    `STATUS`, `TYPE`, CREATER, itemCreateAt, UPDATER, itemUpdateAt
+  </sql>
+  <!--首页：历史名方 -->
+  <select id="selectCulproFamPreForHome"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_culpro_fam_pre
+    where STATUS='展示中'
+  </select>
+
+    <select id="selectAllForFamPre" resultMap="BaseResultMap">
+        select itemID,NAME,SOURCE FROM tb_culpro_fam_pre
+    </select>
+
+    <select id="selectHistoryFamPreById" resultMap="BaseResultMap">
+        select itemID,itemCode,NAME,
+        AUTHOR,FAMSOURCE,SOURCE,
+        PRESCRIPTION,CONTENT,VISIT_NUM,
+        STATUS,TYPE,CREATER,
+        itemCreateAt,UPDATER,itemUpdateAt
+        FROM tb_culpro_fam_pre
+        where itemID = #{value}
+    </select>
+
+    <select id="selectAllFamPreDetail" resultMap="BaseResultMap">
+        select itemID,itemCode,NAME,
+        AUTHOR,FAMSOURCE,SOURCE,
+        PRESCRIPTION,CONTENT,VISIT_NUM,
+        STATUS,TYPE,CREATER,
+        itemCreateAt,UPDATER,itemUpdateAt
+        FROM tb_culpro_fam_pre
+    </select>
+
+</mapper>

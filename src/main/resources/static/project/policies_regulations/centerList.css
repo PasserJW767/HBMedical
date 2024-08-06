@@ -1,0 +1,65 @@
+.regulationsTag{
+    text-align: center;
+    height: 40px;
+    width: 100px;
+    margin-left: 30px;
+    position: relative;
+}
+.regulationsTag a {
+    background-image:url("../../images/policies-regulations/u22.png");
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    text-decoration: none;
+    display: block;
+    height: 40px;
+    width: 100px;
+    color: rgba(149, 78, 16, 0.84);
+    size: 70px;
+    padding-top: 10px;
+}
+.regulationsTag a:visited{
+    background-color: rgba(149, 78, 16, 0.84);
+}
+.regulationsTag a:hover {
+    background-color: rgba(149, 78, 16, 0.84);
+}
+.regulationsTag a:active{
+    background-color: rgba(149, 78, 16, 0.84);
+}
+.listTag{
+    text-align: left;
+    height: 120px;
+}
+.listTag a {
+    color: rgba(149, 78, 16, 0.84);
+    size: 50px;
+}
+.world {
+    text-align: left;
+    size: 50px;
+    color: rgba(149, 78, 16, 0.84);
+}
+.home-body{
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+.content-title{
+    color: rgba(149, 78, 16, 0.84);
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.content-span{
+    color: #0f0f0f;
+    font-size: 14px;
+}
+.content-detail{
+    margin-top: 10px;
+    color: #0f0f0f;
+    font-size: 14px;
+}
+.regulation-hr{
+    background-color:red;
+    height: 2px;
+    width: 80px;
+}

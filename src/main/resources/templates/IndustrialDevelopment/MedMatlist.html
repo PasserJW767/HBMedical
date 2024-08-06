@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>药材列表</title>
+    <!-- Bootstrap -->
+    <link th:href="@{/component/bootstrap-3.3.7/css/bootstrap.min.css}"
+          href="../../static/component/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link   th:href="@{/component/inspinia/css/plugins/sweetalert/sweetalert.css}"
+            href="../../static/component/inspinia/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- 静态资源起始位为static-->
+    <script  th:src="@{/component/jquery-2.2.4.js}"
+             src="../../static/component/jquery-2.2.4.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script th:src="@{/component/bootstrap-3.3.7/js/bootstrap.min.js}"
+            src="../../static/component/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <link th:href="@{/project/homepage/main.css}"
+          href="../../static/project/homepage/main.css" rel="stylesheet">
+    <script>
+        //加载地区选择
+        fetch(`/org/loadMedMatLocate`)
+            .then(resp => {
+                return resp.json();
+            })
+            .then(json => {
+                //console.log(...json);
+                let med_locate = document.querySelector('#Medlocate');
+                med_locate.options.add(new Option('--请选择--', ''));
+                json.forEach((item, index) => {
+                    //console.log(item);
+                    med_locate.options.add(new Option(item.place, item.place));
+                })
+
+                for (i = 0; i < med_locate.length; i++) {
+                    //console.log(org_locate.options[i])
+                    let curentplace="[[${curentMedplace}]]";
+                    //console.log(curentplace)
+                    if (med_locate.options[i].value == curentplace) {
+                        //选择框默认选择从控制器返回的orgLocate
+                        med_locate.options[i].setAttribute("selected",true)
+                    }
+                }
+            });
+
+        //加载药材选项
+        fetch(`/org/loadMedMatIndentify`)
+            .then(resp => {
+                return resp.json();
+            })
+            .then(json => {
+               // console.log(...json);
+                let med_Identify = document.querySelector('#MedIdentify');
+                med_Identify.options.add(new Option('--请选择--', ''));
+                json.forEach((item, index) => {
+                   // console.log(item);
+                    med_Identify.options.add(new Option(item.name, item.name));
+                })
+                for (i = 0; i < med_Identify.length; i++) {
+                   // console.log (org_Identify.options[i]);
+                    let curentname="[[${curentMedName}]]";
+                   // console.log(curentname)
+                    if (med_Identify.options[i].value == curentname) {
+                        //console.log('test');
+                        //选择框默认选择从控制器返回的 org_Identify
+                        med_Identify.options[i].setAttribute("selected",true)
+                    }
+                }
+            });
+
+        $(function () {
+            //orgLocate选择后重新刷新页面
+            $('#Medlocate').change(function () {
+                //console.log(this.selectedIndex);
+                console.log(this.options[this.selectedIndex].value);
+                window.location.href="/org/MedMatlist?place="+this.options[this.selectedIndex].value;
+            });
+            //MedIdentify选择后重新刷新页面
+            $('#MedIdentify').change(function () {
+                //console.log(this.selectedIndex);
+                console.log(this.options[this.selectedIndex].value);
+                window.location.href="/org/MedMatlist?name="+this.options[this.selectedIndex].value;
+            });
+        });
+
+        function Goto() {
+            let pageNum=$('#pageNumInput').val();
+            //取值方法[[ .....]]
+            var totalpage= [[${MedPage.pages}]];
+            if (pageNum>totalpage)
+            {
+                pageNum=totalpage;
+            }
+            if (pageNum < 1) {
+                pageNum=1;
+            }
+            //console.log(totalpage);
+
+            window.location.href="/org/MedMatlist?pageNum="+pageNum+"&name="+'[[${curentMedName}]]'+"&place="+'[[${curentMedplace}]]'
+        }
+
+
+    </script>
+    <style>
+        .pagination>li>a{
+            margin-left: 9px;
+        }
+        #detail{
+            text-decoration: none;
+            color: #775637;
+        }
+        a,a:hover{
+            text-decoration: none;
+            color: #775637;
+        }
+    </style>
+</head>
+<body>
+<!--头部-->
+<div id="header" th:include="public/header :: publicHeader"></div>
+<div class="container">
+    <div class="col-md-1"></div>
+    <div class="col-md-10 col-md-offset-1">
+        <div id="IndustrialListBody" style="display: flex ;border: #f6f5f5 solid 1px; width: 910px" >
+            <!--    标题-->
+            <div id="IndustrialTitle" style="display: flex ; flex-direction: column;margin-top: 50px;width: 190px;margin-left: 50px">
+                <div style="display: flex;margin-top: 30px"  >
+                    <img th:src="@{/images/home/u22.png}" width="102px" height="38px"
+                         src="../../static/images/home/u22.png" alt="">
+                    <span style="display: flex;position: relative; right: 105px;top: 10px;width: 102px;height: 20px;
+                                text-align: center">
+                    <a  th:href="@{/org/index}"
+                        href="#" style="width: 102px;height: 20px">资源分布</a>
+                </span>
+                </div>
+                <div style="display: flex;margin-top: 30px"  >
+                    <img th:src="@{/images/home/u22.png}" width="102px" height="38px"
+                         src="../../static/images/home/u22.png" alt="">
+                    <span style="display: flex;position: relative; right: 105px;top: 10px;width: 102px;height: 20px;
+                                text-align: center">
+                    <a  th:href="@{/achi/achiList}"
+                        href="#" style="width: 102px;height: 20px">科研成果</a>
+                </span>
+                </div>
+                <div style="display: flex;margin-top: 30px"  >
+                    <img th:src="@{/images/home/u22.png}" width="102px" height="38px"
+                         src="../../static/images/home/u22.png" alt="">
+                    <span style="display: flex;position: relative; right: 105px;top: 10px;width: 102px;height: 20px;
+                                text-align: center">
+                    <a th:href="@{/cooexc/cooexcList}"
+                       href="#" style="width: 102px;height: 20px">合作研究</a>
+                </span>
+                </div>
+                <div style="display: flex;margin-top: 30px"  >
+                    <img th:src="@{/images/home/u22.png}" width="102px" height="38px"
+                         src="../../static/images/home/u22.png" alt="">
+                    <span style="display: flex;position: relative; right: 105px;top: 10px;width: 102px;height: 20px;
+                                text-align: center">
+                    <a   th:href="@{/talrec/talrecList}" width="102px" height="38px"
+                         href="#" style="width: 102px;height: 20px">人才招募</a>
+                </span>
+                </div>
+            </div>
+            <!--       主体部分 -->
+            <div style="display: flex;flex-direction: column;margin-top: 100px" >
+                <div id="returnindex">
+                 <span>
+                <p ><a th:href="@{/org/index}" style="color: red;text-decoration: none">&lt;返回</a></p>
+            </span>
+                    <form th:action="@{/org/MedMatlist}" style="margin-left: 40px">
+                        <input type="text" id="place" name="place"  th:value="${param.place}"
+                               placeholder="请输入种植地名" style="width: 240px;height: 32px;border-color: #faf7f7">
+                        <input type="submit" value="搜索" class="btn-danger" style="width: 64px;height: 32px;margin-left: -6px">
+                    </form>
+                </div>
+                <div id="searchchoose" style="font-size: 14px;margin-left: 40px;margin-top: 20px">
+                    <span> 其他选项:</span>
+                    <span>所在城市:</span>
+                    <select name="MedLocate" id="Medlocate" style="width: 172px;height: 32px">
+
+                    </select>
+                    <span style="margin-left: 63px"> 药材类型:</span>
+                    <select name="MedIdentify"  id="MedIdentify" style="width: 172px;height: 32px">
+
+                    </select>
+                </div>
+                <!--    药材列表-->
+                <div style="margin-top: 27px;display: flex;flex-direction: row;margin-left: 20px">
+                    <div th:each="med,status:${MedPage}"  style="margin-left: 70px">
+                        <a  th:href="@{/org/MedMatDetail(itemcode=${med.itemcode},itemid=${med.itemid},orgCode=${med.orgCode},name=${med.name},pageNum=${pageNum})}"
+                            href="#">
+                            <img  th:src="@{${med.tbCulproFile.filePath}}" style="width: 232px;height: 174px"
+                                  src="" alt="">
+                        </a>
+                        <div th:text="'药材名称:'+${med.name}" style="padding-top: 10px"></div>
+                        <div th:text="'规格:'+${med.specifications}" style="padding-top: 10px"></div>
+                        <div th:text="'价格:'+${med.price}" style="padding-top: 10px"></div>
+                        <div th:text="'产地:'+${med.place}" style="padding-top: 10px"></div>
+                        <div th:text="'种植园:'+${med.organization.orgName}" style="padding-top: 10px"></div>
+                        <div th:text="'联系人:'+${med.contacts}" style="padding-top: 10px"></div>
+                        <div th:text="'联系电话:'+${med.phone}" style="padding-top: 10px"></div>
+                    </div>
+                    <!--        分页-->
+
+                </div>
+                <nav aria-label="Page navigation" class="text-center" style="margin: 20px 0 0 0;padding: 0px">
+                    <ul class="pagination" style="height: 27px;margin: 0px">
+                        <li th:if="${MedPage.pageNum le MedPage.pages}">
+                            <a th:href="@{/org/MedMatlist(pageNum=1)}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li th:if="${MedPage.pageNum}>1">
+                            <a th:href="@{/org/MedMatlist(pageNum=${MedPage.pageNum}-1,name=${curentMedName},place=${curentMedplace})}">&lt;</a>
+                        </li>
+                        <li th:if="${MedPage.pageNum-3 gt 1}">
+                            <a th:text="${MedPage.pageNum-4}" th:href="@{/org/MedMatlist(pageNum=${MedPage.pageNum}-4,name=${curentMedName},place=${curentMedplace})}"></a>
+                        </li>
+                        <li th:if="${MedPage.pageNum-2 gt 1}">
+                            <a th:text="${MedPage.pageNum-3}" th:href="@{/org/MedMatlist(pageNum=${MedPage.pageNum}-3,name=${curentMedName},place=${curentMedplace})}"></a>
+                        </li>
+                        <li th:if="${MedPage.pageNum-1 gt 1}">
+                            <a th:text="${MedPage.pageNum-2}" th:href="@{/org/MedMatlist(pageNum=${MedPage.pageNum}-2,name=${curentMedName},place=${curentMedplace})}"></a>
+                        </li>
+                        <li th:if="${MedPage.pageNum gt 1}" >
+                            <a th:text="${MedPage.pageNum-1}" th:href="@{/org/MedMatlist(pageNum=${MedPage.pageNum}-1,name=${curentMedName},place=${curentMedplace})}"></a>
+                        </li>
+                        <!--/* 当前页 */-->
+                        <li th:if="${MedPage.pageNum le MedPage.pages}" th:class="${MedPage.pageNum le MedPage.pages ? 'active':''}">
+                            <a th:text="${MedPage.pageNum}" th:href="@{/org/MedMatlist(pageNum=${MedPage.pageNum})}" style="background-color: #775637;border-color: #775637"></a>
+                        </li>
+                        <li th:if="${MedPage.pageNum+1 le MedPage.pages}">
+                            <a th:text="${MedPage.pageNum+1}" th:href="@{/org/MedMatlist(pageNum=${MedPage.pageNum}+1,name=${curentMedName},place=${curentMedplace})}"></a>
+                        </li>
+                        <li th:if="${MedPage.pageNum+2 le MedPage.pages}">
+                            <a th:text="${MedPage.pageNum+2}" th:href="@{/org/MedMatlist(pageNum=${MedPage.pageNum}+2,name=${curentMedName},place=${curentMedplace})}"></a>
+                        </li>
+                        <li th:if="${MedPage.pageNum+3 le MedPage.pages}">
+                            <a th:text="${MedPage.pageNum+3}" th:href="@{/org/MedMatlist(pageNum=${MedPage.pageNum}+3,name=${curentMedName},place=${curentMedplace})}"></a>
+                        </li>
+                        <li th:if="${MedPage.pageNum lt MedPage.pages}">
+                            <a th:href="@{/org/MedMatlist(pageNum=${MedPage.pageNum}+1,name=${curentMedName},place=${curentMedplace})}">&gt;</a>
+                        </li>
+                        <li th:if="${MedPage.pageNum lt MedPage.pages}">
+                            <a th:href="@{/org/MedMatlist(pageNum=${MedPage.pages},name=${curentMedName},place=${curentMedplace})}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        <li>
+                            跳至
+                            <input type="text" name="pageNum" style="width: 47px;height: 29px" id="pageNumInput"  th:value="${param.pageNum}">
+                            页
+                            <button onclick="Goto()">Go</button>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+<!--    底部-->
+<div id="footer" th:include="public/footer :: publicFooter"></div>
+
+</body>
+</html>

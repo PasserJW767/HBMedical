@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanqiao.zzy.mapper.IndustrialDevelopSciAchiMapper">
+  <resultMap id="BaseResultMap" type="com.lanqiao.zzy.domain.IndustrialDevelopSciAchi">
+    <id column="itemID" jdbcType="INTEGER" property="itemid" />
+    <id column="itemCode" jdbcType="CHAR" property="itemcode" />
+    <result column="INDUSTRIAL_DEVELOP_NAME" jdbcType="VARCHAR" property="industrialDevelopName" />
+    <result column="INDUSTRIAL_DEVELOP_LEADER" jdbcType="VARCHAR" property="industrialDevelopLeader" />
+    <result column="VISIT_NUM" jdbcType="INTEGER" property="visitNum" />
+    <result column="INDUSTRIAL_DEVELOP_STATUS" jdbcType="VARCHAR" property="industrialDevelopStatus" />
+    <result column="CREATER" jdbcType="VARCHAR" property="creater" />
+    <result column="itemCreateAt" jdbcType="TIMESTAMP" property="itemcreateat" />
+    <result column="UPDATER" jdbcType="VARCHAR" property="updater" />
+    <result column="itemUpdateAt" jdbcType="TIMESTAMP" property="itemupdateat" />
+    <result column="CONTEXT" jdbcType="VARCHAR" property="context" />
+    <result column="PROJECT_NAME" jdbcType="VARCHAR" property="projectName" />
+    <result column="CONTACTS" jdbcType="VARCHAR" property="contacts" />
+    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+    <result column="ORG_CODE" jdbcType="VARCHAR" property="orgCode" />
+  </resultMap>
+  <resultMap id="selectForHomeResultMap" type="com.lanqiao.zzy.domain.IndustrialDevelopSciAchi" extends="BaseResultMap">
+    <association property="organization" javaType="com.lanqiao.zzy.domain.Organization">
+      <id column="itemID" jdbcType="INTEGER" property="itemid" />
+      <result column="itemCode" jdbcType="CHAR" property="itemcode" />
+      <result column="ORG_NAME" jdbcType="VARCHAR" property="orgName" />
+      <result column="ORG_CODE" jdbcType="VARCHAR" property="orgCode" />
+      <result column="ORG_DESCRIPTION" jdbcType="VARCHAR" property="orgDescription" />
+      <result column="ORG_IDENTIFY" jdbcType="VARCHAR" property="orgIdentify" />
+      <result column="ORG_LOCATE" jdbcType="VARCHAR" property="orgLocate" />
+      <result column="AUDIT_STATUS" jdbcType="VARCHAR" property="auditStatus" />
+      <result column="backup2" jdbcType="VARCHAR" property="backup2" />
+      <result column="LEFT" jdbcType="INTEGER" property="left" />
+      <result column="RIGHT" jdbcType="INTEGER" property="right" />
+      <result column="LEVEL" jdbcType="INTEGER" property="level" />
+      <result column="CREATER" jdbcType="VARCHAR" property="creater" />
+      <result column="itemCreateAt" jdbcType="TIMESTAMP" property="itemcreateat" />
+      <result column="UPDATER" jdbcType="VARCHAR" property="updater" />
+      <result column="itemUpdateAt" jdbcType="TIMESTAMP" property="itemupdateat" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    itemID, itemCode, INDUSTRIAL_DEVELOP_NAME, INDUSTRIAL_DEVELOP_LEADER, VISIT_NUM, 
+    INDUSTRIAL_DEVELOP_STATUS, CREATER, itemCreateAt, UPDATER, itemUpdateAt, CONTEXT, 
+    PROJECT_NAME, CONTACTS, PHONE, ORG_CODE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.lanqiao.zzy.domain.IndustrialDevelopSciAchiKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_industrial_develop_sci_achi
+    where itemID = #{itemid,jdbcType=INTEGER}
+      and itemCode = #{itemcode,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.lanqiao.zzy.domain.IndustrialDevelopSciAchiKey">
+    delete from tb_industrial_develop_sci_achi
+    where itemID = #{itemid,jdbcType=INTEGER}
+      and itemCode = #{itemcode,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" keyColumn="itemID" keyProperty="itemid" parameterType="com.lanqiao.zzy.domain.IndustrialDevelopSciAchi" useGeneratedKeys="true">
+    insert into tb_industrial_develop_sci_achi (itemCode, INDUSTRIAL_DEVELOP_NAME, INDUSTRIAL_DEVELOP_LEADER, 
+      VISIT_NUM, INDUSTRIAL_DEVELOP_STATUS, CREATER, 
+      itemCreateAt, UPDATER, itemUpdateAt, 
+      CONTEXT, PROJECT_NAME, CONTACTS, 
+      PHONE, ORG_CODE)
+    values (#{itemcode,jdbcType=CHAR}, #{industrialDevelopName,jdbcType=VARCHAR}, #{industrialDevelopLeader,jdbcType=VARCHAR}, 
+      #{visitNum,jdbcType=INTEGER}, #{industrialDevelopStatus,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
+      #{itemcreateat,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{itemupdateat,jdbcType=TIMESTAMP}, 
+      #{context,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, #{contacts,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{orgCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="itemID" keyProperty="itemid" parameterType="com.lanqiao.zzy.domain.IndustrialDevelopSciAchi" useGeneratedKeys="true">
+    insert into tb_industrial_develop_sci_achi
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="itemcode != null">
+        itemCode,
+      </if>
+      <if test="industrialDevelopName != null">
+        INDUSTRIAL_DEVELOP_NAME,
+      </if>
+      <if test="industrialDevelopLeader != null">
+        INDUSTRIAL_DEVELOP_LEADER,
+      </if>
+      <if test="visitNum != null">
+        VISIT_NUM,
+      </if>
+      <if test="industrialDevelopStatus != null">
+        INDUSTRIAL_DEVELOP_STATUS,
+      </if>
+      <if test="creater != null">
+        CREATER,
+      </if>
+      <if test="itemcreateat != null">
+        itemCreateAt,
+      </if>
+      <if test="updater != null">
+        UPDATER,
+      </if>
+      <if test="itemupdateat != null">
+        itemUpdateAt,
+      </if>
+      <if test="context != null">
+        CONTEXT,
+      </if>
+      <if test="projectName != null">
+        PROJECT_NAME,
+      </if>
+      <if test="contacts != null">
+        CONTACTS,
+      </if>
+      <if test="phone != null">
+        PHONE,
+      </if>
+      <if test="orgCode != null">
+        ORG_CODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="itemcode != null">
+        #{itemcode,jdbcType=CHAR},
+      </if>
+      <if test="industrialDevelopName != null">
+        #{industrialDevelopName,jdbcType=VARCHAR},
+      </if>
+      <if test="industrialDevelopLeader != null">
+        #{industrialDevelopLeader,jdbcType=VARCHAR},
+      </if>
+      <if test="visitNum != null">
+        #{visitNum,jdbcType=INTEGER},
+      </if>
+      <if test="industrialDevelopStatus != null">
+        #{industrialDevelopStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="itemcreateat != null">
+        #{itemcreateat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null">
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="itemupdateat != null">
+        #{itemupdateat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="context != null">
+        #{context,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null">
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null">
+        #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null">
+        #{orgCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lanqiao.zzy.domain.IndustrialDevelopSciAchi">
+    update tb_industrial_develop_sci_achi
+    <set>
+      <if test="industrialDevelopName != null">
+        INDUSTRIAL_DEVELOP_NAME = #{industrialDevelopName,jdbcType=VARCHAR},
+      </if>
+      <if test="industrialDevelopLeader != null">
+        INDUSTRIAL_DEVELOP_LEADER = #{industrialDevelopLeader,jdbcType=VARCHAR},
+      </if>
+      <if test="visitNum != null">
+        VISIT_NUM = #{visitNum,jdbcType=INTEGER},
+      </if>
+      <if test="industrialDevelopStatus != null">
+        INDUSTRIAL_DEVELOP_STATUS = #{industrialDevelopStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        CREATER = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="itemcreateat != null">
+        itemCreateAt = #{itemcreateat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null">
+        UPDATER = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="itemupdateat != null">
+        itemUpdateAt = #{itemupdateat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="context != null">
+        CONTEXT = #{context,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null">
+        PROJECT_NAME = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null">
+        CONTACTS = #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null">
+        ORG_CODE = #{orgCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where itemID = #{itemid,jdbcType=INTEGER}
+      and itemCode = #{itemcode,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lanqiao.zzy.domain.IndustrialDevelopSciAchi">
+    update tb_industrial_develop_sci_achi
+    set INDUSTRIAL_DEVELOP_NAME = #{industrialDevelopName,jdbcType=VARCHAR},
+      INDUSTRIAL_DEVELOP_LEADER = #{industrialDevelopLeader,jdbcType=VARCHAR},
+      VISIT_NUM = #{visitNum,jdbcType=INTEGER},
+      INDUSTRIAL_DEVELOP_STATUS = #{industrialDevelopStatus,jdbcType=VARCHAR},
+      CREATER = #{creater,jdbcType=VARCHAR},
+      itemCreateAt = #{itemcreateat,jdbcType=TIMESTAMP},
+      UPDATER = #{updater,jdbcType=VARCHAR},
+      itemUpdateAt = #{itemupdateat,jdbcType=TIMESTAMP},
+      CONTEXT = #{context,jdbcType=VARCHAR},
+      PROJECT_NAME = #{projectName,jdbcType=VARCHAR},
+      CONTACTS = #{contacts,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      ORG_CODE = #{orgCode,jdbcType=VARCHAR}
+    where itemID = #{itemid,jdbcType=INTEGER}
+      and itemCode = #{itemcode,jdbcType=CHAR}
+  </update>
+  <!--查出4条供首页展示-->
+  <select id="selectForHome" resultMap="selectForHomeResultMap">
+    select  isa.itemID,
+            isa.itemCode,
+            isa.INDUSTRIAL_DEVELOP_NAME,
+            isa.INDUSTRIAL_DEVELOP_LEADER,
+            isa.VISIT_NUM,
+            isa.INDUSTRIAL_DEVELOP_STATUS,
+            isa.CREATER,
+            isa.itemCreateAt,
+            isa.UPDATER,
+            isa.itemUpdateAt,
+            isa.CONTEXT,
+            isa.PROJECT_NAME,
+            isa.CONTACTS,
+            isa.PHONE,
+            isa.ORG_CODE,
+            o.itemID,
+            o.itemCode,
+            o.ORG_NAME,
+            o.ORG_CODE,
+            o.ORG_DESCRIPTION,
+            o.ORG_IDENTIFY,
+            o.ORG_LOCATE,
+            o.AUDIT_STATUS,
+            o.`LEFT`,
+            o.`RIGHT`,
+            o.`LEVEL`,
+            o.CREATER,
+            o.itemCreateAt,
+            o.UPDATER,
+            o.itemUpdateAt
+    from tb_industrial_develop_sci_achi isa,organization o
+    where isa.ORG_CODE = o.ORG_CODE and isa.INDUSTRIAL_DEVELOP_STATUS = '展示中'
+    order by isa.itemCreateAt
+    limit 4
+  </select>
+</mapper>

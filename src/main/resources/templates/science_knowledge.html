@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>科普知识</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="${pageContext.request.contextPath}/">
+    <!-- Bootstrap -->
+    <link th:href="@{/component/bootstrap-3.3.7/css/bootstrap.min.css}"
+          href="../static/component/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link th:href="@{/component/inspinia/css/plugins/sweetalert/sweetalert.css}"
+          href="../static/component/inspinia/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script th:src="@{/component/jquery-2.2.4.js}"
+            src="../static/component/jquery-2.2.4.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script th:src="@{/component/bootstrap-3.3.7/js/bootstrap.min.js}"
+            src="../static/component/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <!--引入css样式-->
+    <link th:href="@{/project/public/header.css}"
+          href="../../static/project/public/header.css" rel="stylesheet">
+    <link th:href="@{/project/policies_regulations/centerList.css}"
+          href="../../static/project/policies_regulations/centerList.css" rel="stylesheet">
+    <link th:href="@{/project/homepage/main.css}"
+          href="../../static/project/homepage/main.css" rel="stylesheet">
+
+    <style>
+        .medicalTag{
+            text-align: center;
+            height: 35px;
+            width: 100px;
+            margin-left: 30px;
+            position: relative;
+        }
+        .medicalTag a{
+            background-image:url('../../../images/home/u22.png');
+            background-size: 100% auto;
+            background-repeat: no-repeat;
+            text-decoration: none;
+            display: block;
+            height: 35px;
+            width: 100px;
+            color: #775637;
+            size: 70px;
+            padding-top: 2px;
+            margin-top: -20px;
+
+        }
+        .medicalTag a:visited{
+            background-color: chocolate;
+        }
+        .medicalTag a:hover {
+            background-color: chocolate;
+        }
+        .medicalTag a:active{
+            background-color: chocolate;
+        }
+
+        .content{
+            width: 690px;
+            word-break: break-all;
+            text-overflow: ellipsis;
+            display: -webkit-box; /** 对象作为伸缩盒子模型显示 **/
+            -webkit-box-orient: vertical; /** 设置或检索伸缩盒对象的子元素的排列方式 **/
+            -webkit-line-clamp: 2; /** 显示的行数 **/
+            overflow: hidden;  /** 隐藏超出的内容 **/
+            color: black;
+            font-size: 5px;
+            /*1，word-break:break-all 例如div宽200px，它的内容就会到200px自动换行，
+            如果该行末端有个英文单词很长（congratulation等），它会把单词截断，
+            变成该行末端为conra(congratulation的前端部分)，下一行为tulation（conguatulation）的后端部分了。
+            2，word-wrap:break-word 例子与上面一样，但区别就是它会把congratulation整个单词看成一个整体，
+            如果该行末端宽度不够显示整个单词，它会自动把整个单词放到下一行，而不会把单词截断掉的。*/
+        }
+        .text{
+           color: #775637;
+            font-size: 8px;
+        }
+
+        .pagination  li a{
+            color:rgba(0, 0, 0, 0.647058823529412);
+        }
+
+
+
+    </style>
+
+</head>
+<body>
+<!--头部-->
+<div id="header" th:include="public/header :: publicHeader"></div>
+<!--内容-->
+<div class="container-fluid">
+    <div class="row clearfix">
+        <div class="col-md-8 col-lg-offset-2 column" style="border-left: 1px gray solid;border-right:1px gray solid">
+            <div class="row clearfix" style="margin-top: 40px">
+                <!--左边-->
+                <div class="col-md-2 column">
+                    <div  class="img-rounded medicalTag">
+                        <a th:href="@{/healthcare/science/list}" >科普知识</a>
+                    </div><br><br>
+                    <div  class="img-rounded medicalTag" >
+                        <a th:href="@{/medicine/list?pageNum=1}">中药常识</a>
+                    </div><br><br>
+                    <div class="img-rounded medicalTag">
+                        <a th:href="@{/fam/list?pageNum=1}" >历史名方</a>
+                    </div><br><br>
+                    <div class="img-rounded medicalTag">
+                        <a th:href="@{/doctor/list?pageNum=1}">国医话健康</a>
+                    </div><br><br>
+                </div>
+
+                <!--右边-->
+                <div class="col-md-10 column">
+                    <div id="u2400" class="ax_default line1" th:each="hcsk,status : ${ healthCareSciKnowList}">
+                        <img id="u2749_img" class="img "src="../../../images/health-care/u542.svg" style="width: 75px"/><br>
+                        <a th:href="@{/healthcare/sciknow_detail(itemId=${hcsk.itemid})}" class=""style="text-decoration: none">
+                            <span style="color: #775637;" th:utext="${hcsk.scienceKnowledgeName}" class="text"></span><br>
+                            <div  th:utext="${hcsk.content}" class="content"></div><br>
+                        </a>
+                    </div>
+
+
+                    <nav aria-label="Page navigation" class="text-center" style="margin-left: -140px;padding: 0px;">
+                        <ul class="pagination">
+                            <li th:if="${ healthCareSciKnowList.pageNum}>0">
+                                <a th:href="@{/healthcare/science/list(pageNum=${ healthCareSciKnowList.pageNum}-1)}">&lt;</a>
+                            </li>
+                            <li th:if="${ healthCareSciKnowList.pageNum-3 gt 1}">
+                                <a th:text="${ healthCareSciKnowList.pageNum-4}" th:href="@{/healthcare/science/list(pageNum=${ healthCareSciKnowList.pageNum}-4)}"></a>
+                            </li>
+                            <li th:if="${ healthCareSciKnowList.pageNum-2 gt 1}">
+                                <a th:text="${ healthCareSciKnowList.pageNum-3}" th:href="@{/healthcare/science/list(pageNum=${ healthCareSciKnowList.pageNum}-3)}"></a>
+                            </li>
+                            <li th:if="${ healthCareSciKnowList.pageNum-1 gt 1}">
+                                <a th:text="${ healthCareSciKnowList.pageNum-2}" th:href="@{/healthcare/science/list(pageNum=${ healthCareSciKnowList.pageNum}-2)}"></a>
+                            </li>
+                            <li th:if="${ healthCareSciKnowList.pageNum gt 1}" >
+                                <a th:text="${ healthCareSciKnowList.pageNum-1}" th:href="@{/healthcare/science/list(pageNum=${ healthCareSciKnowList.pageNum}-1)}"></a>
+                            </li>
+                            <!--/* 当前页 */-->
+                            <li th:if="${ healthCareSciKnowList.pageNum le  healthCareSciKnowList.pages}" th:class="${ healthCareSciKnowList.pageNum le  healthCareSciKnowList.pages ? 'active':''}">
+                                <a th:text="${ healthCareSciKnowList.pageNum}" th:href="@{/healthcare/science/list(pageNum=${ healthCareSciKnowList.pageNum})}"></a>
+                            </li>
+                            <li th:if="${ healthCareSciKnowList.pageNum+1 le  healthCareSciKnowList.pages}">
+                                <a th:text="${ healthCareSciKnowList.pageNum+1}" th:href="@{/healthcare/science/list(pageNum=${ healthCareSciKnowList.pageNum}+1)}"></a>
+                            </li>
+                            <li th:if="${ healthCareSciKnowList.pageNum+2 le  healthCareSciKnowList.pages}">
+                                <a th:text="${ healthCareSciKnowList.pageNum+2}" th:href="@{/healthcare/science/list(pageNum=${ healthCareSciKnowList.pageNum}+2)}"></a>
+                            </li>
+                            <li th:if="${ healthCareSciKnowList.pageNum+3 le  healthCareSciKnowList.pages}">
+                                <a th:text="${ healthCareSciKnowList.pageNum+3}" th:href="@{/healthcare/science/list(pageNum=${ healthCareSciKnowList.pageNum}+3)}"></a>
+                            </li>
+                            <li th:if="${ healthCareSciKnowList.pageNum lt  healthCareSciKnowList.pages+1}">
+                                <a th:href="@{/healthcare/science/list(pageNum=${ healthCareSciKnowList.pageNum}+1)}">&gt;</a>
+                            </li>
+                            </li>
+                            <li>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                跳至<input type="number" name="pageNum" style="width: 50px">页
+                                <button  type="submit" class="btn btn-default" style="margin-left:3px;width: 40px;height: 28px;">go</button>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--底部-->
+<div id="footer" th:include="public/footer :: publicFooter"></div>
+</body>
+</html>

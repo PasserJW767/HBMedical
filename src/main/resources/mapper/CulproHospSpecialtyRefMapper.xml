@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanqiao.zzy.mapper.CulproHospSpecialtyRefMapper">
+
+    <resultMap id="BaseResultMap" type="com.lanqiao.zzy.domain.CulproHospSpecialtyRef">
+            <id property="itemid" column="itemID" jdbcType="INTEGER"/>
+            <id property="itemcode" column="itemCode" jdbcType="CHAR"/>
+            <result property="hospitalCode" column="HOSPITAL_CODE" jdbcType="VARCHAR"/>
+            <result property="specialtyCode" column="SPECIALTY_CODE" jdbcType="VARCHAR"/>
+            <result property="creater" column="CREATER" jdbcType="VARCHAR"/>
+            <result property="itemcreateat" column="itemCreateAt" jdbcType="TIMESTAMP"/>
+            <result property="updater" column="UPDATER" jdbcType="VARCHAR"/>
+            <result property="itemupdateat" column="itemUpdateAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <resultMap id="extendsBaseResultMap" type="com.lanqiao.zzy.domain.CulproHospSpecialtyRef" extends="BaseResultMap">
+        <association property="culproSpecialty" javaType="com.lanqiao.zzy.domain.CulproSpecialty" resultMap="com.lanqiao.zzy.mapper.CulproSpecialtyMapper.BaseResultMap">
+        </association>
+    </resultMap>
+
+   <!-- <sql id="Base_Column_List">
+        itemID,itemCode,HOSPITAL_CODE,
+        SPECIALTY_CODE,CREATER,itemCreateAt,
+        UPDATER,itemUpdateAt
+    </sql>-->
+
+
+    <!--根据医院itemCode来查询与之关联的科室-->
+    <select id="selectCulproSpecialtyByHospCode" resultMap="extendsBaseResultMap" parameterType="string">
+        select
+               s.itemID,
+               s.itemCode,
+               s.SPECIALTY_NAME,
+               s.SPECIALTY_LEVEL,
+               s.SPECIALTY_DISEASE,
+               s.SPECIALTY_BRIEF_INTRODUCE,
+               s.SPECIALTY_INTRODUCE,
+               s.SPECIALTY_PHONE,
+               s.SPECIALTY_ADDRESS_PRO,
+               s.SPECIALTY_ADDRESS_CITY,
+               s.SPECIALTY_ADDRESS_COUNTY,
+               s.SPECIALTY_ADDRESS,
+               s.SPECIALTY_LINK,
+               s.SPECIALTY_STATUS
+        from tb_culpro_hosp_specialty_ref r
+                 join tb_culpro_specialty s on r.SPECIALTY_CODE=s.itemCode and s.SPECIALTY_STATUS='展示中'
+        where r.HOSPITAL_CODE=#{itemcode}
+    </select>
+</mapper>

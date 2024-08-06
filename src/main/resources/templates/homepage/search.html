@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>搜索</title>
+
+    <!-- Bootstrap -->
+    <link th:href="@{/component/bootstrap-3.3.7/css/bootstrap.min.css}"
+          href="../../static/component/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link th:href="@{/component/inspinia/css/plugins/sweetalert/sweetalert.css}"
+          href="../../static/component/inspinia/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+    <link th:href="@{/project/homepage/main.css}"
+          href="../../static/project/homepage/main.css" rel="stylesheet">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script th:src="@{/component/jquery-2.2.4.js}"
+            src="../../static/component/jquery-2.2.4.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script th:src="@{/component/bootstrap-3.3.7/js/bootstrap.min.js}"
+            src="../../static/component/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <!--头部-->
+    <div id="header" th:include="public/header :: publicHeader"></div>
+
+    <!--页面主体-->
+    <div class="container-fluid ">
+        <div class="row clearfix">
+            <div class="col-md-8 col-lg-offset-2 column news-border" id="content-body">
+
+                <div class="row" th:each="searchans,status:${homePageSearchList}" style="margin-bottom: 20px;margin-top: 20px">
+                    <div class="d-inline-flex">
+                        <div class="col-12 col-md-12   news-list-right" >
+                            <a class="news-list-right-title"
+                               th:href="@{/search/searchInfoDetail(itemid = ${searchans.getItemid()},dataType=${searchans.dataType},itemcode=${searchans.itemcode})}"
+                               th:text="${searchans.dataTitle}"></a>
+
+                            【<b th:text="${searchans.dataType}" class="news-list-right-type"></b>】
+
+                            <div class="news-list-right-text" style="font-size: 14px" >
+                                <p style="font-size: 14px"  th:utext="${#strings.abbreviate(searchans.dataContent,400)}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" th:remove="all">
+                    <div class="col-md-2"></div>
+                    <div class="col-12 col-md-8  news-border">
+                        <div class="row">
+                            <div class="d-inline-flex">
+                                <div class="col-12 col-md-12   news-list-right" >
+                                    <a class="news-list-right-title"
+                                       href="/search/searchInfoDetail?itemid=2&amp;itemcode=22&amp;dataType=%E7%B4%AB%E6%9D%89%E9%86%87%E6%B3%A8%E5%B0%84%E6%B6%B2&amp;dataFileType=22">中药抗内毒素作用——中医解毒法实质研究</a>
+
+                                    <b>【科研成果】</b>
+
+                                    <div class="news-list-right-text">
+                                        <p>化学成分是中药发挥预防和治疗作用的物质基础; 然而在提取过程中，各类成分之间的增溶、氧化、催化分解等反应影响了中药有效成分的提取及其药效的发挥。基于此，张兆旺与孙秀梅提出了中药口服制剂的半仿生提取法; 且经过近年来的验证和完善，现已在中药提取方面的发挥了重要作用。该方法从生物药剂学的角度，将整体药物研究法与分子药物研究法相结合，模拟口服药物经胃肠道转运吸收的环境，采用活性指导下的导向分离方法，能够在不改变中药功效的基础上，促进中药有效成分的溶出，提高中药材的提取率，缩短生产周期，降低成本</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+
+                <nav aria-label="Page navigation" class="text-center" style="margin:0px;padding:0px;">
+
+                    <ul class="pagination">
+                        <li th:if="${homePageSearchList.pageNum le homePageSearchList.pages}">
+                            <a th:href="@{/search(pageNum=1,searchInfo=${searchInfo})}" aria-label="Previous">
+                                <span aria-hidden="true">第一页</span>
+                            </a>
+                        </li>
+                        <li th:if="${homePageSearchList.pageNum}>1">
+                            <a th:href="@{/search(pageNum=${homePageSearchList.pageNum}-1,searchInfo=${searchInfo})}">&lt;</a>
+                        </li>
+                        <li th:if="${homePageSearchList.pageNum-3 gt 1}">
+                            <a th:text="${homePageSearchList.pageNum-4}" th:href="@{/search(pageNum=${homePageSearchList.pageNum}-4,searchInfo=${searchInfo})}"></a>
+                        </li>
+                        <li th:if="${homePageSearchList.pageNum-2 gt 1}">
+                            <a th:text="${homePageSearchList.pageNum-3}" th:href="@{/search(pageNum=${homePageSearchList.pageNum}-3,searchInfo=${searchInfo})}"></a>
+                        </li>
+                        <li th:if="${homePageSearchList.pageNum-1 gt 1}">
+                            <a th:text="${homePageSearchList.pageNum-2}" th:href="@{/search(pageNum=${homePageSearchList.pageNum}-2,searchInfo=${searchInfo})}"></a>
+                        </li>
+                        <li th:if="${homePageSearchList.pageNum gt 1}" >
+                            <a th:text="${homePageSearchList.pageNum-1}" th:href="@{/search(pageNum=${homePageSearchList.pageNum}-1,searchInfo=${searchInfo})}"></a>
+                        </li>
+                        <!--/* 当前页 */-->
+                        <li th:if="${homePageSearchList.pageNum le homePageSearchList.pages}" th:class="${homePageSearchList.pageNum le homePageSearchList.pages ? 'active':''}">
+                            <a th:text="${homePageSearchList.pageNum}" th:href="@{/search(pageNum=${homePageSearchList.pageNum},searchInfo=${searchInfo})}"></a>
+                        </li>
+                        <li th:if="${homePageSearchList.pageNum+1 le homePageSearchList.pages}">
+                            <a th:text="${homePageSearchList.pageNum+1}" th:href="@{/search(pageNum=${homePageSearchList.pageNum}+1,searchInfo=${searchInfo})}"></a>
+                        </li>
+                        <li th:if="${homePageSearchList.pageNum+2 le homePageSearchList.pages}">
+                            <a th:text="${homePageSearchList.pageNum+2}" th:href="@{/search(pageNum=${homePageSearchList.pageNum}+2,searchInfo=${searchInfo})}"></a>
+                        </li>
+                        <li th:if="${homePageSearchList.pageNum+3 le homePageSearchList.pages}">
+                            <a th:text="${homePageSearchList.pageNum+3}" th:href="@{/search(pageNum=${homePageSearchList.pageNum}+3,searchInfo=${searchInfo})}"></a>
+                        </li>
+                        <li th:if="${homePageSearchList.pageNum lt homePageSearchList.pages}">
+                            <a th:href="@{/search(pageNum=${homePageSearchList.pageNum}+1,searchInfo=${searchInfo})}">&gt;</a>
+                        </li>
+                        <li th:if="${homePageSearchList.pageNum lt homePageSearchList.pages}">
+                            <a th:href="@{/search(pageNum=${homePageSearchList.pages},searchInfo=${searchInfo})}" aria-label="Next">
+                                <span aria-hidden="true">最后一页</span>
+                            </a>
+                        </li>
+                        <li>
+                            <div style="width: 150px; height: 30px;float:left; position: relative;left: 100px">
+                                <form th:action="@{/search}" class="form-inline"  method="get">
+                                    <span  style="float:left;width: 50px;height: 30px;text-align: center;line-height: 30px">跳至</span>
+                                    <input id="pageNum" name="pageNum" type="text"
+                                           th:placeholder="${homePageSearchList.pageNum}+'/'+${homePageSearchList.pages}"
+                                           style="width: 60px;height:30px;float:left;">
+                                    <input id="datatype" name="searchInfo" th:value="${searchInfo}" style="display: none"> <!--隐藏传参-->
+                                    <button  type="submit" class="btn btn-default" style="width: 40px;height: 30px;">go</button>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+
+            </div>
+        </div>
+    </div>
+
+    <!--底部-->
+    <div id="footer" th:include="public/footer :: publicFooter"></div>
+
+</body>

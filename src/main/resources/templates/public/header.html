@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>公共头部</title>
+
+    <!-- Bootstrap -->
+    <link th:href="@{/static/component/bootstrap-3.3.7/css/bootstrap.min.css}"
+          href="../../static/component/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link th:href="@{/static/component/inspinia/css/plugins/sweetalert/sweetalert.css}"
+          href="../../static/component/inspinia/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+    <link th:href="@{/static/project/public/header.css}"
+          href="../../static/project/public/header.css" rel="stylesheet">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script th:src="@{/static/component/jquery-2.2.4.js}"
+            src="../../static/component/jquery-2.2.4.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script th:src="@{/static/component/bootstrap-3.3.7/js/bootstrap.min.js}"
+            src="../../static/component/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <!--头部-->
+    <div id="header" th:fragment="publicHeader">
+        <div>
+            <div class="row clearfix">
+                <div class="col-md-1 column"></div>
+                <div class="col-md-10 column">
+                    <div class="row clearfix">
+                        <div class="col-md-6 column">
+                        </div>
+
+                        <div class="col-md-6 column home-login-rig">
+                            <!--登录注册超链接-->
+                            <ul  class="nav navbar-nav"  style="color: black;margin-left: 250px;margin-top: 10px" >
+                                <li>
+                                    <a th:href="@{/toLogin}" >登录</a>
+                                </li>&nbsp;&nbsp;
+                                <li>
+                                    <a th:href="@{/registerPage}" >注册</a>
+                                </li>
+                            </ul>
+
+                            <br><br>
+                            <form class="form-inline" th:action="@{/search}" method="get" role="form" style="margin-left: 250px;margin-top: 30px" >
+                                <div class="form-group ">
+                                    <input type="text" name="searchInfo" th:value="${param.searchInfo}" placeholder="请输入公告、法规、办事指南">
+                                </div>
+                                <button type="submit" class="btn" style="background-color: #8a6d3b;padding: 2px; border: 1px gray solid;color: white" >搜索</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1 column">
+                </div>
+            </div>
+        </div>
+        <!--导航栏-->
+        <nav  id="nav" class="navbar navbar-static-top navbar-expand-md navbar-light  home-nav">
+            <div  class="container" >
+                <div class="col-md-1 column"></div>
+                <div class="col-md-10 column">
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav"  style="color: #fff;font-size: 16px;margin-top: 5px">
+                            <li>
+                                <a  th:href="@{/}" >首页</a>
+                            <li>
+                                <a  th:href="@{/news/newslist}"
+                                        href="#"  >新闻中心</a>
+                            </li>
+                            <li>
+                                <a th:href="@{/notice/noticelist}"
+                                        href="#"  >通知公告</a>
+                            </li>
+                            <li>
+                                <a th:href="@{/Policies_regulations}" href="/Policies_regulations">政策法规</a>
+                            </li>
+                            <li>
+                                <a  th:href="@{/hg/handlingguidelinelist}"
+                                        href="#"  >办事指南</a>
+                            </li>
+                            <li>
+                                <a th:href="@{/hospitals}" >医疗服务</a>
+                            </li>
+                            <li>
+                                <a  th:href="@{/org/index}"
+                                        href="#"  >产业发展</a>
+                            </li>
+                            <li>
+                                <a th:href="@{/chmedicineculs/zyys}" >中医文化</a>
+                            </li>
+                            <li>
+                                <a th:href="@{/healthcare/science/list}" >养生保健</a>
+                            </li>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
+                <div class="col-md-1 column">
+                </div>
+            </div>
+        </nav>
+    </div>
+</body>

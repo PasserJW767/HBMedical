@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>中医文化</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/style/style.css}"
+          href="../../static/style/style.css" type="text/css" rel="stylesheet"/>
+    <!-- Bootstrap -->
+    <link th:href="@{/component/bootstrap-3.3.7/css/bootstrap.min.css}"
+          href="../../static/component/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link th:href="@{/component/inspinia/css/plugins/sweetalert/sweetalert.css}"
+          href="../../static/component/inspinia/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script th:src="@{/component/jquery-2.2.4.js}"
+            src="../../static/component/jquery-2.2.4.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script th:src="@{/component/bootstrap-3.3.7/js/bootstrap.min.js}"
+            src="../../static/component/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <!--引入css样式-->
+    <link th:href="@{/project/public/header.css}"
+          href="../../static/project/public/header.css" rel="stylesheet">
+    <link th:href="@{/project/policies_regulations/centerList.css}"
+          href="../../static/project/policies_regulations/centerList.css" rel="stylesheet">
+    <link th:href="@{/project/homepage/main.css}"
+          href="../../static/project/homepage/main.css" rel="stylesheet">
+</head>
+
+<body>
+<!--头部-->
+<div id="header" th:include="public/header :: publicHeader"></div>
+<div class="container-fluid">
+    <div class="row clearfix">
+
+        <div class="col-md-8 column col-lg-offset-2 home-body" >
+            <div class="row clearfix" style="margin-top: 40px;margin-bottom: 40px">
+
+                <div class="col-md-2 column">
+                    <div  class="ax_default _图片_" id="u2221" align="center">
+                        <!-- <img id="u2221_img" class="img " src="../../static/images/u22.png" tabindex="0" style="outline: none;">-->
+                        <a th:href="@{/chmedicineculs/zyys}" style="align: center;color: #775637;padding-left: 20px;padding-top: 10px">文化资源</a>
+                    </div>
+                    <div  class="ax_default _图片_" id="u2222" align="center">
+                        <!-- <img id="u2221_img" class="img " src="../../static/images/u22.png" tabindex="0" style="outline: none;">-->
+                        <a th:href="@{/chmedicineculs/whgj}" style="align: center;color: #775637;padding-left: 20px;padding-top: 10px">文化设施</a>
+                    </div>
+                    <div  class="ax_default _图片_" id="u2223" align="center">
+                        <!-- <img id="u2221_img" class="img " src="../../static/images/u22.png" tabindex="0" style="outline: none;">-->
+                        <a th:href="@{/chmedicineculs/dsdy}" style="align: center;color: #775637;padding-left: 20px;padding-top: 10px">文创产品</a>
+                    </div>
+                    <div  class="ax_default _图片_" id="u2224" align="center">
+                        <!-- <img id="u2221_img" class="img " src="../../static/images/u22.png" tabindex="0" style="outline: none;">-->
+                        <a th:href="@{/chmedicineculs/jkly}" style="align: center;color: #775637;padding-left: 20px;padding-top: 10px">健康旅游</a>
+                    </div>
+                </div>
+
+                <div class="col-md-10 column" id="u3331">
+                    <div class="tab-pane active">
+                        <p style="padding-top: 10px">
+                            <div th:switch="${detail.culType}">
+                                <a th:case="'中医医史'" th:href="@{/chmedicineculs/zyys}" style="text-decoration: none;color: rgba(204, 0, 1, 1);" >&lt;返回列表</a>
+                                <a th:case="'中医流派'" th:href="@{/chmedicineculs/zylp}" style="text-decoration: none;color: rgba(204, 0, 1, 1);" >&lt;返回列表</a>
+                                <a th:case="'历代名家'" th:href="@{/chmedicineculs/ldmj}" style="text-decoration: none;color: rgba(204, 0, 1, 1);" >&lt;返回列表</a>
+                            </div>
+                        <h3 style="text-align: center" th:text="${detail.getCulName()}"></h3>
+                        </p>
+                        <p align="right">【来源：
+                            <span th:text="${detail.getCulSource()}"></span>
+                            】
+                            【浏览量：
+                            <span th:text="${detail.getVisitNum()}"></span>
+                            】
+                        </p>
+                        <span th:utext="${detail.getCulContent()}"></span>
+                        <p align="right">作者：<span th:text="${detail.getCulAuthor()}"></span>
+                        </p>
+                        <div th:if="${not #strings.isEmpty(detailpre)}">
+                            <a style="color: rgba(204, 0, 1, 1);" th:href="@{/chmedicineculs/details(itemId=${detailpre.getItemID()})}">
+                                上一篇：
+                                <span th:text="${detailpre.getCulName()}"></span>
+                            </a>
+                        </div>
+                        <div th:if="${not #strings.isEmpty(detailnext)}">
+                            <a style="color: rgba(204, 0, 1, 1);" th:href="@{/chmedicineculs/details(itemId=${detailnext.getItemID()})}">
+                                下一篇：
+                                <span th:text="${detailnext.getCulName()}"></span>
+                            </a>
+                        </div>
+
+
+                    </div>
+                </div><!--div class col-md-10-->
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<!--底部-->
+<div id="footer" th:include="public/footer :: publicFooter"></div>
+</body>
+</html>

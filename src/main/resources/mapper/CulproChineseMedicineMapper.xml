@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanqiao.zzy.mapper.CulproChineseMedicineMapper">
+
+    <resultMap id="BaseResultMap" type="com.lanqiao.zzy.domain.CulproChineseMedicine">
+            <id property="itemid" column="itemID" jdbcType="INTEGER"/>
+            <id property="itemcode" column="itemCode" jdbcType="CHAR"/>
+            <result property="chineseMedicineName" column="CHINESE_MEDICINE_NAME" jdbcType="VARCHAR"/>
+            <result property="chineseMedicineType" column="CHINESE_MEDICINE_TYPE" jdbcType="VARCHAR"/>
+            <result property="chineseMedicineTitle" column="CHINESE_MEDICINE_TITLE" jdbcType="VARCHAR"/>
+            <result property="deptCode" column="DEPT_CODE" jdbcType="VARCHAR"/>
+            <result property="hospCode" column="HOSP_CODE" jdbcType="VARCHAR"/>
+            <result property="visitTime" column="VISIT_TIME" jdbcType="VARCHAR"/>
+            <result property="phone" column="PHONE" jdbcType="VARCHAR"/>
+            <result property="expertBriefIntroduce" column="EXPERT_BRIEF_INTRODUCE" jdbcType="VARCHAR"/>
+            <result property="expertIntroduce" column="EXPERT_INTRODUCE" jdbcType="VARCHAR"/>
+            <result property="mainVisit" column="MAIN_VISIT" jdbcType="VARCHAR"/>
+            <result property="medicineRecords" column="MEDICINE_RECORDS" jdbcType="VARCHAR"/>
+            <result property="chineseMedicineStatus" column="CHINESE_MEDICINE_STATUS" jdbcType="VARCHAR"/>
+            <result property="creater" column="CREATER" jdbcType="VARCHAR"/>
+            <result property="itemcreateat" column="itemCreateAt" jdbcType="TIMESTAMP"/>
+            <result property="updater" column="UPDATER" jdbcType="VARCHAR"/>
+            <result property="itemupdateat" column="itemUpdateAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+
+    <resultMap id="DoctorResultMap" type="com.lanqiao.zzy.domain.CulproChineseMedicine" extends="BaseResultMap">
+        <association property="culproHosp" javaType="com.lanqiao.zzy.domain.CulproHosp" resultMap="com.lanqiao.zzy.mapper.CulproHospMapper.BaseResultMap">
+        </association>
+        <association property="culproFile" javaType="com.lanqiao.zzy.domain.CulproFile"  resultMap="com.lanqiao.zzy.mapper.CulproFileMapper.BaseResultMap">
+        </association>
+        <association property="culproSpecialty" javaType="com.lanqiao.zzy.domain.CulproSpecialty"  resultMap="com.lanqiao.zzy.mapper.CulproSpecialtyMapper.BaseResultMap">
+        </association>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+        itemID,itemCode,CHINESE_MEDICINE_NAME,
+        CHINESE_MEDICINE_TYPE,CHINESE_MEDICINE_TITLE,DEPT_CODE,
+        HOSP_CODE,VISIT_TIME,PHONE,
+        EXPERT_BRIEF_INTRODUCE,EXPERT_INTRODUCE,MAIN_VISIT,
+        MEDICINE_RECORDS,CHINESE_MEDICINE_STATUS,CREATER,
+        itemCreateAt,UPDATER,itemUpdateAt
+    </sql>
+    <select id="selectDoctorForHome" resultMap="DoctorResultMap">
+        select d.itemID,
+        d.itemCode,
+        d.CHINESE_MEDICINE_NAME,
+        d.CHINESE_MEDICINE_TYPE,
+        d.CHINESE_MEDICINE_TITLE,
+        d.DEPT_CODE,
+        d.HOSP_CODE,
+        d.VISIT_TIME,PHONE,
+        d.EXPERT_BRIEF_INTRODUCE,
+        d.EXPERT_INTRODUCE,
+        d.MAIN_VISIT,
+        d.MEDICINE_RECORDS,
+        d.CHINESE_MEDICINE_STATUS,
+        h.itemID,
+        h.itemCode,
+        h.HOSPITAL_NAME,
+        f.DATA_CODE,
+        f.FILE_NAME,
+        f.FILE_PATH,
+        f.itemCreateAt,
+        s.itemID,
+        s.itemCode,
+        s.SPECIALTY_NAME
+        from((tb_culpro_chinese_medicine d
+        left join tb_culpro_hosp h on d.HOSP_CODE=h.itemCode)
+        left join tb_culpro_file f on d.itemCode=f.DATA_CODE)
+        left join tb_culpro_specialty s on d.DEPT_CODE=s.itemCode
+        where  d.CHINESE_MEDICINE_STATUS='展示中'
+        order by  d.itemID
+    </select>
+
+
+    <select id="selectForCulproChineseMedicineList" parameterType="com.lanqiao.zzy.domain.CulproChineseMedicine" resultMap="DoctorResultMap">
+        select d.itemID,
+               d.itemCode,
+               d.CHINESE_MEDICINE_NAME,
+               d.CHINESE_MEDICINE_TYPE,
+               d.CHINESE_MEDICINE_TITLE,
+               d.DEPT_CODE,
+               d.HOSP_CODE,
+               d.VISIT_TIME,PHONE,
+               d.EXPERT_BRIEF_INTRODUCE,
+               d.EXPERT_INTRODUCE,
+               d.MAIN_VISIT,
+               d.MEDICINE_RECORDS,
+               d.CHINESE_MEDICINE_STATUS,
+               h.itemID,
+               h.itemCode,
+               h.HOSPITAL_NAME,
+               f.DATA_CODE,
+               f.FILE_NAME,
+               f.FILE_PATH,
+               f.itemCreateAt,
+               s.itemID,
+               s.itemCode,
+               s.SPECIALTY_NAME
+
+        from((tb_culpro_chinese_medicine d
+            left join tb_culpro_hosp h on d.HOSP_CODE=h.itemCode)
+            left join tb_culpro_file f on d.itemCode=f.DATA_CODE)
+            left join tb_culpro_specialty s on d.DEPT_CODE=s.itemCode
+        <where>
+            d.CHINESE_MEDICINE_STATUS='展示中'
+
+            <if test="culproChineseMedicine.chineseMedicineName !=null and culproChineseMedicine.chineseMedicineName.trim().length()>0 ">
+                <bind name="namePatterm" value="'%' + culproChineseMedicine.chineseMedicineName + '%'"/>
+                and d.CHINESE_MEDICINE_NAME like #{namePatterm}
+            </if>
+
+            <if test="culproChineseMedicine.hospCode !=null and culproChineseMedicine.hospCode.trim().length()>0">
+                and d.HOSP_CODE= #{culproChineseMedicine.hospCode,jdbcType=VARCHAR}
+            </if>
+            <if test="culproChineseMedicine.deptCode !=null and culproChineseMedicine.deptCode.trim().length()>0">
+                and d.DEPT_CODE= #{culproChineseMedicine.deptCode,jdbcType=VARCHAR}
+            </if>
+
+        </where>
+        order by  d.itemID
+    </select>
+
+
+    <!--查询医生表所属的医院-->
+    <select id="selectAllHospital" resultMap="com.lanqiao.zzy.mapper.CulproHospMapper.BaseResultMap">
+        select h.HOSPITAL_NAME,
+               h.itemCode
+        from tb_culpro_chinese_medicine d
+                 join tb_culpro_hosp h
+                           on d.HOSP_CODE=h.itemCode
+        where d.CHINESE_MEDICINE_STATUS='展示中'
+        group by h.HOSPITAL_NAME,
+                 h.itemCode
+    </select>
+
+    <!--查询医生表所属的科室-->
+    <select id="selectAllSpecialty" resultMap="com.lanqiao.zzy.mapper.CulproSpecialtyMapper.BaseResultMap">
+        select s.SPECIALTY_NAME,
+               s.itemCode
+        from tb_culpro_chinese_medicine d
+                join tb_culpro_specialty s
+                           on d.DEPT_CODE=s.itemCode
+        where d.CHINESE_MEDICINE_STATUS='展示中'
+        group by s.SPECIALTY_NAME,s.itemCode
+    </select>
+
+    <!--根据itemid查询页码（）-->
+    <select id="selectPageNum"  resultType="java.lang.Integer" parameterType="int">
+        select count(itemID) as count
+        from (select itemID from tb_culpro_chinese_medicine where CHINESE_MEDICINE_STATUS='展示中') as d
+        where <![CDATA[d.itemID<#{itemid}]]>
+    </select>
+</mapper>

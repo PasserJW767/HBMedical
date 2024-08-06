@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>合作交流</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link th:href="@{/project/css/main.css}"
+        href="../../static/project/css/main.css" rel="stylesheet">
+  <!--bootstrap-->
+  <link   th:href="@{/component/bootstrap-3.3.7/css/bootstrap.min.css}"
+          href="../../static/component/bootstrap-3.3.7/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
+  <!--js-->
+  <script th:src="@{/component/jquery-2.2.4.js}"
+          src="../../static/component/jquery-2.2.4.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script th:src="@{/component/bootstrap-3.3.7/js/bootstrap.min.js}"
+          src="../../static/component/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+  <link th:href="@{/project/homepage/main.css}"
+        href="../../static/project/homepage/main.css" rel="stylesheet">
+  <style>
+
+    /*中部*/
+    #menu{
+      list-style: none;
+    }
+
+    #menu>li{
+      height: 38px;
+      width:102px;
+      margin-bottom: 10px;
+      position: relative;
+      cursor: pointer;
+    }
+    #menu>li>img{
+      height: 38px;
+      width:102px;
+      position: absolute;
+      top: 0px;
+      bottom: 0px;
+    }
+    /*底部*/
+    #footer{
+      background-color:hsla(29, 100%, 14%, 0.9);
+      opacity: 0.9;
+      height: 35px;
+      size: 40px;
+      margin-top:0px;
+      padding: 0;
+    }
+    #footer-list>a{
+      height: 38px;
+      width:102px;
+      margin-bottom: 10px;
+      position: relative;
+      cursor: pointer;
+    }
+    #footer-list>image{
+      height: 38px;
+      width:102px;
+      position: absolute;
+      top: 0px;
+      bottom: 0px;
+    }
+    a,a:hover{
+      text-decoration: none;
+      color: #775637;
+    }
+  </style>
+</head>
+<body>
+<!--头部-->
+<div id="header" th:include="public/header :: publicHeader"></div>
+<!--中部-->
+<div class="container" >
+  <div class="row clearfix">
+    <!--<div class="col-md-12 column">-->
+    <div class="row clearfix">
+      <!--中部左侧-->
+      <div class="col-md-2 column">
+      </div>
+      <!--中部中部-->
+      <div class="col-md-10 column" style="padding: 0px;height: 100%;margin-right: 50px;margin-left: 100px">
+        <div class="row clearfix" style="border-left:#e4d9ce solid 1px;border-right:#e4d9ce solid 1px ;height: auto">
+          <div style="margin-top: 50px;padding: 0px;">
+            <div class="col-md-2 column">
+              <ul id="menu">
+                <li>
+                  <a th:href="@{/org/index}">
+                    <img  th:src="@{/images/home/u22.png}" width="102px" height="38px"
+                          src="../../static/images/home/u22.png">
+                    <span style="position:absolute;width:100px;height:100px;z-indent:2;left:20px;top:7px;">资源分配</span>
+                    </img>
+                  </a>
+                </li>
+                <li>
+                  <a th:href="@{/achi/achiList}">
+                    <img  th:src="@{/images/home/u22.png}" width="102px" height="38px"
+                          src="../../static/images/home/u22.png">
+                    <span style="position:absolute;width:100px;height:100px;z-indent:2;left:20px;top:7px;">科研成果</span>
+                    </img>
+                  </a>
+                </li>
+                <li>
+                  <a th:href="@{/cooexc/cooexcList}">
+                    <img  th:src="@{/images/home/u22.png}" width="102px" height="38px"
+                          src="../../static/images/home/u22.png">
+                    <span style="position:absolute;width:100px;height:100px;z-indent:2;left:20px;top:7px;">合作交流</span>
+                    </img>
+                  </a>
+                </li>
+                <li>
+                  <a th:href="@{/talrec/talrecList}">
+                    <img  th:src="@{/images/home/u22.png}" width="102px" height="38px"
+                          src="../../static/images/home/u22.png">
+                    <span style="position:absolute;width:100px;height:100px;z-indent:2;left:20px;top:7px;">人才招募</span>
+                    </img>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-10 column" style="height: 700px">
+            <!--中部里右侧主要内容-->
+            <div class="row clearfix">
+              <div class="row col-md-12 column " style="padding-left: 30px;">
+                <!--列表-->
+                <div id="u1279_state4_content" >
+                  <div id="u1523" class="ax_default link_button" style="cursor: pointer;">
+                    <div id="u1523_div" class="" tabindex="0"></div>
+                    <div id="u1523_text" class="text ">
+                      <p><span><a  th:href="@{/org/orgDetail(orgName=${org.orgName})}" style="color: red;">&lt;返回</a></span></p>
+                    </div>
+                  </div>
+                  <!--大标题-->
+                  <!-- Unnamed (矩形) -->
+
+
+                  <div style="text-align: center">
+                    <p th:text="${SerPro.serviceProject}" style="font-weight: bold;font-size: 20px"></p>
+                    <div style="margin-left: 100px;font-weight: bold">
+                      <span th:text="'【来源:'+${org.orgName}+'】'"></span>
+                      <span th:text="'【浏览次数:'+${SerPro.visitNum}+'】'"></span>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (矩形) -->
+                  <div id="u1514" class="ax_default _三级标题">
+                    <div id="u1514_div" class=""></div>
+                    <div id="u1514_text" class="text ">
+                      <p><span>服务项目介绍：</span></p>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (矩形) -->
+                  <div id="u1511" class="ax_default _文本段落" style="margin-left: 20px">
+                    <div id="u1511_text" class="text "th:utext="${SerPro.projectIntroduce}">
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (矩形) -->
+                  <div id="u1519" class="ax_default _三级标题">
+                    <div id="u1519_div" class=""></div>
+                    <div id="u1519_text" class="text ">
+                      <p>
+                        <span>联系人：</span>
+                        <span th:text="${SerPro.contacts}"></span>
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (矩形) -->
+                  <div id="u1521" class="ax_default _三级标题">
+                    <div id="u1521_div" class=""></div>
+                    <div id="u1521_text" class="text ">
+                      <p>
+                        <span>联系电话：</span>
+                        <span th:text="${SerPro.phone}"></span>
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (矩形) -->
+                  <div id="u1515" class="ax_default _三级标题">
+                    <div id="u1515_div" class=""></div>
+                    <div id="u1515_text" class="text ">
+                      <p>
+                        <span >项目收费：</span>
+                        <span th:text="${SerPro.projectCost}"></span>
+                      </p>
+                    </div>
+                  </div>
+
+                  <!--上一篇，下一篇-->
+                  <div style="text-align: center">
+                    <div th:if="${before ne null}">
+                      <span th:text="'上一篇:'">上一篇:</span>
+                      <a  th:href="@{/org/serproDetail(itemid=${before.itemid},itemcode=${before.itemcode},orgCode=${before.orgCode})}" th:text="${before.serviceProject}"
+                          href="#"></a>
+                    </div>
+                    <div th:if="${after ne null}">
+                      <span th:text="'下一篇:'">下一篇:</span>
+                      <a  th:href="@{/org/serproDetail(itemid=${after.itemid},itemcode=${after.itemcode},orgCode=${after.orgCode})}" th:text="${after.serviceProject}"
+                          href="#"></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      <!--中部右侧-->
+        </div>
+      </div>
+    </div>
+  </div><!--中部结束-->
+</div>
+<!--底部-->
+<div>
+  <!--导航栏部分-->
+  <nav id="footer">
+    <div  class="container" >
+      <div class="col-md-1 column"></div>
+      <div class="col-md-10 column">
+        <div id="footer-list" style="padding-left: 100px;position: relative">
+          <a  target="_blank" href="http://www.satcm.gov.cn/">
+            <img  th:src="@{/images/home/u22.png}" width="145px" height="36px" src="../../static/images/home/u22.png">
+            <span style="position:absolute;width:115px;height:100px;z-indent:2;left:10px;top:2px;text-align: center;color: #FFFFFF">
+                    国家中医药管理局
+                  </span>
+            </img>
+          </a>
+          <a target="_blank" href="http://wsjkw.hebei.gov.cn/">
+            <img  th:src="@{/images/home/u22.png}" width="145px" height="36px" src="../../static/images/home/u22.png">
+            <span style="position:absolute;width:115px;height:100px;z-indent:2;left:10px;top:2px;text-align: center;color: #FFFFFF">
+                    河北省卫生健康委员会
+                  </span>
+            </img>
+          </a>
+          <a target="_blank" href="http://nync.hebei.gov.cn/">
+            <img  th:src="@{/images/home/u22.png}" width="145px" height="36px" src="../../static/images/home/u22.png">
+            <span style="position:absolute;width:115px;height:100px;z-indent:2;left:10px;top:2px;text-align: center;color: #FFFFFF;">
+                    河北省农业农村厅
+                  </span>
+            </img>
+          </a>
+          <a target="_blank" href="http://gxt.hebei.gov.cn/hbgyhxxht/index/index.html">
+            <img  th:src="@{/images/home/u22.png}" width="145px" height="36px" src="../../static/images/home/u22.png">
+            <span style="position:absolute;width:115px;height:100px;z-indent:2;left:10px;top:2px;text-align: center;color: #FFFFFF">
+                    河北省工业和信息化厅
+                  </span>
+            </img>
+          </a>
+          <a target="_blank" href="http://yjj.hebei.gov.cn/">
+            <img  th:src="@{/images/home/u22.png}" width="145px" height="36px" src="../../static/images/home/u22.png">
+            <span style="position:absolute;width:115px;height:100px;z-indent:2;left:10px;top:2px;text-align: center;color: #FFFFFF">
+                      河北省药品监督管理局
+                  </span>
+            </img>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!--底部-->
+  <div class="col-md-8 column offset-md-2 col-sm-10 offset-sm-1 " style="padding-left:700px;margin-top: 25px ;">
+    <!--<section class="row foot-info-section col-md-8 offset-md-2 " >-->
+    <span style="padding-right: 60px">主办单位：河北省中医药管理局</span>
+    <span >联系方式：河北省石家庄合作路42号</span>
+    <!-- </section>-->
+  </div>
+</div>
+</body>
+</html>
